@@ -18,7 +18,9 @@ Stock analysis and calculators are fine.
 
 ```
 docs-hub/
-├── index.html            # single-page hub UI (hash-routed: home → folder view)
+├── index.html            # ACTIVE hub UI — a copy of one assets/ui/ variant
+├── assets/ui/*.html      # UI variants (classic, terminal, …); edit these, not index.html
+├── switch-ui.sh          # ./switch-ui.sh <variant> → copy to index.html + commit + push
 ├── data/manifest.js      # AUTO-GENERATED — never edit by hand
 ├── scripts/gen_manifest.py  # scans section folders → writes data/manifest.js
 ├── sync.sh               # copy new docs from sources + regen + commit + push
@@ -65,12 +67,14 @@ That's it. Never edit `data/manifest.js` manually.
 - **Don't edit synced reports here.** They're generated in their source repo
   (e.g. `backtest-strategy/strategy_ipo_recross/reports/`). Fix them there,
   then re-run `./sync.sh`. Direct edits here get overwritten by the next sync.
-- **index.html UI conventions**: CSS variables for theming — light is
-  default, dark via `prefers-color-scheme` **and** `:root[data-theme="dark"]`
-  (manual toggle persisted in localStorage; both selectors must stay in
-  sync when changing colors). Verdict colors: green `--good` =
-  CONVICTION/BET, amber `--warn` = OPPORTUNITY/SELECTIVE/WATCH, red `--bad`
-  = NOT-AN-OPPORTUNITY/AVOID/BYE.
+- **Hub UI is swappable**: `index.html` is a byte-for-byte copy of one
+  variant in `assets/ui/` (`assets/` is excluded from the manifest scan).
+  **Never edit index.html directly** — edit the variant, then run
+  `./switch-ui.sh <variant>` to re-copy, commit, and push. Each variant
+  must theme via CSS variables with light **and** dark support (manual
+  toggle persisted in localStorage), and keep the verdict color convention:
+  green = CONVICTION/BET, amber = OPPORTUNITY/SELECTIVE/WATCH, red =
+  NOT-AN-OPPORTUNITY/AVOID/BYE.
 - Commit messages: short imperative summary; no need for elaborate bodies.
 
 ## Common tasks
@@ -78,6 +82,7 @@ That's it. Never edit `data/manifest.js` manually.
 | Task | Command |
 |---|---|
 | Publish everything new | `./sync.sh` |
+| List / swap the hub UI | `./switch-ui.sh` · `./switch-ui.sh <variant>` |
 | Regenerate manifest only | `python3 scripts/gen_manifest.py` |
 | Preview locally | `open index.html` (works on file://, no server needed) |
 | Check Pages deploy status | `gh api repos/Nitesh-Nandan/docs-hub/pages --jq .status` |
