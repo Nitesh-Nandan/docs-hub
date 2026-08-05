@@ -201,5 +201,29 @@ window.MANIFEST = [
   "desc": "Interactive financial calculators and tools.",
   "order": 3,
   "docs": []
+ },
+ {
+  "id": "roadmaps",
+  "title": "Roadmaps",
+  "icon": "\ud83d\uddfa",
+  "desc": "Long-term plans and milestone roadmaps \u2014 where things are headed and by when.",
+  "order": 4,
+  "docs": []
+ },
+ {
+  "id": "interview-prep",
+  "title": "Interview Prep",
+  "icon": "\ud83c\udfaf",
+  "desc": "Interview preparation notes, guides and practice material.",
+  "order": 5,
+  "docs": []
+ },
+ {
+  "id": ".claude",
+  "title": ".Claude",
+  "icon": "\ud83d\udcc4",
+  "desc": "",
+  "order": 99,
+  "docs": []
  }
 ];

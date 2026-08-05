@@ -34,6 +34,18 @@ SECTIONS = {
         "desc": "Interactive financial calculators and tools.",
         "order": 3,
     },
+    "roadmaps": {
+        "title": "Roadmaps",
+        "icon": "\U0001F5FA",
+        "desc": "Long-term plans and milestone roadmaps — where things are headed and by when.",
+        "order": 4,
+    },
+    "interview-prep": {
+        "title": "Interview Prep",
+        "icon": "\U0001F3AF",
+        "desc": "Interview preparation notes, guides and practice material.",
+        "order": 5,
+    },
 }
 
 
