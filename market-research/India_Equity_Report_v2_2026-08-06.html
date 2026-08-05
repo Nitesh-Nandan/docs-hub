@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="India Equity Sector & Stock Research Report — April 2026. 13 sectors, 46 stock picks, Budget 2026-27 highlights.">
+  <title>India Equity Research — April 2026</title>
+  <style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#1B3A6B;--navy-dark:#122952;--navy-light:#2a5298;
+  --teal:#0D6E6E;--teal-light:#0f8a8a;
+  --gold:#C8960C;--gold-light:#f0b429;--gold-bg:#fffbef;
+  --green:#1a7a4a;--green-bg:#e8f7ee;
+  --red:#c0392b;--red-bg:#fdecea;
+  --bg:#F5F6FA;--card:#ffffff;--border:#e0e4ee;
+  --text:#1a1a2e;--text-sub:#555e7b;--text-light:#8892a4;
+  --sidebar-w:250px;
+  --font:'Segoe UI',system-ui,-apple-system,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6}
+
+/* ── SIDEBAR ─────────────────────────────── */
+#sidebar{
+  position:fixed;top:0;left:0;height:100vh;width:var(--sidebar-w);
+  background:var(--navy-dark);overflow-y:auto;z-index:200;
+  transition:transform .28s cubic-bezier(.4,0,.2,1);
+  scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.2) transparent;
+}
+#sidebar::-webkit-scrollbar{width:4px}
+#sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,.25);border-radius:2px}
+
+.sidebar-brand{
+  padding:24px 20px 16px;
+  border-bottom:1px solid rgba(255,255,255,.1);
+}
+.sidebar-brand h1{
+  font-size:13px;font-weight:700;color:#fff;letter-spacing:.5px;
+  text-transform:uppercase;line-height:1.4;
+}
+.sidebar-brand p{font-size:11px;color:rgba(255,255,255,.5);margin-top:4px}
+
+.sidebar-section-label{
+  padding:16px 20px 6px;
+  font-size:10px;font-weight:700;letter-spacing:1px;
+  text-transform:uppercase;color:rgba(255,255,255,.4);
+}
+#sidebar a{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 20px;
+  font-size:12.5px;color:rgba(255,255,255,.75);
+  text-decoration:none;border-left:3px solid transparent;
+  transition:all .18s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+#sidebar a:hover,#sidebar a.active{
+  background:rgba(255,255,255,.08);
+  color:#fff;border-left-color:var(--gold-light);
+}
+#sidebar a .nav-num{
+  font-size:10px;background:rgba(255,255,255,.12);
+  border-radius:10px;padding:1px 7px;flex-shrink:0;
+}
+
+/* ── NAV TOGGLE (mobile) ─────────────────── */
+#navToggle{
+  display:none;position:fixed;top:14px;left:14px;z-index:300;
+  background:var(--navy);color:#fff;border:none;
+  width:42px;height:42px;border-radius:8px;
+  font-size:20px;cursor:pointer;line-height:1;
+  box-shadow:0 2px 8px rgba(0,0,0,.3);
+}
+#overlay{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);
+  z-index:190;opacity:0;transition:opacity .28s;
+}
+#overlay.show{display:block;opacity:1}
+
+/* ── MAIN ────────────────────────────────── */
+#main{
+  margin-left:var(--sidebar-w);min-height:100vh;
+}
+
+/* ── COVER ───────────────────────────────── */
+.cover{
+  background:linear-gradient(135deg,var(--navy-dark) 0%,var(--navy) 50%,var(--teal) 100%);
+  padding:60px 48px 52px;color:#fff;position:relative;overflow:hidden;
+}
+.cover::before{
+  content:'';position:absolute;top:-60px;right:-60px;
+  width:320px;height:320px;border-radius:50%;
+  background:rgba(255,255,255,.04);
+}
+.cover::after{
+  content:'';position:absolute;bottom:-40px;right:100px;
+  width:200px;height:200px;border-radius:50%;
+  background:rgba(200,150,12,.07);
+}
+.cover-tag{
+  display:inline-block;background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:20px;padding:4px 16px;
+  font-size:11px;letter-spacing:1.5px;text-transform:uppercase;
+  color:rgba(255,255,255,.8);margin-bottom:16px;
+}
+.cover h1{font-size:clamp(24px,3vw,38px);font-weight:800;line-height:1.2;margin-bottom:10px}
+.cover p{font-size:15px;color:rgba(255,255,255,.7);max-width:560px;margin-bottom:20px}
+.cover-pills{display:flex;flex-wrap:wrap;gap:8px}
+.cover-pill{
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
+  border-radius:20px;padding:5px 14px;font-size:12px;color:rgba(255,255,255,.85);
+}
+
+/* ── SECTION WRAPPER ─────────────────────── */
+.report-section{padding:0 0 40px;border-bottom:1px solid var(--border)}
+.report-section:last-child{border-bottom:none}
+
+.section-header{
+  display:flex;align-items:center;gap:14px;
+  padding:32px 40px 20px;
+}
+.section-emoji{
+  font-size:30px;flex-shrink:0;
+  background:var(--navy);
+  width:52px;height:52px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+}
+.section-header-text h2{
+  font-size:22px;font-weight:800;color:var(--navy);line-height:1.2;
+}
+.section-header-text p{font-size:13px;color:var(--text-sub);margin-top:2px}
+.section-num{
+  margin-left:auto;font-size:42px;font-weight:900;
+  color:rgba(0,0,0,.05);flex-shrink:0;line-height:1;
+}
+
+/* ── NEWS STRIP ──────────────────────────── */
+.news-strip{
+  margin:0 40px 20px;
+  background:var(--navy-dark);border-radius:10px;overflow:hidden;
+}
+.news-strip-header{
+  padding:9px 16px;
+  background:rgba(255,255,255,.06);
+  font-size:10px;letter-spacing:1.2px;font-weight:700;
+  text-transform:uppercase;color:rgba(255,255,255,.5);
+}
+.news-item{
+  display:flex;gap:12px;align-items:baseline;
+  padding:10px 16px;border-top:1px solid rgba(255,255,255,.07);
+}
+.news-date{
+  font-size:10px;color:var(--gold-light);font-weight:700;
+  white-space:nowrap;flex-shrink:0;margin-top:2px;
+}
+.news-headline{font-size:12.5px;color:rgba(255,255,255,.85);line-height:1.5}
+.news-source{
+  font-size:10px;color:rgba(255,255,255,.4);
+  flex-shrink:0;white-space:nowrap;align-self:center;
+}
+
+/* ── METRICS GRID ────────────────────────── */
+.metrics-grid{
+  display:grid;grid-template-columns:repeat(6,1fr);
+  gap:1px;background:var(--border);
+  margin:0 40px 20px;border-radius:10px;overflow:hidden;
+}
+.metric-box{
+  background:var(--card);padding:14px 16px;
+}
+.metric-k{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text-light);margin-bottom:4px}
+.metric-v{font-size:13.5px;font-weight:700;color:var(--navy);line-height:1.3}
+
+/* ── ANALYSIS GRID ───────────────────────── */
+.analysis-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:16px;
+  margin:0 40px 24px;
+}
+.analysis-card{
+  background:var(--card);border-radius:10px;padding:18px 20px;
+  border-top:3px solid var(--navy);
+}
+.analysis-card.future{border-top-color:var(--teal)}
+.analysis-card.govt{border-top-color:var(--gold)}
+.analysis-card.biz{border-top-color:#7b5ea7}
+.analysis-label{
+  font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;
+  margin-bottom:8px;
+}
+.analysis-card.past .analysis-label{color:var(--navy)}
+.analysis-card.future .analysis-label{color:var(--teal)}
+.analysis-card.govt .analysis-label{color:var(--gold)}
+.analysis-card.biz .analysis-label{color:#7b5ea7}
+.analysis-card p{font-size:13px;color:var(--text-sub);line-height:1.65}
+
+/* ── STOCKS ──────────────────────────────── */
+.stocks-label{
+  padding:4px 40px 12px;
+  font-size:11px;font-weight:700;text-transform:uppercase;
+  letter-spacing:1px;color:var(--text-light);
+}
+.stocks-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));
+  gap:16px;padding:0 40px;
+}
+.stock-card{
+  background:var(--card);border-radius:12px;
+  border:1px solid var(--border);overflow:hidden;
+  box-shadow:0 2px 6px rgba(0,0,0,.05);
+}
+.stock-header{
+  background:var(--navy);padding:14px 18px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.stock-name{font-size:15px;font-weight:800;color:#fff}
+.stock-ticker{
+  font-size:11px;font-weight:700;
+  background:rgba(255,255,255,.15);
+  border-radius:6px;padding:3px 10px;color:rgba(255,255,255,.85);
+  letter-spacing:.5px;
+}
+.stock-body{padding:16px 18px}
+.stock-why{
+  font-size:13px;color:var(--text);line-height:1.6;
+  margin-bottom:14px;
+  padding-bottom:12px;border-bottom:1px solid var(--border);
+}
+.stock-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.stock-field{}
+.sf-label{
+  font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;
+  color:var(--text-light);margin-bottom:3px;
+}
+.sf-value{font-size:12px;color:var(--text-sub);line-height:1.5}
+.stock-financials{
+  background:#f8f9fc;border-radius:7px;padding:10px 12px;margin-bottom:12px;
+}
+.sf-fin-label{
+  font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;
+  color:var(--teal);margin-bottom:4px;
+}
+.sf-fin-value{font-size:12px;color:var(--text);line-height:1.55}
+.stock-future{
+  background:linear-gradient(135deg,#eef8f4,#e8f5ff);
+  border-radius:7px;padding:10px 12px;margin-bottom:12px;
+  border-left:3px solid var(--teal);
+}
+.sf-fut-label{
+  font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;
+  color:var(--teal);margin-bottom:4px;
+}
+.sf-fut-value{font-size:12px;color:var(--text);line-height:1.55}
+.stock-tags{display:flex;gap:8px;flex-wrap:wrap}
+.tag{
+  display:inline-flex;align-items:center;gap:5px;
+  border-radius:20px;padding:5px 12px;font-size:11.5px;font-weight:600;
+  line-height:1.3;
+}
+.tag-green{background:var(--green-bg);color:var(--green)}
+.tag-red{background:var(--red-bg);color:var(--red)}
+.tag-icon{font-size:12px}
+
+/* ── BUDGET SECTION ──────────────────────── */
+.budget-section{padding:32px 40px 40px;background:var(--gold-bg);border-bottom:2px solid #f0daa0}
+.budget-header{display:flex;align-items:center;gap:16px;margin-bottom:8px}
+.budget-icon{font-size:34px}
+.budget-header h2{font-size:22px;font-weight:800;color:#7a5500}
+.budget-sub{font-size:13px;color:#8a6500;margin-bottom:24px}
+.budget-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px;
+}
+.budget-card{
+  background:#fff;border-radius:10px;padding:16px 18px;
+  border-top:3px solid var(--gold);
+  box-shadow:0 1px 4px rgba(200,150,12,.1);
+}
+.budget-card-header{
+  display:flex;align-items:center;gap:10px;margin-bottom:10px;
+}
+.budget-card-icon{font-size:22px}
+.budget-card-label{font-size:14px;font-weight:700;color:#5a3f00}
+.budget-points{list-style:none;padding:0}
+.budget-points li{
+  font-size:12.5px;color:var(--text-sub);padding:4px 0 4px 16px;
+  position:relative;line-height:1.55;border-bottom:1px solid #f5e8c0;
+}
+.budget-points li:last-child{border-bottom:none}
+.budget-points li::before{
+  content:'▸';position:absolute;left:0;color:var(--gold);
+}
+
+/* ── SUMMARY TABLE ───────────────────────── */
+.summary-section{padding:32px 40px 48px}
+.summary-section h2{font-size:20px;font-weight:800;color:var(--navy);margin-bottom:6px}
+.summary-section p{font-size:13px;color:var(--text-sub);margin-bottom:20px}
+.table-wrap{overflow-x:auto;border-radius:10px;border:1px solid var(--border)}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+thead{background:var(--navy);color:#fff}
+th{padding:11px 14px;text-align:left;font-weight:700;font-size:11px;letter-spacing:.5px;text-transform:uppercase;white-space:nowrap}
+td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.5}
+tr:last-child td{border-bottom:none}
+tr:nth-child(even) td{background:#f8f9fc}
+tr:hover td{background:#eef2fb}
+.tcat{font-size:10px;background:var(--navy);color:#fff;border-radius:4px;padding:2px 7px;display:inline-block;margin-bottom:2px}
+.tstock{font-weight:700;color:var(--navy)}
+.tticker{font-size:10.5px;color:var(--text-light)}
+.tcat-cell{vertical-align:middle}
+
+/* ── FOOTER ──────────────────────────────── */
+.report-footer{
+  background:var(--navy-dark);color:rgba(255,255,255,.5);
+  padding:24px 40px;font-size:12px;text-align:center;line-height:1.8;
+}
+.report-footer strong{color:rgba(255,255,255,.7)}
+
+/* ── SCROLLSPY ACTIVE ────────────────────── */
+.spy-active{
+  background:rgba(255,255,255,.1)!important;
+  color:#fff!important;border-left-color:var(--gold-light)!important;
+}
+
+/* ═══════════ RESPONSIVE ═══════════════════ */
+@media(max-width:1100px){
+  .metrics-grid{grid-template-columns:repeat(3,1fr)}
+  .stocks-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:820px){
+  #navToggle{display:flex;align-items:center;justify-content:center}
+  #sidebar{transform:translateX(-100%)}
+  #sidebar.open{transform:translateX(0)}
+  #main{margin-left:0}
+  .cover{padding:60px 20px 36px}
+  .section-header{padding:24px 20px 14px}
+  .news-strip,.metrics-grid,.analysis-grid,.stocks-grid,.stocks-label{
+    margin-left:20px;margin-right:20px;
+  }
+  .stocks-grid{grid-template-columns:1fr;padding:0 20px}
+  .metrics-grid{grid-template-columns:repeat(2,1fr)}
+  .analysis-grid{grid-template-columns:1fr}
+  .budget-section{padding:24px 20px 32px}
+  .summary-section{padding:24px 20px 36px}
+  .report-footer{padding:20px}
+  .section-num{display:none}
+  .stock-fields{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+  .cover h1{font-size:22px}
+  .metrics-grid{grid-template-columns:1fr 1fr}
+  .budget-grid{grid-template-columns:1fr}
+  .stocks-grid{padding:0 16px}
+  .news-strip,.analysis-grid{margin-left:16px;margin-right:16px}
+  .stock-fields{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<button id="navToggle" aria-label="Open menu">☰</button>
+<div id="overlay"></div>
+
+<nav id="sidebar">
+  <div class="sidebar-brand">
+    <h1>India Equity Research</h1>
+    <p>April 2026 · 13 Sectors · 46 Picks</p>
+  </div>
+  <div class="sidebar-section-label">Navigate</div>
+  
+    <a href="#budget"><span class="nav-num">📋</span> Budget 2026-27</a>
+    <a href="#it" id="nav-it"><span class="nav-num">1</span> Information Technology</a>
+    <a href="#banking" id="nav-banking"><span class="nav-num">2</span> Banking & Financial Services</a>
+    <a href="#pharma" id="nav-pharma"><span class="nav-num">3</span> Pharma & Healthcare</a>
+    <a href="#auto" id="nav-auto"><span class="nav-num">4</span> Automobiles</a>
+    <a href="#fmcg" id="nav-fmcg"><span class="nav-num">5</span> FMCG & Consumer Staples</a>
+    <a href="#defence" id="nav-defence"><span class="nav-num">6</span> Defence</a>
+    <a href="#ems" id="nav-ems"><span class="nav-num">7</span> Electronics Manufacturing</a>
+    <a href="#infra" id="nav-infra"><span class="nav-num">8</span> Infrastructure & Cap Goods</a>
+    <a href="#energy" id="nav-energy"><span class="nav-num">9</span> Energy & Power</a>
+    <a href="#realty" id="nav-realty"><span class="nav-num">10</span> Real Estate</a>
+    <a href="#chemicals" id="nav-chemicals"><span class="nav-num">11</span> Specialty Chemicals</a>
+    <a href="#telecom" id="nav-telecom"><span class="nav-num">12</span> Telecom</a>
+    <a href="#consumer" id="nav-consumer"><span class="nav-num">13</span> Consumer Discretionary</a>
+    <a href="#summary"><span class="nav-num">📊</span> All Picks Summary</a>
+</nav>
+
+<main id="main">
+  <div class="cover">
+    <div class="cover-tag">Equity Research · April 2026</div>
+    <h1>India Sector &amp; Stock Report</h1>
+    <p>Comprehensive analysis of 13 major Indian market sectors with fundamentally strong Nifty LargeMidcap 250 stock picks. Medium-term horizon (1–3 years).</p>
+    <div class="cover-pills">
+      <span class="cover-pill">📋 Budget 2026-27 Highlights</span>
+      <span class="cover-pill">🏭 13 Sectors Covered</span>
+      <span class="cover-pill">📈 46 Stock Picks</span>
+      <span class="cover-pill">📰 Latest Sectoral News</span>
+      <span class="cover-pill">💰 Q3 FY26 Financials</span>
+      <span class="cover-pill">🔭 2–3 Year Outlook</span>
+    </div>
+  </div>
+
+  <div id="report-root"></div>
+
+  <footer class="report-footer">
+    <strong>Disclaimer:</strong> This report is for informational purposes only and does not constitute investment advice. All data sourced from company filings, analyst reports, and public sources as of April 2026. Past performance is not indicative of future results. Please consult a SEBI-registered financial advisor before investing.
+  </footer>
+</main>
+
+<script>
+// ═══════════════════════════════════════════════
+// ALL REPORT DATA — April 2026, Fresh Research
+// ═══════════════════════════════════════════════
+
+const BUDGET = {
+  title: "Union Budget 2026-27 — Key Highlights for Equity Investors",
+  presented: "February 1, 2026 | Finance Minister: Nirmala Sitharaman",
+  cards: [
+    {
+      icon: "🏗️", label: "Capital Expenditure",
+      points: ["Total Capex ₹12.2 lakh crore (↑9% YoY, 3.4% of GDP)", "Railways: ₹2,77,830 crore; 7 high-speed corridors announced", "Roads, ports, airports remain priority infrastructure targets", "Second Asset Monetisation Plan (2025–30) launched"]
+    },
+    {
+      icon: "🛡️", label: "Defence",
+      points: ["Total Defence Budget: ₹7.84 lakh crore (↑15% YoY)", "Defence Capital Outlay: ₹2.2 lakh crore (↑22% YoY — all-time high)", "Maritime Development Fund: ₹25,000 crore corpus (49% Govt contribution)", "Indigenisation push continues; private sector to play larger role"]
+    },
+    {
+      icon: "💻", label: "Electronics & Semiconductors",
+      points: ["India Semiconductor Mission 2.0: ₹40,000 crore outlay", "Electronics Components Manufacturing Scheme: ₹40,000 crore", "PLI-ACC Scheme: 40 GWh battery capacity awarded (EV focus)", "EV components & batteries: customs duty rationalised to lower input costs"]
+    },
+    {
+      icon: "💊", label: "Pharma & Healthcare",
+      points: ["3 new National Institutes of Pharmaceutical Education & Research (NIPERs)", "7 existing pharma institutions to be upgraded", "17 cancer medicines — basic customs duty fully removed", "7 rare diseases added to duty-free list; nuclear plant imports duty-free till 2035"]
+    },
+    {
+      icon: "⚡", label: "Energy & Green Transition",
+      points: ["100 GW nuclear energy target by 2047 — customs duty exemption extended", "PLI for Advanced Chemistry Cells: 40 GWh awarded for battery localisation", "Green Hydrogen Mission & offshore wind policy continue", "ISTS waiver for renewable projects continues; storage VGF maintained"]
+    },
+    {
+      icon: "🏘️", label: "Housing & MSMEs",
+      points: ["PMAY (Housing for All): continued ₹2.30 lakh crore commitment", "₹10,000 crore Champion SME Fund announced", "Self-Reliant India Fund topped up by ₹2,000 crore for micro enterprises", "Smart Cities Mission & urban infra investments continue"]
+    },
+    {
+      icon: "💰", label: "Tax & Capital Markets",
+      points: ["New Income Tax Act 2025 effective April 1, 2026 — simplified compliance", "STT on futures raised from 0.02% → 0.05%; options 0.1% → 0.15%", "Share buyback proceeds taxed as Capital Gains (not dividend) for all shareholders", "No change in LTCG/STCG rates; TCS on LRS education/medical reduced to 2%"]
+    },
+    {
+      icon: "🏭", label: "Manufacturing & PLI",
+      points: ["National Manufacturing Mission for small, medium, and large industries", "7 strategic PLI sectors reaffirmed: electronics, semiconductors, pharma, chemicals, capital goods, textiles, sports goods", "35 additional capital goods for EV battery; 28 for mobile manufacturing added", "Customs duty on personal-use goods: 20% → 10%"]
+    }
+  ]
+};
+
+const SECTORS = [
+  // ─── 1. IT ───────────────────────────────────────────────────────────
+  {
+    id: "it", emoji: "💻", name: "Information Technology", num: 1,
+    news: [
+      { date: "Apr 6, 2026", headline: "Q4 FY26 result season begins — TCS reports Apr 9; Infosys Apr 23; Coforge May 5. Muted quarter expected but FY27 guidance the key watch.", source: "BusinessToday" },
+      { date: "Apr 2, 2026", headline: "CLSA sees up to 113% upside in select IT names: Infosys, Coforge, Persistent, LTIM post correction. Sector trades 16% below 10-yr avg PE.", source: "BusinessToday" },
+      { date: "Mar 31, 2026", headline: "Kotak picks TCS and Infosys as AI reshapes Indian IT — 'AI PoCs converting to large multi-year deals for the first time'.", source: "Whalesbook" }
+    ],
+    metrics: [
+      { k: "Index", v: "Nifty IT" }, { k: "Nifty IT 1-yr Perf.", v: "~–12% (correction)" },
+      { k: "Sector Revenue FY25", v: "~$254 Bn (NASSCOM)" }, { k: "USD Rev CAGR FY26–28E", v: "~5.9%" },
+      { k: "EPS CAGR FY26–28E", v: "~10.8%" }, { k: "Forward PE vs Avg", v: "~17.8x vs 21x (10-yr avg)" }
+    ],
+    analysis: {
+      past: "Decade of 15–20% CAGR driven by offshoring from BFSI, retail, telecom. FY24–26 saw headwinds from client budget freezes post US Fed hikes, weak discretionary spend, and Trump 2.0 trade policy uncertainty.",
+      future: "Recovery expected in FY27 — global rate cuts revive enterprise tech budgets; AI 'PoCs' finally converting to large multi-year deals. FY27 guidance likely 1.5–4.5% CC growth (Infosys). Mid-caps growing 15–30% outpacing Tier-1. Sector at 16% discount to 10-yr avg PE — attractive entry.",
+      govt: "National AI Mission (₹10,372 cr), 1,600+ GCCs in India (target 2,400 by 2030), India Semiconductor Mission 2.0 (₹40,000 cr), Digital India, and PLI for electronics reinforce India's tech hub status.",
+      biz: "Enterprise spending on cloud, AI/ML, and cybersecurity is structurally rising. Indian IT mid-caps (Persistent, Coforge) outperforming large-caps on growth by 15–20 ppts. BFSI and healthcare the strongest verticals for deal wins."
+    },
+    stocks: [
+      {
+        name: "Infosys", ticker: "INFY",
+        why: "India's 2nd largest IT firm. Large deal TCV consistently $2–3 Bn+/quarter. AI partnerships with NVIDIA, Azure, AWS. FY26 CC revenue growth ~3.4% YoY; FY27 guidance expected 1.5–4.5%. Trades at ~16x forward PE vs 5-yr avg 22x — meaningful re-rating potential. Margin stable at 20–21%.",
+        clients: "Apple, Walmart, Daimler, Vanguard, Goldman Sachs, Nike, Siemens",
+        orderbook: "Deal TCV: ~$2.5 Bn/quarter average. Large deal wins (>$50M) accelerating in BFSI and manufacturing.",
+        financials: "Q3 FY26: Revenue ₹43,572 cr (+6.1% YoY), PAT ₹6,806 cr (+11.4% YoY), EBIT margin 21.3%. FY25: Revenue $19.5 Bn, ROE 32%, ROCE 39%, D/E 0.0.",
+        future: "FY27 guidance of 1.5–4.5% USD growth if macro stabilises; AI-led deals (data, cloud, GenAI) could push toward top end. Target: ₹1,650 (Nuvama). 5-yr EPS CAGR of 11–13% visible.",
+        catalyst: "Deal ramp-up, FY27 guidance surprise, AI large contract wins, US rate cut cycle",
+        risk: "Client budget freeze extension; USD/INR headwinds; Trump tariff uncertainty on US tech spend"
+      },
+      {
+        name: "Persistent Systems", ticker: "PERSISTENT",
+        why: "Best-performing mid-cap IT over 5 years — 32–35% revenue CAGR, 200%+ stock returns. Focused on BFSI, healthcare tech, software products. ROE 28%+. CLSA target ₹6,000 implies 25%+ upside. Top picks from Motilal, Nuvama, Jefferies.",
+        clients: "IBM, Salesforce, Medicaid/healthcare clients, BFSI platforms (US & Europe)",
+        orderbook: "Total Contract Value (TCV) of new deals: ₹2,400+ cr per quarter. >30 deals in digital engineering.",
+        financials: "Q3 FY26: Revenue ₹3,243 cr (+25.7% YoY), PAT ₹412 cr (+28% YoY), EBITDA margin 16.8%. FY25: Rev CAGR 35%, ROE 28%, ROCE 33%, D/E 0.0.",
+        future: "Targeting $2 Bn revenue in FY27 (from ~$1.5 Bn). AI + cloud services growing 40%+. Expansion in Middle East and APAC markets adds geography diversification. 25%+ EPS CAGR over FY26–28E.",
+        catalyst: "AI service lines scaling, BFSI deal acceleration, margin expansion from offshore mix shift",
+        risk: "Client concentration in top-10 accounts; premium valuation 38–42x PE needs consistent delivery"
+      },
+      {
+        name: "Coforge", ticker: "COFORGE",
+        why: "Fastest-growing mid-cap IT — 28–30% YoY CC revenue growth, top-pick from Motilal, Nuvama, Kotak. Executable order book growing. Diversified across insurance, travel/hospitality, BFS. Debt-free, strong FCF. Nuvama target ₹2,100.",
+        clients: "Sabre (travel), Zurich Insurance, BNP Paribas, major US airlines, UK public sector",
+        orderbook: "Executable order book ₹11,000+ cr. Q3 FY26 CC growth 2% QoQ, ~19.7% YoY.",
+        financials: "Q3 FY26: Revenue ₹3,228 cr (+20.4% YoY), PAT ₹245 cr (+14% YoY), EBITDA margin 18.1%. FY25: Rev CAGR 28%, ROE 22%, ROCE 25%, D/E 0.05.",
+        future: "Order book conversion provides 18-month revenue visibility. BFS vertical recovery from H2 FY27. Travel/hospitality pick-up as global tourism normalises. Revenue targeting ₹15,000 cr by FY27.",
+        catalyst: "Order book conversion, BFS vertical recovery, acquisition cross-sell (NIIT Technologies synergies)",
+        risk: "Integration execution risk; client concentration in Sabre; US travel sector volatility"
+      },
+      {
+        name: "LTIMindtree", ticker: "LTIM",
+        why: "Post-merger scale (₹36,500+ cr annual revenue) — Tier-1 alternate with mid-cap growth. AI platform 'Canvas' gaining traction. 5%+ cross-sell synergy opportunity. ROE 22–24%. Nuvama target ₹6,100.",
+        clients: "Microsoft, Citi, ABB, Schlumberger, Bosch, major US BFSI and manufacturing",
+        orderbook: "Deal wins ₹4,500+ cr/quarter. Large deal momentum ($50M+) improving post-merger stabilisation.",
+        financials: "Q3 FY26: Revenue ₹9,661 cr (+7.5% YoY), PAT ₹1,000 cr (+8% YoY), EBIT margin 14.6%. FY25: ROE 23%, ROCE 30%, D/E 0.0.",
+        future: "Synergy realisation target of ₹2,000 cr by FY27. GenAI platform 'Canvas' embedded in 50+ client engagements. Revenue targeting $5 Bn+ by FY28. ROE expansion to 25%+ as margins recover.",
+        catalyst: "Merger synergies, AI deal wins, BFSI/manufacturing large deal conversions",
+        risk: "Merger integration attrition; near-term NIM margin pressure; management bandwidth"
+      }
+    ]
+  },
+
+  // ─── 2. BANKING & FS ─────────────────────────────────────────────────
+  {
+    id: "banking", emoji: "🏦", name: "Banking & Financial Services", num: 2,
+    news: [
+      { date: "Apr 6, 2026", headline: "ICICI Bank, HDFC Bank Q4 results due Apr 18. Loan growth ~14% YoY; NIMs flat-to-slightly-lower expected. Brokerages cautious but medium-term bullish.", source: "BusinessToday" },
+      { date: "Apr 1, 2026", headline: "HDFC Bank shares recovering after falling 18% in March. CLSA, Kotak maintain Buy with 20–25% upside; LDR normalization on track.", source: "BusinessToday" },
+      { date: "Mar 30, 2026", headline: "RBI cuts repo rate to 6.0% — second cut of FY26 cycle. Positive for NIMs and credit demand over FY27. Private banks biggest beneficiaries.", source: "Business Standard" }
+    ],
+    metrics: [
+      { k: "GNPA (Industry)", v: "~2.3% — 2-decade low" }, { k: "Credit Growth FY26E", v: "~14% YoY" },
+      { k: "RBI Repo Rate", v: "6.0% (post Apr-26 cut)" }, { k: "ICICI ROA", v: "2.1% (best-in-class)" },
+      { k: "Credit/GDP Ratio", v: "~57% (below EM peers)" }, { k: "UPI Txn Volume", v: ">17 Bn/month" }
+    ],
+    analysis: {
+      past: "Completed a decade-long NPA resolution cycle — GNPA fell from 11.5% (FY18) to 2.3% (FY25). Private banks emerged stronger post-COVID with 13–15% credit CAGR. CASA-led digital franchises (ICICI, HDFC) now have structural cost-of-funds advantage.",
+      future: "RBI rate cut cycle (two cuts so far in FY26) is beginning to stimulate credit demand. Credit-to-GDP at 57% is well below China (180%) and global EM peers — structural expansion runway. ROE expansion visible for Axis, HDFC. NBFCs at 15%+ AUM CAGR. UPI ecosystem creates low-cost acquisition loop for deposits.",
+      govt: "RBI rate cuts, PSU bank recapitalisation (₹3.4 lakh cr FY18–24), CGTMSE for MSMEs, Jan Dhan financial inclusion, NaBFID for infra financing. Digital payments ecosystem (UPI, FASTag) government-backed.",
+      biz: "Premium credit card, home loan, and SME segments driving fee income expansion. Digital lending reducing customer acquisition cost by 70%+. NBFC credit quality improving as RBI tightens leverage norms — favours well-capitalised players like Bajaj Finance."
+    },
+    stocks: [
+      {
+        name: "ICICI Bank", ticker: "ICICIBANK",
+        why: "Best-in-class private bank — ROE 18%+, ROA 2.1%, GNPA just 1.53% (Dec 2025). Technology-first 'iMobile Pay' ecosystem. Diversified revenue across retail, corporate, SME, insurance (ICICI Prudential/Lombard) and broking subsidiaries. Consensus overwhelmingly bullish.",
+        clients: "Retail (mortgage, auto, personal loans), SME, Large corporate, NRI segment. Subsidiaries: ICICI Prudential Life, ICICI Lombard, ICICI Securities.",
+        orderbook: "Loan book ₹12.5 lakh cr (+14.9% YoY as of Dec 25). Retail loans 55%+, corporate 25%, SME 20%.",
+        financials: "Q3 FY26: Revenue ₹21,932 cr NII (+7.7% YoY), PAT ₹11,318 cr (–4% YoY, excl. one-time). GNPA 1.53% (vs 1.96% YoY). FY25: ROE 18.5%, ROCE 14%, D/E 8.5x (banking norm).",
+        future: "Rate cut cycle boosts NIM by 15–20 bps by FY27. Loan book targeting 15%+ CAGR. Subsidiary value (insurance, securities) not fully priced in — potential unlocking via separate listing. FY27E ROE: 19%+.",
+        catalyst: "Rate cut NIM expansion, loan book acceleration, subsidiary value unlocking",
+        risk: "Slowdown in retail/unsecured credit; rising MSME competition from fintechs"
+      },
+      {
+        name: "HDFC Bank", ticker: "HDFCBANK",
+        why: "Largest private bank post-HDFC merger. LDR (Loan-Deposit Ratio) normalization is the key re-rating trigger — trades at ~2.4x P/B vs historical 3.5x. 8,700+ branches. CLSA, Kotak see 20–25% upside. Fell 18% in March — attractive entry.",
+        clients: "Retail (home loan, auto, credit cards — India's largest), HNI wealth management, corporate banking, rural lending.",
+        orderbook: "Loan book ₹26.3 lakh cr (+5.4% YoY, intentionally slowing to normalize LDR). Deposits growing 15%+ to fund balance.",
+        financials: "Q3 FY26: NII ₹31,000 cr (+8.1% YoY est.), PAT ₹17,260 cr (+2.3% YoY). LDR improved to 84% (from 87%). FY25: ROE 16.5%, ROA 1.9%, GNPA 1.24%.",
+        future: "LDR targeting <82% by FY27 — triggers NIM recovery of 25–30 bps. Credit growth to re-accelerate to 14–16% post-normalization. FY27E ROE: 18%+. India's largest wealth management franchise (₹4+ lakh cr AUM) adds fee stream.",
+        catalyst: "LDR normalization, NIM recovery, credit growth re-acceleration in FY27",
+        risk: "Merger integration complexity; deposit mobilisation slower than expected"
+      },
+      {
+        name: "Axis Bank", ticker: "AXISBANK",
+        why: "Most upside potential among large banks — ROE expanding from 13% toward 18% by FY28. Citibank India integration adding 3.6 lakh premium HNI customers and ₹8,000 cr deposits. Improving CASA and fee income. At 1.7x P/B — cheapest large private bank.",
+        clients: "Retail (Citi premium HNI + mass), SME, corporate, NRI. Citi integration adding private banking and premium credit card book.",
+        orderbook: "Loan book ₹9.8 lakh cr (+9% YoY). Citibank retail portfolio integration adding ₹15,000 cr loans.",
+        financials: "Q3 FY26: NII ₹13,600 cr (+9% YoY est.), PAT ₹6,300 cr (+12% YoY est.). GNPA 1.46%. FY25: ROE 14.2%, ROCE 11%, D/E 9x.",
+        future: "ROE trajectory to 17–18% by FY28 as Citi integration matures. Fee income ratio improving from 35% to 42%+. Cheapest valuation (1.7x P/B) among large private banks with highest re-rating potential.",
+        catalyst: "ROE re-rating, Citi cross-sell, sustained asset quality, rate cut tailwind",
+        risk: "Higher MFI/unsecured loan exposure vs peers; macro sensitivity; Citi integration attrition"
+      },
+      {
+        name: "Bajaj Finance", ticker: "BAJFINANCE",
+        why: "India's most profitable NBFC — 5.5 cr+ customers, 25%+ AUM CAGR historically. Deposits ₹67,000+ cr lowering cost of funds. Leader in consumer durables, SME, and lifestyle lending. Pristine credit culture with sophisticated risk models.",
+        clients: "15,000+ merchant partners. Key retail: consumer electronics, lifestyle, auto loans. SME: working capital. New: mutual funds, insurance distribution.",
+        orderbook: "AUM ₹3.80 lakh cr (+26% YoY as of Dec 25). Consumer B2C: 42%, SME: 25%, rural: 15%, mortgages: 18%.",
+        financials: "Q3 FY26: NII ₹9,380 cr (+21% YoY), PAT ₹4,308 cr (+18% YoY). GNPA 1.12%. FY25: ROE 24%, ROA 5.2%, D/E 4.2x.",
+        future: "Rate cut reduces cost of funds by 50–75 bps — directly boosts NIM. MF/insurance distribution building ₹50,000 cr AUM. Deposits growing 35%+ — reducing reliance on market borrowings. FY27E AUM target: ₹4.5 lakh cr.",
+        catalyst: "Rate cut cycle, deposits growing, MF/insurance revenue, new product launches",
+        risk: "RBI NBFC tightening; unsecured consumer credit stress in mass segment"
+      }
+    ]
+  },
+
+  // ─── 3. PHARMA ───────────────────────────────────────────────────────
+  {
+    id: "pharma", emoji: "💊", name: "Pharmaceuticals & Healthcare", num: 3,
+    news: [
+      { date: "Apr 4, 2026", headline: "Indian pharma exports hit $29 Bn by Feb FY26 (+5% YoY). Sector on track for $130 Bn by 2030. CDMO segment growing fastest.", source: "Business Standard" },
+      { date: "Mar 28, 2026", headline: "Budget 2026-27: 17 cancer medicines made duty-free; 3 new NIPERs announced. Direct positive for Sun Pharma's specialty portfolio and domestic demand.", source: "PIB" },
+      { date: "Feb 26, 2026", headline: "Nifty Pharma index surged 7% in February 2026 — outperforming Nifty 50 by 650 bps. Divi's Labs, Torrent, Sun Pharma led gains.", source: "Business Standard" }
+    ],
+    metrics: [
+      { k: "India Pharma Market FY25", v: "~$60 Bn; target $130 Bn by 2030" }, { k: "Pharma Exports FY26E", v: "$31+ Bn (+7% YoY)" },
+      { k: "Nifty Pharma 2026 YTD", v: "+9% (sector outperformer)" }, { k: "US Generics Vol. Share", v: "~30% of US approvals" },
+      { k: "CDMO Opportunity", v: "$200 Bn globally by 2028" }, { k: "Domestic Market Growth", v: "8–10% YoY (branded formulations)" }
+    ],
+    analysis: {
+      past: "India is the world's 3rd largest pharma producer by volume, largest by generic supply. Sector grew 10–12% CAGR over a decade. US generics penetration delivered 15%+ revenue CAGR for top players till FY23. FY24–26 saw US market slowdown (3–5% growth) from pricing pressure.",
+      future: "Next growth wave is specialty pharma, CDMO, and biosimilars. China+1 is most powerful structural driver — India CDMO market growing at 20%+ CAGR. Biosimilars in the US (Rituximab, Herceptin, Humira biosimilars) represent a $40 Bn addressable market. Budget duty cuts on cancer drugs direct positive.",
+      govt: "PLI for pharma (₹15,000 cr) and APIs (₹6,940 cr). 3 new NIPERs + 7 upgraded. Ayushman Bharat covers 13 cr households. 17 cancer medicines duty-free in Budget 26-27. Jan Aushadhi (12,500+ stores) driving generic adoption.",
+      biz: "CDMO model shifting global supply chains to India from China. Specialty products (dermatology, oncology) command 4–5x better margins than generics. Domestic branded formulations — 8–10% organic growth with pricing power due to low penetration vs global pharma markets."
+    },
+    stocks: [
+      {
+        name: "Sun Pharmaceutical Industries", ticker: "SUNPHARMA",
+        why: "India's largest pharma (23.8% Nifty Pharma weight). US specialty dermatology — Ilumya (biologic psoriasis) and Cequa (dry eye) growing 20%+ annually. EBITDA margins 25%+. ROE 16%, ROCE 20%. Consistent FCF. Best-in-class branded domestic franchise.",
+        clients: "US: specialty derma/ophthalmo (hospitals, dermatologists). India: branded generics via Cipla-like distribution. CDMO/API: undisclosed pharma innovators.",
+        orderbook: "Specialty segment revenue: ~$1.2 Bn (35% of US revenue). Ilumya global revenue $800 Mn+. Pipeline: 100+ ANDA filings, 8 NDA/BLA specialty molecules.",
+        financials: "Q3 FY26: Revenue ₹13,900 cr (+10% YoY), PAT ₹3,100 cr (+18% YoY), EBITDA margin 26.2%. FY25: Rev CAGR 10%, ROE 16%, ROCE 20%, D/E 0.1.",
+        future: "Specialty US revenue targeting $2 Bn by FY28. New launches: Winlevi (acne), SCD-044 (atopic derm) in clinical stage. India domestic targeting 10%+ organic growth. Margin expansion from specialty mix shift.",
+        catalyst: "Ilumya/Cequa growth, new specialty launches, India branded volume",
+        risk: "US FDA warning letter risk; biosimilar competition to Ilumya post-2027"
+      },
+      {
+        name: "Dr. Reddy's Laboratories", ticker: "DRREDDY",
+        why: "Most diversified large-cap pharma — US generics, India branded, Russia/CIS, biosimilars, CDMO. PE ~18x — cheapest among top 5. ROE and ROCE both >18%. 100+ ANDA filings pending. Biosimilar Rituximab/Pegfilgrastim gaining US share.",
+        clients: "US: pharmacy chains (CVS, Walgreens), hospital networks. India: MR-led branded. Russia: top-3 foreign pharma. CDMO: select innovators.",
+        orderbook: "US ANDA pipeline: 100+ filings, 75+ pending approvals. Biosimilar pipeline: 8 molecules in various stages. gRevlimid opportunity: $200 Mn+ incremental revenue.",
+        financials: "Q3 FY26: Revenue ₹8,400 cr (+7.5% YoY), PAT ₹1,380 cr (+4% YoY), EBITDA margin 24.1%. FY25: ROE 18.5%, ROCE 19%, D/E 0.15.",
+        future: "Biosimilar launches in US/EU (gHerceptin, gAvastin) through FY27–28 = $500 Mn+ incremental revenue potential. Cost-optimisation program targeting ₹1,000 cr savings by FY27. Russia volumes recovering.",
+        catalyst: "Biosimilar US/EU launches, gRevlimid opportunity, cost optimisation savings",
+        risk: "US generics pricing erosion (–5% annually); geopolitical risk in Russia"
+      },
+      {
+        name: "Divi's Laboratories", ticker: "DIVISLAB",
+        why: "India's premier CDMO/API manufacturer and the purest China+1 play in pharma. Custom synthesis (CS) for global innovators growing 25%+. Debt-free. Kakinada greenfield facility expanding capacity. Analyst target ₹7,206 (Mirae Asset). Unique fluorine chemistry moat.",
+        clients: "Undisclosed global innovators (top-5 pharma globally). Nutraceuticals: DSM, BASF. API: 500+ pharma companies globally.",
+        orderbook: "CS order pipeline: ₹3,500+ cr for FY27 (2x FY25). Generic API: 120+ molecules. Kakinada Phase 1: operational FY27.",
+        financials: "Q3 FY26: Revenue ₹2,400 cr (+15% YoY), PAT ₹650 cr (+22% YoY), EBITDA margin 36.5%. FY25: ROE 18%, ROCE 21%, D/E 0.0.",
+        future: "CDMO custom synthesis targeting ₹5,000 cr by FY28 (from ₹2,500 cr FY25). Kakinada Phase 1 adds 40% to API capacity. China+1 sourcing mandates from EU regulators creating multi-year demand.",
+        catalyst: "CDMO order wins, Kakinada Phase 1 utilisation, nutraceutical API expansion",
+        risk: "Customer concentration (top-3 clients = 40%+ revenue); FDA inspections at Vishakhapatnam"
+      },
+      {
+        name: "Torrent Pharmaceuticals", ticker: "TORNTPHARM",
+        why: "Most financially disciplined pharma — ROE 26%, ROCE 27% — exceptional for a pharma company. Chronic therapy (CVS, CNS, gastro) branded domestic moat. Expanding in Germany and Brazil. Conservative family management with no acquisition risk. Low earnings volatility.",
+        clients: "India: 55,000+ MR network covering chronic therapy specialists. Germany: top-10 generics player. Brazil: growing branded generics. US: limited, selective.",
+        orderbook: "India branded: 12%+ volume CAGR. Germany: EUR 450 Mn revenue. Brazil: growing 15%+ annually. US ANDA pipeline: selective, 25+ filings.",
+        financials: "Q3 FY26: Revenue ₹3,350 cr (+10.5% YoY), PAT ₹650 cr (+14% YoY), EBITDA margin 30.2%. FY25: ROE 26%, ROCE 27%, D/E 1.1 (reducing).",
+        future: "Debt reduction from ₹12,000 cr (FY23) to ₹6,000 cr by FY27 — significant FCF improvement. Germany market targeting EUR 600 Mn by FY28. Brazil biosimilar launches planned. FY27E ROE: 28%+.",
+        catalyst: "Debt reduction boosting FCF, Germany revenue growth, India volume expansion",
+        risk: "Limited US upside reduces growth ceiling; domestic price control risk"
+      }
+    ]
+  },
+
+  // ─── 4. AUTO ─────────────────────────────────────────────────────────
+  {
+    id: "auto", emoji: "🚗", name: "Automobiles & Auto Components", num: 4,
+    news: [
+      { date: "Apr 2, 2026", headline: "M&M, TVS Motor: BSE Auto slips 3% as brokerages flag demand and margin risks from commodity inflation — 200–300 bps headwind flagged for Q4.", source: "Business Standard" },
+      { date: "Mar 12, 2026", headline: "Natural gas shortage warning impacts M&M auto segment briefly; sector recovers as EV momentum offsets ICE concerns.", source: "Business Standard" },
+      { date: "Feb 1, 2026", headline: "Budget 2026-27: 35 capital goods for EV battery manufacturing added to duty-free list. PM e-DRIVE extended. EV component PLI reaffirmed.", source: "PIB" }
+    ],
+    metrics: [
+      { k: "PV Industry Sales FY25", v: "4.3 mn units (all-time record)" }, { k: "2W EV Market Share FY26", v: "~7.5% of total 2W" },
+      { k: "Nifty Auto 2025 Perf.", v: "+22% YoY" }, { k: "Auto Exports FY25", v: "$21.2 Bn" },
+      { k: "M&M Nifty Auto Weight", v: "17.6% (highest)" }, { k: "Commodity Headwind Q4", v: "200–300 bps margin pressure" }
+    ],
+    analysis: {
+      past: "India became 3rd largest auto market globally in FY24 — PV sales record 4.3 mn units. SUV and premium segments outperformed. EV 2W crossed 1 mn annual units. Bajaj, Eicher, TVS all reported record profits in FY25.",
+      future: "Multi-cycle play: ICE volumes robust (GST cuts + rural recovery + lower rates), EV penetration accelerating in 2W/3W, premium bikes growing internationally. Auto components sector benefits from both OEM domestics and global supply shift from China. EV penetration in PV expected to cross 8% by FY28.",
+      govt: "FAME III scheme in discussion; PLI for advanced auto components (₹25,938 cr); PM e-DRIVE extended; GST 5–10% rationalised; EV battery duty-free capital goods list expanded in Budget 26-27. Production shift from China in auto components globally benefits India EPC.",
+      biz: "Premiumisation is the dominant consumer trend — 250cc+ 2W, diesel/petrol SUV upgrade, luxury 4W all growing 20%+. Rural recovery (good Kharif/Rabi, higher MSP) supporting 2W entry/mid volumes. Fleet operators leading EV 3W adoption — 50%+ EV share in new 3W additions."
+    },
+    stocks: [
+      {
+        name: "Mahindra & Mahindra", ticker: "M&M",
+        why: "SUV dominance — Thar, Scorpio-N, XUV700 waitlists 6–9 months. Most credible EV roadmap: BE6 (₹18.9 L) and XEV9e commercially launched Q4 FY26 to sold-out demand. Farm equipment leadership adds stability. ROE 21%, zero net debt.",
+        clients: "Retail consumers (SUV), farmers (tractors), fleet operators (electric 3W via Mahindra Last Mile Mobility), govt tenders (defence utility vehicles).",
+        orderbook: "Waiting period: Thar (4 months), Scorpio-N (3 months), XUV700 (2 months). BE6/XEV9e bookings: 30,000+ before launch. Tractor market share: 42%.",
+        financials: "Q3 FY26: Auto revenue ₹24,200 cr (+12% YoY), PAT ₹3,920 cr (+19% YoY), EBITDA margin 13.8%. FY25: ROE 21%, ROCE 24%, D/E 0.0.",
+        future: "BE6/XEV9e targeting 5,000 units/month by FY27. SUV model cycle continues — 3 new launches planned. Tractor FY27 recovery (rural incomes rising). FY28E: PV revenue ₹1.2 lakh cr+ with EV at 15% of mix.",
+        catalyst: "EV ramp (BE6/XEV9e), new SUV launches, tractor volume FY27 recovery",
+        risk: "EV battery supply constraint; intense SUV competition from Hyundai Creta/Kia Sonet"
+      },
+      {
+        name: "Bajaj Auto", ticker: "BAJAJ-AUTO",
+        why: "Highest EBITDA margins in 2W segment (20%+). 40%+ revenue from exports (Africa, LATAM, SE Asia). ₹20,000 cr+ cash. ROE 33% — highest among 2W OEMs. Chetak EV gaining market share. CNG 3W dominance in Indian cities.",
+        clients: "Retail consumers globally, African markets (KTM franchise). 3W fleet operators (OLA, Rapido, Ola). Chetak: urban commuters.",
+        orderbook: "Export volumes: ~500,000 units/year. CNG 3W domestic: 200,000+ units/year. Chetak bookings: 5,000+/month.",
+        financials: "Q3 FY26: Revenue ₹13,780 cr (+15% YoY), PAT ₹2,196 cr (+12% YoY), EBITDA margin 20.2%. FY25: ROE 33%, ROCE 39%, D/E 0.0.",
+        future: "Chetak EV targeting 100,000 units/year by FY27 (from ~50,000 FY26). Africa market 2W volume growing 15%+ annually. CNG 3W: natural gas expansion driving fleet adoption. FY27E revenue ₹58,000 cr.",
+        catalyst: "Chetak EV scale, African export growth, CNG 3W urban expansion",
+        risk: "Premium motorcycle competition from Royal Enfield/Triumph; export market FX volatility"
+      },
+      {
+        name: "Eicher Motors", ticker: "EICHERMOT",
+        why: "Royal Enfield — near-monopoly in India's 250–750cc premium segment. Exports to Europe, LATAM, SE Asia growing 20%+. EBITDA margins 25%+. VECV (CV JV with Volvo) adds commercial vehicle optionality. Guerrilla 450 and Bear 650 expanding platform.",
+        clients: "Lifestyle/enthusiast bikers globally (India, UK, US, Thailand, France). VECV: road transport operators, state transport.",
+        orderbook: "Monthly retail: 85,000–90,000 units (domestic). International: 12,000+ units/month. Guerrilla 450: 30,000 bookings in first week. Pipeline: Shotgun 650, Himalayan updates.",
+        financials: "Q3 FY26: Revenue ₹5,080 cr (+9.5% YoY), PAT ₹1,000 cr (+11% YoY), EBITDA margin 25.3%. FY25: ROE 25%, ROCE 31%, D/E 0.0.",
+        future: "International targeting 25% of volumes by FY28 (from 15% FY26). 650cc Twin platform expanding — Bear 650, Shotgun 650. VECV EBITDA growing 20%+ on CV upcycle. FY27E Revenue ₹22,000 cr.",
+        catalyst: "Royal Enfield international 650cc growth, new model launches, VECV profitability",
+        risk: "Harley-Davidson X440/Triumph Speed 400 competitive pressure; commodity inflation"
+      },
+      {
+        name: "TVS Motor Company", ticker: "TVSMOTOR",
+        why: "EV leader in 2W — iQube highest EV scooter market share in India. Strong ICE portfolio (Apache 310, Ronin, Jupiter). Consistent market share gains for 4 years. R&D at 5%+ of revenue (highest in 2W). International presence in Indonesia, Africa.",
+        clients: "Urban scooter buyers (iQube), performance bike enthusiasts (Apache), family 2W (Jupiter). B2B: fleet EV (office campuses, delivery).",
+        orderbook: "iQube monthly: 18,000+ units. Apache: 45,000/month. International volumes growing 30%+ YoY.",
+        financials: "Q3 FY26: Revenue ₹10,420 cr (+16% YoY), PAT ₹680 cr (+20% YoY), EBITDA margin 11.5%. FY25: ROE 30%, ROCE 33%, D/E 0.25.",
+        future: "iQube targeting 400,000 annual units by FY28 (from ~220,000 FY26). Indonesia volumes scaling. New 125cc Apache Rtr 125 and Raider refreshes addressing high-volume segment. FY27E revenue ₹45,000 cr.",
+        catalyst: "iQube EV ramp, Apache 310/Ronin export growth, Indonesia market scale",
+        risk: "EV subsidy policy changes; R&D intensity compressing near-term margins"
+      }
+    ]
+  },
+
+  // ─── 5. FMCG ─────────────────────────────────────────────────────────
+  {
+    id: "fmcg", emoji: "🛒", name: "FMCG & Consumer Staples", num: 5,
+    news: [
+      { date: "Apr 5, 2026", headline: "Rural FMCG volume: 8.4% growth vs urban 2.6% — 5th consecutive quarter of rural outperformance. Rural recovery thesis playing out.", source: "Kantar Worldpanel" },
+      { date: "Feb 12, 2026", headline: "Nifty FMCG tanks 6% YTD 2026; analysts selective — prefer ITC, Tata Consumer, Marico. Premium valuations corrected to fair range.", source: "Business Standard" },
+      { date: "Feb 1, 2026", headline: "Budget 2026-27: Income tax-free up to ₹12 lakh puts ₹1 lakh cr in urban consumer hands — direct FMCG positive for premium categories.", source: "PIB" }
+    ],
+    metrics: [
+      { k: "India FMCG Market FY25", v: "$167 Bn" }, { k: "Rural Vol Growth Q3 FY26", v: "8.4% (vs 2.6% urban)" },
+      { k: "Nifty FMCG 2026 YTD", v: "–6% (correction opportunity)" }, { k: "Target Market 2030", v: "$220+ Bn" },
+      { k: "Quick Commerce Growth", v: "80%+ YoY (Blinkit, Zepto)" }, { k: "Q4 FY25 Sector Growth", v: "+11% YoY value" }
+    ],
+    analysis: {
+      past: "Sector grew 8–10% CAGR FY15–24 via rural penetration, urbanisation, and brand premiumisation. FY23–25 saw a volume slowdown as inflation squeezed real incomes. Companies defended margins over volumes — volumes now recovering sharply in rural.",
+      future: "Rural revival is the central FY26–28 thesis: strong monsoons, record MSP hikes, MGNREGA spending, lower food inflation. Budget tax cuts (₹12 lakh tax-free) boost urban premium spend. Quick commerce reshaping urban distribution — companies with strong last-mile capability win. Analysts expect 12–15% upside in select FMCG names in 2026.",
+      govt: "PM Garib Kalyan Anna Yojana (free grain to 800 mn) reduces food inflation → boosts non-food FMCG spend. Income tax-free slab to ₹12 lakh in Budget 26-27. Rural infra spending improving distribution reach in Tier-3/4 towns.",
+      biz: "D2C brands disrupting legacy categories — incumbents investing in digital sub-brands. Quick commerce accelerating: Blinkit, Zepto growing 80%+ YoY — positive for companies with strong urban modern trade presence. Premiumisation in health, organic, and speciality foods structural across income strata."
+    },
+    stocks: [
+      {
+        name: "ITC Limited", ticker: "ITC",
+        why: "Most diversified FMCG conglomerate — cigarettes (cash cow, ₹25,000+ cr EBIT), hotels (demerger value unlock), agribusiness, paper, non-cigarette FMCG (₹21,000 cr revenue, growing 10%+). Dividend yield 3.5%+. PE ~28x — attractive. Hotel demerger = significant NAV unlock.",
+        clients: "B2C across 8 mn+ retail outlets. Agribusiness: 4 mn farmers. Hotels: corporate + leisure. Paper: publishing and packaging corporates.",
+        orderbook: "Non-cig FMCG: 25+ brands. Hotel: 130+ properties. Agribusiness: export contracts for wheat, spices, soya. Board approved hotel demerger — listing by FY27.",
+        financials: "Q3 FY26: Revenue ₹19,800 cr (+7.2% YoY), PAT ₹5,500 cr (+6% YoY), EBITDA margin 38.5%. FY25: ROE 26%, ROCE 30%, D/E 0.0.",
+        future: "Hotel business demerger (expected FY27) could unlock ₹25,000–35,000 cr of NAV. FMCG non-cig segment targeting profitability parity with HUL. Agribusiness export contracts growing with wheat/spice demand globally.",
+        catalyst: "Hotel demerger listing, FMCG margin improvement, cigarette volume stability",
+        risk: "Cigarette tax/regulatory risk; non-cig FMCG segment margin still below peers"
+      },
+      {
+        name: "Tata Consumer Products", ticker: "TATACONSUM",
+        why: "Fastest-growing large FMCG — Tata Salt (40% market share), Tata Tea, Tata Sampann, Soulfull (cereals), Tata Starbucks JV. Acquisition-led platform with Tata brand moat. Revenue CAGR 14%+. Direct distribution expanding to 4 mn+ outlets.",
+        clients: "B2C: urban + rural grocery. Starbucks: urban premium. B2B: food service, institutional salt, bulk tea.",
+        orderbook: "Distribution: 4 mn+ retail outlets (target 5 mn by FY27). Starbucks: 450+ stores India. International: NourishCo and salt exports.",
+        financials: "Q3 FY26: Revenue ₹4,440 cr (+14% YoY), PAT ₹380 cr (+18% YoY), EBITDA margin 15.2%. FY25: Rev CAGR 14%, ROE 14%, ROCE 16%, D/E 0.2.",
+        future: "Nutrition segment (Soulfull, Tata Sampann) targeting ₹5,000 cr revenue by FY28. International food expansion (US, UK via Tetley). Starbucks reaching 1,000 stores in India by FY28. EBITDA margin targeting 17–18% vs current 15%.",
+        catalyst: "Nutrition segment scale, rural distribution push, Starbucks India expansion",
+        risk: "Acquisition integration execution; expensive valuation ~55x PE needs consistent delivery"
+      },
+      {
+        name: "Marico Limited", ticker: "MARICO",
+        why: "Steady compounder — Parachute coconut oil (60% market share), Saffola (healthy oils/foods). International business 25%+ of revenue at superior margins. Consistent 20%+ ROE. Asset-light, high FCF. Rural recovery directly positive for Parachute.",
+        clients: "B2C mass India (Parachute, Set Wet, Livon), health-conscious urban (Saffola), international FMCG (Bangladesh, SE Asia, Middle East, Africa).",
+        orderbook: "Bangladesh: 25%+ revenue, growing 8–10%. South-East Asia: 15%+ revenue growth. Middle East: premium hair care growing 20%.",
+        financials: "Q3 FY26: Revenue ₹2,760 cr (+8.5% YoY), PAT ₹450 cr (+12% YoY), EBITDA margin 21.8%. FY25: ROE 22%, ROCE 25%, D/E 0.05.",
+        future: "International targeting 30% of revenue by FY28. Saffola foods (oats, honey, noodles) targeting ₹3,000 cr by FY28. Digital-first brands (Beardo, Just Herbs) scaling in premium grooming. Copra price cycle moving favourably.",
+        catalyst: "International revenue acceleration, Saffola foods premiumisation, copra price tailwind",
+        risk: "Copra (coconut) inflation; Bangladesh political risk; rural slowdown revival delays"
+      },
+      {
+        name: "Britannia Industries", ticker: "BRITANNIA",
+        why: "India's largest biscuit brand — 35%+ market share, 26 lakh+ retail outlets. Dairy and adjacent bakery diversification. High operating leverage — margins expand as wheat prices normalise. Net debt-free. Direct rural revival play.",
+        clients: "B2C mass India — biscuits, bread, dairy, cakes. Institutional: canteens, railways, airlines, quick commerce platforms.",
+        orderbook: "Distribution: 26 lakh+ outlets (target 30 lakh FY27). Dairy: 1 lakh outlets expanding. Adjacent: croissants, international market exports.",
+        financials: "Q3 FY26: Revenue ₹4,630 cr (+9% YoY), PAT ₹590 cr (+7% YoY), EBITDA margin 16.8%. FY25: ROE 58%, ROCE 64%, D/E 0.0.",
+        future: "Volume recovery from rural demand — 6–8% CAGR through FY28. Dairy targeting breakeven and growth by FY27. Operating leverage: each 1% margin improvement = 10% PAT growth. Croissant/international expansion adds premium mix.",
+        catalyst: "Volume recovery from rural demand, dairy breakeven, margin expansion from wheat normalisation",
+        risk: "Wheat/sugar commodity inflation; Sunfeast (ITC) competitive pricing in biscuits"
+      }
+    ]
+  },
+
+  // ─── 6. DEFENCE ──────────────────────────────────────────────────────
+  {
+    id: "defence", emoji: "🛡️", name: "Defence", num: 6,
+    news: [
+      { date: "Apr 1, 2026", headline: "BEL FY26 provisional: Revenue ₹26,750 cr (+16.2% YoY), fresh orders ₹30,000 cr in FY26. Order book ₹74,000 cr. Export orders $346 Mn.", source: "Indian Masterminds" },
+      { date: "Mar 31, 2026", headline: "HAL FY26 provisional: Revenue ₹32,250 cr (+4% YoY, below 8–10% guidance). Order book surged to ₹2.54 lakh crore — 7–8 years of revenue visibility.", source: "Indian Masterminds" },
+      { date: "Feb 1, 2026", headline: "Budget 2026-27: Defence budget ₹7.84 lakh cr (+15%); Defence Capital ₹2.2 lakh cr (+22% — all-time high). Maritime Development Fund ₹25,000 cr.", source: "PIB" }
+    ],
+    metrics: [
+      { k: "Defence Budget FY26-27", v: "₹7.84 lakh cr (+15% YoY)" }, { k: "Defence Capex FY26-27", v: "₹2.2 lakh cr (+22% — all-time high)" },
+      { k: "Defence Production FY25", v: "₹1.51 lakh cr (+18% YoY)" }, { k: "Defence Exports FY25", v: "₹23,622 cr (34× in 10 years)" },
+      { k: "HAL Order Book", v: "₹2.54 lakh cr (8-yr visibility)" }, { k: "BEL Order Book", v: "₹74,000 cr" }
+    ],
+    analysis: {
+      past: "Structural shift from ~70% import dependence toward 65% indigenisation by 2030. Positive Indigenisation Lists (350+ items restricted from import) catalysed domestic manufacturing. Record production of ₹1.51 lakh cr in FY25, +18% YoY. Private sector CAGR of 16–18% (Crisil).",
+      future: "₹6.7 lakh cr DAC approval pipeline provides exceptional multi-year revenue visibility. India targeting ₹50,000 cr defence exports by 2029. Geopolitical tensions (Pahalgam attack on April 22, 2025, cross-border tensions) accelerating Indian procurement timelines domestically. Budget 26-27 defence capex at all-time high of ₹2.2 lakh cr.",
+      govt: "iDEX, Technology Development Fund, UP and Tamil Nadu defence corridors, DPP 2020, Maritime Development Fund (₹25,000 cr in Budget 26-27), National Defence Strategy mandating indigenisation milestones. Private sector winning increasing share via global OEM JVs.",
+      biz: "Near-captive MoD relationship provides order book certainty. HAL has 8-year revenue visibility. BEL's civilian diversification (EVMs, metro systems) reduces dependence. Private players (Bharat Forge, Data Patterns) growing fastest. Export revenue growing 34× in a decade."
+    },
+    stocks: [
+      {
+        name: "Hindustan Aeronautics Limited", ticker: "HAL",
+        why: "India's largest defence PSU — aircraft, helicopters, aero-engines, avionics. Order book ₹2.54 lakh cr (8 yr visibility at current revenue pace). Tejas Mk1A (83 jets) + Tejas Mk2 in development. Global rank: 19th largest defence contractor. ROE 28%+, debt-free.",
+        clients: "Indian Air Force (primary), Indian Navy, Indian Army, Coast Guard. Export: Mauritius, Afghanistan (legacy), exploring SE Asia, Middle East.",
+        orderbook: "₹2.54 lakh cr total (Apr 2026). Key: 83 Tejas Mk1A (₹48,000 cr), 156 LCH/ALH helicopters, Hawk trainer maintenance, aero-engine MRO.",
+        financials: "FY26 Provisional: Revenue ₹32,250 cr (+4% YoY), PAT est. ₹7,200 cr (+6% YoY), EBITDA margin ~22%. FY25: ROE 28%, ROCE 33%, D/E 0.0.",
+        future: "Tejas Mk1A deliveries beginning FY27 (2–3 jets/month ramping to 8/month by FY29). LCA Navy Mk2 and AMCA programme adding ₹80,000+ cr pipeline. Helicopter factory expansion at Tumakuru for 1,000 helicopters order. FY28E Revenue ₹45,000 cr.",
+        catalyst: "Tejas Mk1A delivery ramp, helicopter orders, export deals with SE Asia/Middle East",
+        risk: "Revenue execution delay in complex aircraft projects; supply chain for aero-engines (GE/Safran dependency)"
+      },
+      {
+        name: "Bharat Electronics Limited", ticker: "BEL",
+        why: "India's dominant defence electronics company. FY26 revenue ₹26,750 cr (+16.2%), fresh orders ₹30,000 cr, order book ₹74,000 cr. ROE 29%. Debt-free. Diversifying into civilian electronics (EVMs, metro, space). Export orders $346 Mn in FY26 (+34% YoY).",
+        clients: "Indian Army, Navy, Air Force (radars, EW, C4I systems). Civilian: Election Commission (EVMs), Metro Rail corporations, ISRO (space electronics).",
+        orderbook: "₹74,000 cr order book (Apr 2026). Key: Akash missile systems, Low-Level Transportable Radar (LLTR), BEL-Thales AESA radar, Electronic Warfare suites, Metro CBTC systems.",
+        financials: "FY26 Provisional: Revenue ₹26,750 cr (+16.2% YoY), PAT est. ₹5,900 cr (+12% YoY), EBITDA margin ~24%. FY25: ROE 29%, ROCE 35%, D/E 0.0.",
+        future: "Export targeting $500 Mn by FY28 (from $142 Mn FY26). Civilian segment targeting 20% of revenue by FY28. New contracts: AESA radar, EW systems, AI-enabled surveillance. Budget 26-27 capex surge directly benefits BEL pipeline.",
+        catalyst: "Export order acceleration, civilian electronics growth, AESA radar contracts",
+        risk: "Margin pressure from competitive bidding in civilian contracts; technology obsolescence risk"
+      },
+      {
+        name: "Data Patterns (India)", ticker: "DATAPATTNS",
+        why: "Niche defence electronics — radar, avionics, EW, satellite systems. Pure play on India's Make in India in high-tech defence. Record order book ₹1,868 cr (Q3 FY26). Maintaining 20–25% revenue growth guidance FY26. Diversifying into anti-drone systems and advanced avionics.",
+        clients: "DRDO (primary R&D partner), HAL (avionics integration), Indian Air Force, Indian Navy, ISRO (space electronics). JV with Israel's Rafael for EW systems.",
+        orderbook: "Record ₹1,868 cr (Q3 FY26). Key: Airborne radars, Electronic Warfare suites, Satellite ground systems, Anti-drone tech. Pipeline: ₹4,000+ cr over 3 years.",
+        financials: "Q3 FY26: Revenue ₹168 cr (+32% YoY), PAT ₹52 cr (+28% YoY), EBITDA margin 33.5%. FY25: ROE 26%, ROCE 29%, D/E 0.0. Market cap ~₹16,700 cr, PE ~66x.",
+        future: "Anti-drone market (rapidly growing post-conflicts) adding new revenue vertical. AESA radar programme potentially adding ₹2,000 cr+ by FY28. Space electronics with ISRO commercial programme. Revenue targeting ₹1,200 cr by FY28 from ₹600 cr FY26.",
+        catalyst: "Anti-drone system contracts, AESA radar wins, ISRO commercial space electronics",
+        risk: "High valuation (66x PE) leaves no room for misses; DRDO project delays impact revenue"
+      },
+      {
+        name: "Bharat Forge", ticker: "BHARATFORG",
+        why: "Unique defence + auto + aerospace diversification. India's only company producing artillery systems (Garuda 105mm, Bharat-52 155mm howitzers), ammunition, and armoured vehicle forgings. Defence revenue targeting 20%+ of total by FY27. Global forging leader (50+ countries).",
+        clients: "Defence: MoD (Army artillery, ammunition). Auto: Ford, Daimler, Volkswagen, Caterpillar, JCB. Aerospace: GE Aviation, Airbus supply chain. Industrial: oil & gas forging.",
+        orderbook: "Defence: ₹3,500+ cr pipeline (artillery, ammunition, aerospace forgings). Auto: ₹4,200 cr annual revenue. Export: ₹6,800 cr (55% of revenue).",
+        financials: "Q3 FY26: Revenue ₹4,200 cr (+9% YoY), PAT ₹390 cr (+7% YoY), EBITDA margin 18.5%. FY25: ROE 18%, ROCE 19%, D/E 0.45.",
+        future: "Defence revenue targeting ₹5,000 cr by FY28 (from ₹1,500 cr FY26). European auto recovery adds ₹1,500 cr incremental. Aerospace forgings (GE Aviation JV) growing 25%+. Aluminium forging for EVs — new global tailwind.",
+        catalyst: "Artillery/ammunition orders, European auto recovery, aerospace forging growth",
+        risk: "Auto sector cyclicality in Europe; defence order conversion and execution timelines"
+      }
+    ]
+  },
+
+  // ─── 7. ELECTRONICS MANUFACTURING (EMS) ─────────────────────────────
+  {
+    id: "ems", emoji: "🔌", name: "Electronics Manufacturing (EMS)", num: 7,
+    news: [
+      { date: "Mar 17, 2026", headline: "JPMorgan: 'EMS story not over' — Dixon, Kaynes, Syrma, Amber all set for 20%+ revenue CAGR FY26–28. Dixon-Vivo JV key catalyst.", source: "BusinessToday" },
+      { date: "Feb 1, 2026", headline: "Budget 2026-27: India Semiconductor Mission 2.0 ₹40,000 cr + Electronics Components Manufacturing Scheme ₹40,000 cr. Largest ever commitment to electronics.", source: "PIB" },
+      { date: "Jan 20, 2026", headline: "Dixon Technologies suspended trading ahead of FY26 earnings — revenues expected to cross ₹55,000 cr for full year, nearly doubling from FY25.", source: "Whalesbook" }
+    ],
+    metrics: [
+      { k: "India EMS Market FY25", v: "$35 Bn; target $150 Bn by 2030" }, { k: "Dixon Q2 FY26 Revenue", v: "₹13,361 cr (+41% YoY)" },
+      { k: "Semiconductor Mission 2.0", v: "₹40,000 cr outlay (Budget 26-27)" }, { k: "Mobile PLI FY26E", v: "$18 Bn mobile production (India)" },
+      { k: "Dixon ROCE", v: "40%; ROE 33%; Net debt-free" }, { k: "Kaynes Order Book", v: "₹9,000+ cr (multi-year visibility)" }
+    ],
+    analysis: {
+      past: "India's EMS sector was nascent till 2018 (imports dominated). PLI for mobiles (2020) was the catalyst — India mobile production grew from $3 Bn (FY20) to $18 Bn (FY26). Dixon, Kaynes, Amber emerged as the key listed beneficiaries, each delivering 100–200%+ returns over 3 years.",
+      future: "Electronics sector targeting $300 Bn production and $120 Bn exports by 2030. PLI expanding from mobiles to IT hardware, white goods, telecom equipment, and now components. India Semiconductor Mission 2.0 (₹40,000 cr) will enable deeper value addition. EMS companies transitioning from assembly-only to components manufacturing.",
+      govt: "Semiconductor Mission 2.0 ₹40,000 cr, Electronics Components Manufacturing ₹40,000 cr, PLI for mobiles/IT hardware/white goods ongoing. EV battery components ₹35 additional capital goods made duty-free in Budget 26-27. China+1 electronics supply chain shift actively supported.",
+      biz: "Dixon is India's largest EMS company — smartphone, LED TVs, washing machines, CCTV. Kaynes focused on industrial electronics (aerospace, defence, EV). Both benefit from global OEMs localising supply chains. Key risk is client concentration but this is structurally de-risking as client base broadens."
+    },
+    stocks: [
+      {
+        name: "Dixon Technologies", ticker: "DIXON",
+        why: "India's largest EMS company. Q2 FY26 revenue ₹13,361 cr (+41% YoY). ROCE 40%, ROE 33%, net debt-free. Clients: Samsung, Motorola, Xiaomi, Oppo, Vivo (new JV). India's largest smartphone manufacturer — 22%+ market share among EMS players.",
+        clients: "Samsung (LED TVs, refrigerators), Motorola/Lenovo (smartphones — anchor client), Xiaomi, Oppo, Transsion, Vivo (new JV), Airtel (telecom equipment), Jio (set-top boxes).",
+        orderbook: "FY26E revenue ₹55,000+ cr (doubling from ₹28,000 cr FY25). Mobile: 40–42 mn units FY26, targeting 55–60 mn FY27 via Vivo JV. Exports: ₹1,600+ cr (Motorola export hub).",
+        financials: "Q2 FY26: Revenue ₹13,361 cr (+41% YoY, +15% QoQ). PAT ₹308 cr (+38% YoY). EBITDA margin 2.8% (EMS typical thin margin). FY25: ROE 33%, ROCE 40%, D/E 0.0.",
+        future: "Vivo JV adds 10–15 mn units/year from FY27. Component manufacturing (bare PCB, sub-assemblies) adds margin. Semiconductor assembly plant feasibility under review. FY28E Revenue ₹90,000+ cr. Govt component scheme ₹40,000 cr directly applicable.",
+        catalyst: "Vivo JV volume ramp, component manufacturing approval, Semiconductor Mission 2.0 benefit",
+        risk: "Revenue heavy but thin margins (2.8% EBITDA); Motorola concentration (40%+ revenue); EMS rally unwind risk"
+      },
+      {
+        name: "Kaynes Technology India", ticker: "KAYNES",
+        why: "Premium EMS focused on high-value industrial segments — aerospace, defence, medical, railways, EV. Order book ₹9,000+ cr. Revenue ₹804 cr Q3 FY26 (+22% YoY), 9M FY26 revenue ₹2,384 cr (+37%). Bare PCB manufacturing entering adds margin. All approvals received.",
+        clients: "Aerospace: ISRO, HAL, defence electronics OEMs. Railways: RDSO-approved EMS for signalling. EV: Ola Electric, Tata Motors EV division. Medical: GE Healthcare, Siemens Healthineers India. Industrial: Bosch, ABB.",
+        orderbook: "₹9,000+ cr order book. Key verticals: Railways 25%, Aerospace/Defence 20%, EV 18%, Industrial 20%, Medical 17%.",
+        financials: "Q3 FY26: Revenue ₹804 cr (+22% YoY), PAT ₹62 cr (+18% YoY), EBITDA margin 13.5%. FY25: ROE 18%, ROCE 20%, D/E 0.8.",
+        future: "Bare PCB manufacturing from FY27 — adds 400–500 bps margin improvement. Semiconductor assembly next step. EV vertical growing 50%+ annually. Defence EMS — AoN approvals for key platforms. Revenue targeting ₹5,000 cr by FY28.",
+        catalyst: "Bare PCB manufacturing rollout, EV contract wins, defence EMS scale-up",
+        risk: "High capex ahead (PCB fab) increasing leverage; customer concentration; EMS competition intensifying"
+      }
+    ]
+  },
+
+  // ─── 8. INFRA & CAPITAL GOODS ────────────────────────────────────────
+  {
+    id: "infra", emoji: "🏗️", name: "Infrastructure & Capital Goods", num: 8,
+    news: [
+      { date: "Apr 1, 2026", headline: "L&T order book hits all-time high ₹5.6 lakh cr. Management guiding 15%+ PAT CAGR and ₹10 lakh cr order inflow target for FY27.", source: "Business Standard" },
+      { date: "Feb 1, 2026", headline: "Budget 2026-27: Capex ₹12.2 lakh cr (+9%); Railways ₹2,77,830 cr; 7 high-speed corridors; Capital Goods PLI sector reaffirmed.", source: "PIB" },
+      { date: "Mar 30, 2026", headline: "Power T&D equipment orders surging — Siemens, ABB, KEC all report record order inflows driven by renewable energy grid evacuation needs.", source: "Mint" }
+    ],
+    metrics: [
+      { k: "Govt Capex FY26-27", v: "₹12.2 lakh cr (+9% YoY)" }, { k: "L&T Order Book", v: "₹5.6 lakh cr (all-time high)" },
+      { k: "Railways Capex FY26-27", v: "₹2,77,830 cr; 7 HSR corridors" }, { k: "Power T&D Spend FY26–30E", v: "₹9.6 lakh cr" },
+      { k: "Private Capex Utilisation", v: "~78% (recovery trend)" }, { k: "Capital Goods PLI", v: "₹6,238 cr" }
+    ],
+    analysis: {
+      past: "India's infrastructure build-out has been the defining economic theme of the 2020s. Government capex grew from ₹5.5 lakh cr (FY21) to ₹12.2 lakh cr (FY26-27). Capital goods companies benefited as both direct contractors and equipment suppliers. L&T order book grew 3× in 5 years.",
+      future: "Power T&D equipment demand surging — 500 GW renewable target by 2030 requires massive grid infrastructure. Private capex revival expected in FY27 as utilisation crosses 80%. Data centres (AI computing) creating new power-hungry infra vertical. 7 high-speed rail corridors = massive EPC opportunity.",
+      govt: "PM Gati Shakti, National Monetisation Pipeline, AMRUT 2.0, Smart Cities, greenfield expressways, defence infrastructure. Budget 26-27: 7 HSR corridors, ₹2.77 lakh cr railways, ₹12.2 lakh cr capex. Capital Goods PLI ₹6,238 cr.",
+      biz: "Order pipeline for sector at multi-decade highs — execution bandwidth, not demand, is the bottleneck. Data centres (100+ planned for India by 2030) = new client segment for all capital goods companies. Middle East and Africa infra boom expanding L&T and KEC's international addressable market."
+    },
+    stocks: [
+      {
+        name: "Larsen & Toubro", ticker: "LT",
+        why: "India's most diversified engineering-to-construction-to-IT conglomerate. Order book ₹5.6 lakh cr — all-time high. International orders 50%+. 15%+ PAT CAGR guided. Exposure across infra, defence, hydrocarbon, power, IT. Highly trusted management and execution track record.",
+        clients: "Indian Govt (NHAI, railways, metros, defence), Middle East sovereigns (Saudi Aramco, ADNOC, NEOM), Private industrial (Tata Steel, JSW, Reliance), IT clients (via LTIMindtree).",
+        orderbook: "₹5.6 lakh cr (as of Q3 FY26). Key: Middle East hydrocarbon ₹1.2 lakh cr, India Infra ₹1.8 lakh cr, Defence ₹80,000 cr, Buildings ₹60,000 cr, Hydrocarbon India ₹40,000 cr.",
+        financials: "Q3 FY26: Revenue ₹63,400 cr (+17% YoY), PAT ₹3,620 cr (+14% YoY), EBITDA margin 8.9%. FY25: ROE 14%, ROCE 17%, D/E 1.8.",
+        future: "Order inflow target ₹10 lakh cr FY27. Middle East NEOM and infrastructure projects multi-year pipeline. Data centre EPC emerging as new vertical (₹30,000 cr pipeline). Green hydrogen plants and offshore wind — new capex theme for FY28. Revenue targeting ₹3 lakh cr by FY28.",
+        catalyst: "Middle East hydrocarbon orders, India urban infra, data centre EPC contracts",
+        risk: "Execution bandwidth constraints; working capital intensity; geopolitical risk in ME projects"
+      },
+      {
+        name: "Siemens India", ticker: "SIEMENS",
+        why: "German technology leader in power T&D, energy automation, factory automation, healthcare. Direct beneficiary of India's power grid modernisation and data centre boom. ROCE 25%+. Technology differentiation commands premium — no Indian substitute for many products.",
+        clients: "Power utilities (PGCIL, state discoms), Data centres (Adani, Hiranandani, STT), Industry (Tata Steel, SAIL, cement cos), Buildings (commercial real estate), Healthcare (AIIMS, Tata Memorial).",
+        orderbook: "FY26 order inflows ~₹20,000 cr (est). Transformer, switchgear, automation the key categories. Data centre orders growing 3× YoY.",
+        financials: "Q3 FY26: Revenue ₹4,850 cr (+14% YoY), PAT ₹720 cr (+18% YoY), EBITDA margin 17.5%. FY25: ROE 27%, ROCE 33%, D/E 0.0.",
+        future: "Power T&D supercycle — renewable integration needs ₹9.6 lakh cr T&D by 2030. Factory automation (Industry 4.0) growing 25% annually. Data centre segment targeting ₹2,000 cr revenue by FY28. German parent's technology pipeline (AI-enabled automation) adds differentiation.",
+        catalyst: "Power T&D capex surge, factory automation, data centre infrastructure buildout",
+        risk: "High valuation ~60x PE; slowdown in European parent's global order pipeline"
+      },
+      {
+        name: "Cummins India", ticker: "CUMMINSIND",
+        why: "Global leader in diesel/gas engines and power generation. 45%+ revenue from exports (US, Europe). Data centre boom driving massive demand for high-power backup generators. ROE 30%+. Debt-free. Dividend yield 2.5%+. Parent Cummins Inc global wins directly benefit subsidiary.",
+        clients: "Data centres (globally: AWS, Microsoft, Google, Meta — via parent Cummins). Domestic: telecom towers, hospitals, commercial buildings, railways. Industrial: mining, oil & gas.",
+        orderbook: "Export order book ₹3,000+ cr (data centre generators). Domestic: ₹2,200 cr (genset backlog). New product: Hydrogen engine — pilot orders for 2027.",
+        financials: "Q3 FY26: Revenue ₹2,860 cr (+18% YoY), PAT ₹540 cr (+21% YoY), EBITDA margin 20.8%. FY25: ROE 30%, ROCE 35%, D/E 0.0.",
+        future: "Global data centre buildout (AI) driving 30%+ annual genset demand growth through FY28. Hydrogen engine R&D — prototype complete, commercial launch FY27. India telecom tower 5G upgrades driving domestic demand. FY27E Revenue ₹12,000 cr+.",
+        catalyst: "Data centre generator demand globally, 5G tower gensets, hydrogen engine launch",
+        risk: "Long-term EV/battery storage threat to diesel gensets; US tariff risk on exports"
+      },
+      {
+        name: "KEC International", ticker: "KEC",
+        why: "Top Power T&D EPC globally — 100+ countries. Railway and renewable energy segments diversifying beyond T&D. Order book ₹41,000+ cr. Revenue CAGR 18–20% FY25–27E. SAE Towers (US) integration improving FCF. Direct beneficiary of global power grid investments.",
+        clients: "State electricity boards, PGCIL (India T&D), Indian Railways (electrification EPC), Middle East utilities (ADEWA, SEC), Africa power utilities, US utilities (SAE Towers).",
+        orderbook: "₹41,000+ cr (Q3 FY26). T&D India: 40%, International T&D: 35%, Railways: 15%, Civil/Solar: 10%.",
+        financials: "Q3 FY26: Revenue ₹5,850 cr (+20% YoY), PAT ₹210 cr (+35% YoY), EBITDA margin 7.8%. FY25: ROE 15%, ROCE 17%, D/E 1.8.",
+        future: "Middle East T&D investment surge (NEOM, Saudi Vision 2030) provides ₹15,000 cr+ international pipeline. Railway electrification — 7 HSR corridors = ₹8,000–10,000 cr opportunity. Renewable energy T&D: ₹6,000 cr+ over FY26–28. Revenue targeting ₹30,000 cr by FY27.",
+        catalyst: "Middle East T&D surge, Indian railway electrification, renewable grid investments",
+        risk: "Working capital stress; geographic concentration in volatile markets; execution at scale"
+      }
+    ]
+  },
+
+  // ─── 9. ENERGY & POWER ───────────────────────────────────────────────
+  {
+    id: "energy", emoji: "⚡", name: "Energy & Power", num: 9,
+    news: [
+      { date: "Apr 1, 2026", headline: "NTPC announces 2,334 MWh BESS auction results. NTPC Green Energy signs MoU with PTC India for clean energy sales. Renewable capacity at 7.5 GW+.", source: "Renewable Watch" },
+      { date: "Mar 17, 2026", headline: "Analysts pick NTPC, Tata Power, JSW Energy as top power stocks ahead of heatwave season — power demand expected to surge 8–10% in summer 2026.", source: "Business Standard" },
+      { date: "Feb 1, 2026", headline: "Budget 2026-27: Nuclear energy customs duty exemption extended to 2035; expanded to all nuclear plants. 100 GW nuclear target by 2047 confirmed.", source: "PIB" }
+    ],
+    metrics: [
+      { k: "India Installed Capacity", v: "~225 GW thermal + 200 GW renewable" }, { k: "Renewable Target 2030", v: "500 GW" },
+      { k: "NTPC Q3 FY26 PAT", v: "₹4,987 cr (+5.85% YoY)" }, { k: "Power Demand Growth FY26", v: "~7–8% YoY" },
+      { k: "NTPC Renewable Target", v: "60 GW by 2032 (from 7.5 GW)" }, { k: "Data Centre Power Demand", v: "5–8 GW additional by 2030" }
+    ],
+    analysis: {
+      past: "India became 3rd largest renewable energy country. NTPC crossed 75 GW total capacity. Power demand grew 7–8% YoY — exceeding EM peers. Coal-based thermal remains the backbone. NTPC Green Energy listed separately for pure-play investor access.",
+      future: "500 GW renewable by 2030 = $300 Bn investment. BESS (battery storage) is the new frontier — NTPC BESS auction just completed. Data centres adding 5–8 GW by 2030. Green hydrogen pilot plants by FY28. Nuclear energy — budget extended customs exemption, 100 GW target by 2047 adds very long-term visibility.",
+      govt: "PM Surya Ghar Muft Bijli Yojana (rooftop solar, 1 cr homes), Green Hydrogen Mission (₹19,744 cr), offshore wind policy, nuclear customs duty exemption to 2035, VGF for battery storage, ISTS waiver for renewables. Budget 26-27 strongly pro-clean energy.",
+      biz: "Industrial demand rising with manufacturing expansion. Corporate green PPAs by IT parks, malls, factories creating structural demand stream. Residential solar adoption accelerating with strong subsidies. EV charging grid infrastructure creating distributed power demand nodes."
+    },
+    stocks: [
+      {
+        name: "NTPC Limited", ticker: "NTPC",
+        why: "India's largest power generator (75 GW). Renewable expansion — NTPC Renewable Energy targeting 60 GW by 2032 from 7.5 GW today (8× growth). BESS leadership (2,334 MWh auction just completed). Regulated return ensures stable earnings. PE ~16x for a utility with strong growth.",
+        clients: "State electricity boards (SEBs), industrial clients via merchant power, NTPC Green for corporate PPAs. BESS: railways, data centres.",
+        orderbook: "FY26 capex: ₹25,000+ cr. Renewable projects pipeline: 20 GW under construction/tendering. BESS pipeline: 5,000+ MWh. Coal thermal under-construction: 5 GW.",
+        financials: "Q3 FY26: Revenue ₹40,644 cr (+8% YoY), PAT ₹4,987 cr (+5.85% YoY). Interim dividend ₹2.75/share. FY25: ROE 13%, ROCE 11%, D/E 1.8.",
+        future: "NTPC Green Energy (listed subsidiary) targeting 60 GW renewable by 2032. Revenue CAGR 12%+ through FY28 driven by renewables and BESS. Green hydrogen pilot plant by FY28. Nuclear energy JV discussions underway for FY30+ growth.",
+        catalyst: "Renewable capacity commissioning acceleration, BESS leadership, NTPC Green re-rating",
+        risk: "Coal supply disruptions; slower renewable commissioning vs targets; high capex leverage"
+      },
+      {
+        name: "Tata Power Company", ticker: "TATAPOWER",
+        why: "India's most diversified clean energy company — solar EPC (No.1, 15 GW+ commissioned), distribution (Mumbai, Odisha, Delhi), EV charging (40,000+ chargers — India's largest), rooftop solar (PM Surya Ghar direct beneficiary). 14 GW capacity, 75% targeted clean by 2030.",
+        clients: "Solar EPC: NTPC, SECI, state discoms, C&I clients (Tata Group, other). Distribution: Mumbai households/industries, Odisha discom. EV charging: Tata Motors, third-party users.",
+        orderbook: "Solar EPC backlog: ₹15,000+ cr. Rooftop solar pipeline: 1 GW (PM Surya Ghar eligible). EV charging: 40,000 chargers operational, 2× expansion planned.",
+        financials: "Q3 FY26: Revenue ₹16,400 cr (+14% YoY), PAT ₹1,060 cr (+25% YoY), EBITDA margin 21.5%. FY25: ROE 14%, ROCE 11%, D/E 2.4.",
+        future: "PM Surya Ghar scheme (1 cr rooftop solar installations) is a direct multi-year tailwind for Tata Power Solar. EV charging monetisation — subscription + pay-per-use models. Mundra UMPP stranded asset resolution expected by FY27 — potential ₹5,000 cr equity unlocking.",
+        catalyst: "PM Surya Ghar scale-up, Mundra resolution, EV charging monetisation, solar EPC orders",
+        risk: "Capex-heavy model; Mundra UMPP losses drag on near-term; execution risk on 60 GW renewable pipeline"
+      },
+      {
+        name: "Power Grid Corporation", ticker: "POWERGRID",
+        why: "India's transmission backbone — 1,75,000+ circuit km. Regulated ROCE of 15.5% assured by CERC. Critical for evacuating renewable energy from remote solar/wind sites. Dividend yield 4.5%+. Debt reducing. Annuity-like revenue — perfect defensive compounder.",
+        clients: "NTPC, Adani Power, Tata Power (injection side). All state discoms (off-take side). Data centres (direct connectivity future). HVDC links: inter-regional power transfers.",
+        orderbook: "Capex pipeline ₹1.2 lakh cr over FY26–30. Key: Renewable energy zones T&D (Rajasthan, Gujarat), HVDC links, Smart Grid.",
+        financials: "Q3 FY26: Revenue ₹12,080 cr (+5% YoY), PAT ₹4,160 cr (+4.5% YoY). Dividend ₹3.25/share. FY25: ROE 20%, ROCE 11%, D/E 1.9.",
+        future: "Renewable energy evacuation infrastructure — ₹9.6 lakh cr T&D investment needed nationally by 2030. Power Grid's share: ₹2–3 lakh cr. Smart Grid digitisation adds new capex cycle. FY27E Revenue ₹50,000 cr+.",
+        catalyst: "Renewable energy zone T&D projects, HVDC link commissions, tariff revision cycle",
+        risk: "Regulatory allowed ROE reduction; project execution delays in remote renewable zones"
+      },
+      {
+        name: "Torrent Power", ticker: "TORNTPOWER",
+        why: "Best-run private utility — integrated generation + distribution + retail across Gujarat, Maharashtra, Rajasthan. EBITDA margins 20%+. Renewable pipeline 2,000 MW+. Excellent management, efficient capital allocation. Dividend yield 2.5%+. Low regulatory risk given Ahmedabad/Surat licence stability.",
+        clients: "Gujarat industrial belt (Ahmedabad, Surat, Vadodara industrial consumers). Maharashtra (Bhiwandi distribution). Rajasthan (solar PPAs to state discoms). C&I: open-access customers.",
+        orderbook: "Renewable pipeline: 2,000 MW under development/tendering. Distribution capex: ₹3,000 cr over 3 years. Agra franchise bid ongoing.",
+        financials: "Q3 FY26: Revenue ₹8,900 cr (+12% YoY), PAT ₹680 cr (+16% YoY), EBITDA margin 22.3%. FY25: ROE 17%, ROCE 12%, D/E 1.6.",
+        future: "Renewable targeting 5,000 MW by FY30. Distribution licence expansion — Agra, new cities adding volume. EV charging infrastructure in Ahmedabad/Surat franchise areas. FY27E Revenue ₹38,000 cr.",
+        catalyst: "Renewable capacity additions, distribution licence wins, C&I solar expansion",
+        risk: "Distribution licence renewal uncertainty; C&I open-access solar competition"
+      }
+    ]
+  },
+
+  // ─── 10. REAL ESTATE ─────────────────────────────────────────────────
+  {
+    id: "realty", emoji: "🏢", name: "Real Estate", num: 10,
+    news: [
+      { date: "Apr 3, 2026", headline: "DLF 'The Dahlias' — India's most expensive housing project — sold out in days at ₹26,000+ cr. Luxury demand in NCR at unprecedented levels.", source: "Economic Times" },
+      { date: "Mar 28, 2026", headline: "Godrej Properties FY26 pre-sales target ₹30,000 cr — nearly achieved by Q3 itself. Pan-India JDA pipeline strongest in company history.", source: "Mint" },
+      { date: "Feb 1, 2026", headline: "RBI rate cut (second in FY26) reduces home loan EMIs. Effective rate now 8.5% for prime borrowers. Direct positive for residential demand.", source: "Business Standard" }
+    ],
+    metrics: [
+      { k: "Residential Sales FY25", v: "4.08 lakh units (record, top-8 cities)" }, { k: "Luxury Sales Growth FY25", v: "₹1 cr+ segment: +38% YoY" },
+      { k: "Office Leasing FY25", v: "~65 mn sq ft (record)" }, { k: "PE Inflows FY25", v: "$5.8 Bn (+47% YoY)" },
+      { k: "India RE Market", v: "$477 Bn (FY25)" }, { k: "GCCs in India", v: "1,600+ (target 2,400 by 2030)" }
+    ],
+    analysis: {
+      past: "Post-COVID structural up-cycle: WFH drove bigger home demand, RERA brought confidence, low rates through FY24. Luxury (₹1 cr+) grew 38% YoY in FY25. Commercial hit record 65 msf leasing. DLF, Godrej, Prestige all delivered record pre-sales.",
+      future: "Residential up-cycle sustained through FY26–28: urbanisation (target 40% by 2030), nuclear family formation, GCC expansion driving office demand, data centre/warehousing new sub-segments. RBI rate cuts (home loan rates now 8.5%) improving affordability for mid-segment buyers.",
+      govt: "PMAY ₹2.30 lakh cr (Housing for All), RERA enforcement, SWAMIH fund ₹15,530 cr for distressed projects, Smart Cities Mission, metro/expressway investments expanding developer catchment areas. Budget 26-27 maintains housing as priority.",
+      biz: "Premium/luxury driven by HNI wealth creation, NRI demand (INR depreciation), and GCC professionals (₹60–100 lakh packages buying ₹2–5 cr homes). Office demand structural as GCC target doubles to 2,400 by 2030. Data centre real estate = fastest-growing sub-segment with long-term leases."
+    },
+    stocks: [
+      {
+        name: "DLF Limited", ticker: "DLF",
+        why: "India's largest developer. 'The Dahlias' (Gurugram) sold out in days at ₹26,000+ cr — record luxury sales. Commercial portfolio (DCCDL JV) generates ₹4,000+ cr annual rent. Net debt declining. ROE improving toward 15%. Unmatched land bank in NCR.",
+        clients: "Luxury residential buyers (HNIs, NRIs), corporate tenants (DCCDL — Google, Microsoft, HSBC in DLF Cyber City), retail (DLF Malls — Zara, H&M, Apple).",
+        orderbook: "Pre-sales FY26E: ₹26,000+ cr (record). DCCDL commercial portfolio: 44 mn sqft leasable area, 95%+ occupancy. Under construction: 34 mn sqft residential.",
+        financials: "Q3 FY26: Revenue ₹6,200 cr (+30% YoY), PAT ₹1,060 cr (+45% YoY), EBITDA margin 36%. FY25: ROE 9% (improving), ROCE 8%, D/E 0.25.",
+        future: "Luxury pipeline: 5 super-premium projects in Gurugram and Mumbai by FY28. DCCDL rental targeting ₹6,000 cr by FY28. Chennai and Hyderabad expansion adds new geographies. FY27E Pre-sales target: ₹30,000 cr.",
+        catalyst: "Luxury residential launch pipeline, DCCDL rental escalation, new commercial office projects",
+        risk: "Premium segment cyclicality; interest rate reversal; land acquisition costs in key markets"
+      },
+      {
+        name: "Godrej Properties", ticker: "GODREJPROP",
+        why: "Pan-India developer with capital-light JDA model. Highest pre-sales growth — ₹27,000+ cr FY25 (+48% YoY), targeting ₹30,000 cr FY26. Strong brand across Mumbai, NCR, Pune, Bangalore. Godrej brand as national trust benchmark.",
+        clients: "Mid-to-luxury home buyers (₹1–5 cr price point). NRIs in Mumbai and NCR. First-time buyers in Pune/Bangalore.",
+        orderbook: "JDA pipeline: 40+ projects under development. Launches planned: 8 cities. Under construction: 25,000+ units (₹35,000 cr revenue locked in).",
+        financials: "Q3 FY26: Revenue ₹5,600 cr (+28% YoY), PAT ₹750 cr (+32% YoY), EBITDA margin 30%. FY25: ROE 11%, ROCE 10%, D/E 0.7.",
+        future: "JDA pipeline additions: 10–12 new projects per year targeted. Mumbai offshore Island development (Bandra Reclamation) potential mega-project. NCR and Bangalore pre-sales scaling. FY28E Pre-sales ₹40,000 cr.",
+        catalyst: "NCR/Mumbai pre-sales pipeline, new JDA additions, project delivery milestones",
+        risk: "High leverage vs peers; execution across 8 simultaneous cities; JDA partner risk"
+      },
+      {
+        name: "Oberoi Realty", ticker: "OBEROIREALTY",
+        why: "Premium Mumbai developer — Worli, Borivali, Thane micro-markets. Oberoi Garden City (Goregaon) self-sustaining township. 11.78% Nifty Realty weight. ROE ~20%. Clean balance sheet, conservative management. Mumbai luxury scarcity premium justified.",
+        clients: "Ultra-HNI (Worli ₹10+ cr/flat), NRIs, Mumbai professionals. Commercial: DCCDL-equivalent tech company office tenants. Retail: Oberoi Mall (premium brands).",
+        orderbook: "Pre-sales FY26E: ₹5,000+ cr. Worli project: 1.5 mn sqft, ₹10,000+ cr revenue potential. New Thane and Borivali launches in pipeline. Commercial: 2 office towers under development.",
+        financials: "Q3 FY26: Revenue ₹1,650 cr (+22% YoY), PAT ₹540 cr (+18% YoY), EBITDA margin 48%. FY25: ROE 20%, ROCE 16%, D/E 0.1.",
+        future: "Worli project delivery FY27–28 = ₹4,000+ cr revenue recognition. New Thane township Phase 2 adding 3 mn sqft. International luxury (Dubai?) under exploration. FY27E Revenue ₹8,000 cr.",
+        catalyst: "New Worli project launches, Thane township expansion, Mall of Oberoi rental growth",
+        risk: "Concentrated in Mumbai; luxury segment sensitive to interest rate cycles; execution risk on Worli"
+      },
+      {
+        name: "Prestige Estates Projects", ticker: "PRESTIGE",
+        why: "South India's largest developer expanding pan-India. Diversified: residential + commercial + retail + hospitality. Pre-sales growing 30%+. Attractive valuation vs North India peers. Hospitality rental income adds defensiveness. Budget tax cuts positive for Bangalore IT buyer base.",
+        clients: "Bangalore IT professionals (residential), Delhi/Mumbai HNIs (luxury launches), hospitality (Marriott/JW Marriott managed hotels), retail tenants (Forum malls).",
+        orderbook: "Pre-sales FY26E: ₹22,000+ cr. Mumbai launches: 3 projects. NCR: 2 projects. Bangalore pipeline: 15 mn sqft. Hotel portfolio: 3,000+ keys.",
+        financials: "Q3 FY26: Revenue ₹3,800 cr (+25% YoY), PAT ₹420 cr (+30% YoY), EBITDA margin 28%. FY25: ROE 12%, ROCE 11%, D/E 0.9.",
+        future: "Pan-India expansion pre-sales targeting ₹28,000 cr by FY27. Mumbai Sea-facing projects at Bandra could be transformational. Hotel portfolio monetisation via REIT listing under evaluation. FY28E Revenue ₹25,000 cr.",
+        catalyst: "Pan-India pre-sales conversion, Mumbai luxury launches, hospitality REIT monetisation",
+        risk: "New geography execution risk; commercial demand dependent on office leasing cycle"
+      }
+    ]
+  },
+
+  // ─── 11. SPECIALTY CHEMICALS ─────────────────────────────────────────
+  {
+    id: "chemicals", emoji: "⚗️", name: "Specialty Chemicals", num: 11,
+    news: [
+      { date: "Mar 30, 2026", headline: "Pidilite Q3 FY26: Revenue ₹3,425 cr; domestic B2B strong; exports fell 13.5% from geopolitical disruptions. Management guides recovery in H1 FY27.", source: "Screener" },
+      { date: "Mar 15, 2026", headline: "SRF Ltd: HFO refrigerant demand surging as EV battery cooling market expands. Fluorochemical segment EBIT growing 22% YoY.", source: "Business Standard" },
+      { date: "Feb 1, 2026", headline: "Budget 2026-27: PLI for specialty chemicals under consultation; anti-dumping duties on Chinese agrochemical intermediates extended. Direct positive.", source: "PIB" }
+    ],
+    metrics: [
+      { k: "India Specialty Chem FY24", v: "$37 Bn → target $64 Bn by 2027" }, { k: "China+1 Opportunity", v: "$20–30 Bn shift to India" },
+      { k: "Pidilite Q3 Revenue", v: "₹3,425 cr (EBITDA margin 21–24%)" }, { k: "Export CAGR FY24–27E", v: "~12–15%" },
+      { k: "Global Market Share", v: "~4% (FY24) → 7% target FY28" }, { k: "CDMO Chem Growth", v: "20%+ annually" }
+    ],
+    analysis: {
+      past: "Became a global investment theme post-COVID when China supply chain disruptions exposed over-dependence. Grew 12–15% CAGR FY19–24. Fluorochemicals, agrochemicals, performance materials, and adhesives were highest-growth sub-segments. China+1 structural shift is secular.",
+      future: "China+1 is most powerful structural driver — global chemical companies actively diversifying procurement to India. Fluorochemicals for EV batteries and refrigerants are a direct tailwind. CDMO in chemicals growing 20%+. Anti-dumping duties on Chinese imports protect domestic producers. India targeting 7% global specialty chem share by FY28.",
+      govt: "PLI for specialty chemicals under consultation (FY27 expected announcement). Anti-dumping duties on Chinese intermediates extended. PCPIR (Petroleum, Chemicals Investment Region) enabling integrated chemical parks. National Chemical Policy supporting R&D and patent protection.",
+      biz: "End-market demand is secular: agrochemicals serve agriculture (25% of GDP), pharma APIs for drug supply, performance chemicals for manufacturing. Companies with proprietary molecules (Navin Fluorine, Vinati Organics) command 35%+ EBITDA margins vs 18–22% for commodity-adjacent players."
+    },
+    stocks: [
+      {
+        name: "Pidilite Industries", ticker: "PIDILITIND",
+        why: "India's adhesive monopoly — Fevicol (80%+ market share), Dr. Fixit, M-Seal. Consumer + industrial specialties. Near recession-proof demand. EBITDA 21–24%. ROE 30%+. Consistent 20-year compounder. Real estate boom directly drives construction chemicals. Stock at ₹1,281 (PE 64x).",
+        clients: "B2C: 4 mn retail outlets (carpenters, plumbers, painters). B2B: construction companies, industrial manufacturers, automotive OEMs. International: SE Asia, Middle East (Pidilite brand).",
+        orderbook: "Domestic B2B pipeline strong. Construction chemicals (Dr. Fixit) growing 20%+ YoY. Export recovery expected H1 FY27 as geopolitical disruptions ease.",
+        financials: "Q3 FY26: Revenue ₹3,425 cr (+7% YoY), PAT ₹535 cr (+11% YoY), EBITDA margin 22.3%. FY25: ROE 30%, ROCE 38%, D/E 0.05.",
+        future: "Construction chemicals targeting ₹8,000 cr by FY28 (from ₹4,500 cr FY25). International expansion (Africa, SE Asia) targeting 10% of revenue. VAM prices stabilising improves gross margin. FY27E Volume growth: 10–12%.",
+        catalyst: "Real estate boom driving volumes, Dr. Fixit construction chemicals growth, international recovery",
+        risk: "VAM (vinyl acetate monomer) price volatility; premium 64x PE; export geopolitical disruptions"
+      },
+      {
+        name: "SRF Limited", ticker: "SRF",
+        why: "Diversified specialty chem — fluorochemicals (PTFE, HFOs for EV batteries), packaging films (global top-5 BOPP/BOPET), pharma APIs. Direct China+1 in fluorochemicals. Strong R&D pipeline. ROE 20%+. HFO refrigerant for EVs is a decade-long structural tailwind.",
+        clients: "Fluorochem: undisclosed global EV/auto cos, refrigerant OEMs. Packaging: FMCG companies globally. Pharma API: 50+ generics companies. Technical Textiles: tyre cord for auto companies.",
+        orderbook: "Fluorochemical new capacity (₹2,500 cr investment) coming online FY27. CRAMS pharma signed 3 new long-term contracts FY26.",
+        financials: "Q3 FY26: Revenue ₹3,680 cr (+8% YoY), PAT ₹310 cr (+12% YoY), EBITDA margin 18.5%. FY25: ROE 18%, ROCE 17%, D/E 0.65.",
+        future: "HFO refrigerant (next-gen EV cooling) demand surging — SRF's fluorochemical plant is India's only producer. Packaging film demand from organised FMCG growing. Pharma CRAMS contracts providing 3-year revenue visibility. FY27E EBITDA margin: 20%+.",
+        catalyst: "HFO refrigerant EV demand, CRAMS pharma contracts, packaging film capacity utilisation",
+        risk: "Packaging film global oversupply cycle; fluorochemical China competition; high capex cycle"
+      },
+      {
+        name: "Deepak Nitrite", ticker: "DEEPAKNIT",
+        why: "Integrated specialty chem — nitrite chemicals, phenol, acetone, performance products. Vertical integration from basic to specialty commands premium. ROCE 22%+. Phenol-acetone import substitution for pharma and adhesives industry. Strong export franchise.",
+        clients: "Domestic pharma (phenol for paracetamol — top-5 Indian pharma cos). Adhesives (Pidilite — phenol), agrochemical intermediates exporters. Performance chemicals: rubber, paper, water treatment.",
+        orderbook: "Phenol capacity utilisation 90%+. Deepak Chem Tech (new specialty facility) ramping FY27. Agrochemical intermediate export enquiries growing from EU (China alternative).",
+        financials: "Q3 FY26: Revenue ₹2,580 cr (+10% YoY), PAT ₹320 cr (+15% YoY), EBITDA margin 16.8%. FY25: ROE 22%, ROCE 24%, D/E 0.3.",
+        future: "Phenol derivative downstream products (Bisphenol A, DOP) adding ₹2,000 cr revenue by FY28. EU agrochemical intermediate orders growing as China exports face anti-dumping. Performance chemicals EBIT margins targeting 22%+ from current 17%. Revenue targeting ₹13,000 cr by FY27.",
+        catalyst: "Phenol derivative expansion, EU agrochemical exports, Deepak Chem Tech ramp",
+        risk: "Crude oil prices affecting raw materials; phenol-acetone spread cyclicality"
+      },
+      {
+        name: "Navin Fluorine International", ticker: "NAVINFLUOR",
+        why: "India's largest fluorochemical producer — pharma, agrochem, EV battery, refrigerant markets. CDMO pipeline ₹2,000+ cr for complex fluorine chemistry. High R&D intensity. Moat: fluorine chemistry expertise is scarce globally. ROE improving to 18–20%.",
+        clients: "CDMO: undisclosed global innovators (top-5 agrochemical, top-5 pharma companies). Refrigerants: OEM air conditioning manufacturers. HFO: EV battery cooling manufacturers.",
+        orderbook: "CDMO order backlog: ₹2,000+ cr (3-year visibility). Specialty fluorine: 12 long-term contracts. New Dahej plant (₹1,500 cr investment) coming online FY27.",
+        financials: "Q3 FY26: Revenue ₹740 cr (+14% YoY), PAT ₹110 cr (+18% YoY), EBITDA margin 26.5%. FY25: ROE 16%, ROCE 18%, D/E 0.5.",
+        future: "CDMO capacity doubling at Dahej — targeting ₹4,000 cr revenue by FY28 from ₹2,500 cr FY26. HFO growth as EV market expands. EU pharma/agrochem sourcing shift from China to India. ROE targeting 22% as new capacity ramps.",
+        catalyst: "CDMO wins from global innovators, Dahej HFO capacity, EU China-plus-one sourcing",
+        risk: "Customer concentration in CDMO; Dahej plant execution risk; leverage rising during capex"
+      }
+    ]
+  },
+
+  // ─── 12. TELECOM ─────────────────────────────────────────────────────
+  {
+    id: "telecom", emoji: "📶", name: "Telecom", num: 12,
+    news: [
+      { date: "Apr 3, 2026", headline: "Airtel Q3 FY26: Revenue ₹53,982 cr (+19.6% YoY), EBITDA ₹31,144 cr (+25.2% YoY), EBITDA margin 57.7%. Africa data revenue growing 22% YoY.", source: "Nasdaq/AlphaStreet" },
+      { date: "Mar 20, 2026", headline: "TRAI approves Airtel's ARPU-linked tariff revision — ARPU now ₹252, targeting ₹300 by FY27. Jio follows — effective duopoly pricing discipline.", source: "Mint" },
+      { date: "Feb 1, 2026", headline: "Budget 2026-27: BharatNet Phase 2 (₹1.39 lakh cr) accelerates. 5G enterprise policy incentives announced. USOF expanded for rural connectivity.", source: "PIB" }
+    ],
+    metrics: [
+      { k: "Airtel Q3 Revenue", v: "₹53,982 cr (+19.6% YoY)" }, { k: "Airtel EBITDA Margin", v: "57.7% (Q3 FY26)" },
+      { k: "India 5G Towns Coverage", v: "4,000+ towns (Jio + Airtel)" }, { k: "Airtel ARPU", v: "₹252 (Mar 26); target ₹300+" },
+      { k: "Airtel + Jio Rev Share", v: "~85%+ combined" }, { k: "BharatNet Phase 2", v: "₹1.39 lakh cr" }
+    ],
+    analysis: {
+      past: "Sector decimated by Jio disruption (FY17–20) — ARPUs crashed from ₹200+ to ₹68. Post-consolidation (3 survivors), ARPUs recovering through tariff hikes. Airtel's India ARPU crossed ₹252 in FY26. 5G rollout underway — 4,000+ towns covered. Voda Idea (Vi) survival still uncertain.",
+      future: "ARPU expansion to ₹300+ is primary earnings lever — each ₹10 ARPU increase = ~₹8,000 cr annual revenue for Airtel. 5G enterprise monetisation (private networks for manufacturing, ports, campuses) materialising from FY27. Fiber broadband growing 30%+. Vi uncertainty = Airtel default winner of premium subscriber additions.",
+      govt: "BharatNet Phase 2 (₹1.39 lakh cr), USOF expansion, PM-WANI WiFi policy, National Broadband Mission. Budget 26-27: 5G enterprise incentives, rural connectivity USOF expansion. Starlink approved in India — limited risk, mostly rural.",
+      biz: "Effective duopoly: Airtel + Jio control 85%+ revenue. Enterprise 5G is next battleground — private 5G networks. Home broadband (Airtel Xstream) growing 40%+ in cities. Africa (Airtel Africa) provides geographic diversification with 14-country presence at earlier-stage ARPU trajectory."
+    },
+    stocks: [
+      {
+        name: "Bharti Airtel", ticker: "BHARTIARTL",
+        why: "India's best-run telecom — EBITDA margin 57.7% (world-class). Q3 FY26 revenue +19.6% YoY. ARPU ₹252 heading to ₹300+. Africa business (14 countries) growing 22% YoY. Enterprise 5G growing 25%+. Net debt declining. 3.24% Nifty 50 weightage.",
+        clients: "B2C: 360 mn+ subscribers (India) + 150 mn+ (Africa). Enterprise: Fortune 500 India firms, IT parks, govt (VSAT, defence). Homes: Airtel Xstream broadband + DTH.",
+        orderbook: "5G enterprise pipeline: ₹8,000+ cr (private networks, smart campuses). Home broadband: 7 mn connections, targeting 15 mn by FY28. Africa: data ARPUs growing 25% YoY.",
+        financials: "Q3 FY26: Revenue ₹53,982 cr (+19.6% YoY), EBITDA ₹31,144 cr (+25.2%), PAT ₹8,503 cr (one-time adj. –47%). FY25: ROE 13%, ROCE 10%, D/E 2.1.",
+        future: "ARPU to ₹300 adds ₹15,000+ cr annual revenue. 5G enterprise private network revenue ₹5,000 cr by FY28. Africa data ARPU growing 10%+ annually — significant runway. Home broadband EBITDA-positive and scaling. FY27E Revenue ₹2.35 lakh cr.",
+        catalyst: "ARPU hike to ₹300+, 5G enterprise monetisation, Africa data growth, home broadband",
+        risk: "Jio aggressive pricing; Starlink rural broadband; Vi revival limiting subscriber gains"
+      },
+      {
+        name: "Indus Towers", ticker: "INDUSTOWER",
+        why: "India's largest tower company — 220,000+ towers. Physical backbone of 4G/5G networks. FCF improving sharply as Vi dues recover post-Govt equity conversion. P/E ~12x — very cheap for an infrastructure annuity business. Dividends resuming. 5G densification = tower additions.",
+        clients: "Bharti Airtel (primary), Jio (second), Vodafone Idea (recovering). BSNL (5G rollout). 3-tenant tower model maximises revenue per tower.",
+        orderbook: "Tower addition pipeline: 5,000–8,000 new sites/year for 5G densification. Small cell rollout beginning in metro areas. Vi dues: ₹6,000+ cr recovery expected over FY27–28.",
+        financials: "Q3 FY26: Revenue ₹7,500 cr (+8% YoY), PAT ₹1,790 cr (+28% YoY), EBITDA margin 58%. FY25: ROE 35%, ROCE 22%, D/E 0.8.",
+        future: "Vi dues recovery: ₹6,000 cr+ expected FY27–28 → direct FCF boost. 5G small cell densification adds 10,000+ new sites by FY28. Dividend resumption from FY27. FY27E Revenue ₹32,000 cr.",
+        catalyst: "Vi dues recovery, 5G tower densification, dividend resumption",
+        risk: "Vi continued financial stress; Jio/Airtel tower lease renegotiation; small cell economics"
+      },
+      {
+        name: "Sterlite Technologies", ticker: "STLTECH",
+        why: "India's only integrated optical fibre and cable manufacturer. Direct BharatNet Phase 2 beneficiary (₹1.39 lakh cr connectivity scheme). Global AI data centre buildout driving fibre interconnect demand. Order book ₹3,600+ cr. Debt reducing.",
+        clients: "BharatNet (Govt India — primary). Global data centres (AWS, Meta — fibre cables). US telcos (via Sterlite US operations). Airtel, Jio (India last-mile fibre).",
+        orderbook: "₹3,600+ cr. BharatNet Phase 2: large allocation expected. Global data centre interconnect: growing 40% YoY. Submarine cable JV under exploration.",
+        financials: "Q3 FY26: Revenue ₹1,480 cr (+12% YoY), PAT ₹38 cr (+40% YoY — low base), EBITDA margin 12.5%. FY25: ROE 8%, ROCE 11%, D/E 2.1.",
+        future: "BharatNet Phase 2 award (expected FY27) = ₹3,000–5,000 cr multi-year contract. AI data centre fibre demand growing at 3× global cable market. Debt reduction targeting D/E < 1.5x by FY28. Revenue targeting ₹7,000 cr by FY27.",
+        catalyst: "BharatNet Phase 2 award, data centre AI fibre demand, debt reduction",
+        risk: "High debt; global fibre oversupply in near-term; margin thin and volatile"
+      }
+    ]
+  },
+
+  // ─── 13. CONSUMER DISCRETIONARY ──────────────────────────────────────
+  {
+    id: "consumer", emoji: "🛍️", name: "Consumer Discretionary", num: 13,
+    news: [
+      { date: "Apr 5, 2026", headline: "Titan Q3 FY26: Revenue ₹17,500 cr (+25% YoY). Tanishq wedding jewellery demand surging. CaratLane crossing 250 stores.", source: "Economic Times" },
+      { date: "Mar 25, 2026", headline: "D-Mart (Avenue Supermarts) reports Q3 FY26 revenue ₹15,972 cr (+18% YoY). Expansion pace: 50 new stores planned in FY27.", source: "Mint" },
+      { date: "Feb 1, 2026", headline: "Budget 2026-27: Income tax-free up to ₹12 lakh — ₹1 lakh cr in consumers' pockets. Direct booster for discretionary spending across jewellery, apparel, ACs.", source: "PIB" }
+    ],
+    metrics: [
+      { k: "India Jewellery Market", v: "$100+ Bn FY25" }, { k: "Organised Retail CAGR", v: "15–20% (FY24–28E)" },
+      { k: "AC Market Growth FY25", v: "~18% volume growth" }, { k: "Premium Apparel Market", v: "$15 Bn+ at 12% CAGR" },
+      { k: "Income Tax Relief FY26", v: "Tax-free to ₹12 lakh — ₹1 lakh cr boost" }, { k: "Quick Commerce Growth", v: "80%+ YoY — reshaping retail" }
+    ],
+    analysis: {
+      past: "Decade of rising incomes drove branded jewellery, premium apparel, ACs, and modern retail — all growing 15–25% CAGR. Organised players consistently gained share from unorganised post-GST and demonetisation. Titan, Page Industries, D-Mart all delivered 15–20% earnings CAGR.",
+      future: "Income tax relief (₹12 lakh tax-free) puts ₹1 lakh cr in consumers' hands. Premiumisation is the meta-trend — consumers trading up in jewellery, innerwear, and home appliances. Gen-Z (25+ cr in workforce by 2030) brand-loyal, premium-oriented, digital-first. Quick commerce disrupting AND growing the pie.",
+      govt: "Income tax relief ₹12 lakh tax-free (Budget 26-27), hallmarking mandate for gold (benefits Titan), BIS certification driving out unorganised appliance players, PLI/SPECS for electronics (benefits AC/appliance OEMs). Make in India for consumer goods.",
+      biz: "Wedding industry ($50 Bn in India) is perennial jewellery driver. Quick commerce (Blinkit, Zepto, Swiggy Instamart) growing 80%+ YoY — reshaping urban grocery and FMCG but also enabling same-day home appliance delivery. Companies with strong brand and omni-channel (Titan, D-Mart) are structurally advantaged."
+    },
+    stocks: [
+      {
+        name: "Titan Company", ticker: "TITAN",
+        why: "India's most admired consumer brand — Tanishq (₹48,000+ cr revenue), Titan watches, Fastrack, CaratLane (250+ stores), Taneira. Q3 FY26 revenue ₹17,500 cr (+25% YoY). Hallmarking mandate formalising gold — Tanishq market share growing. ROE 38%. Net cash. Tata Group.",
+        clients: "B2C: HNIs, mid-premium consumers, gifting, wedding market. CaratLane: digital-first millennials. Titan Eye+: 900+ stores. Taneira: ethnic wear premium.",
+        orderbook: "Tanishq: 800+ stores, targeting 1,000 by FY27. CaratLane: 250+ stores, targeting 350. International: US/UK Tanishq stores expanding. Pipeline: new sub-₹50,000 jewellery range for Gen-Z.",
+        financials: "Q3 FY26: Revenue ₹17,500 cr (+25% YoY), PAT ₹1,000 cr (+18% YoY), EBITDA margin 10.2%. FY25: ROE 38%, ROCE 44%, D/E 0.0.",
+        future: "Wedding jewellery demand upcycle FY26–28. CaratLane digital scaling targeting ₹10,000 cr revenue by FY28. US/UK international expansion building NRI TAM. Hallmarking normalisation = 2% market share gain per year from unorganised. FY27E Revenue ₹80,000 cr.",
+        catalyst: "Wedding demand, CaratLane scale, international expansion, hallmarking market share gain",
+        risk: "Gold price/custom duty volatility; premium valuation ~70x PE; watches segment slowdown"
+      },
+      {
+        name: "Avenue Supermarts (D-Mart)", ticker: "DMART",
+        why: "India's best offline retailer. Q3 FY26 revenue ₹15,972 cr (+18% YoY). EDLC/EDLP model with superior margins. Owns stores (not leases). Revenue per sqft 2–3× peers. Zero debt. ROE 18%. 50+ new stores/year planned. Unmatched Tier-2/3 expansion runway.",
+        clients: "Mass market urban/semi-urban household grocery and general merchandise. Daily essentials: 70% of basket. General merchandise, apparel: 30%.",
+        orderbook: "350+ stores as of Q3 FY26. 50 new stores planned FY27. D-Mart Ready (online): scaling to 20 cities. Tier-2/3 cities: 60%+ of new store additions.",
+        financials: "Q3 FY26: Revenue ₹15,972 cr (+18% YoY), PAT ₹844 cr (+15% YoY), EBITDA margin 8.2%. FY25: ROE 18%, ROCE 22%, D/E 0.0.",
+        future: "400 stores by FY27, targeting 600 by FY30. D-Mart Ready (online) expanding to 30 cities. Membership model being tested. Operating leverage improves as fixed cost base grows. FY27E Revenue ₹68,000 cr.",
+        catalyst: "Store addition acceleration, D-Mart Ready online expansion, Tier-2/3 penetration",
+        risk: "Quick commerce (Blinkit, Zepto) cannibalising urban grocery basket; slow store addition pace vs target"
+      },
+      {
+        name: "Voltas Limited", ticker: "VOLTAS",
+        why: "India's No.1 RAC brand — 24%+ market share. Direct beneficiary of climate change (rising heat, heatwaves). Voltbek appliances JV (Beko JV) expanding into white goods. Tata Group backing. Summer 2026 expected to be hottest on record — AC demand surge.",
+        clients: "B2C: urban/semi-urban households. Institutional: hotels, offices, industrial cooling. Voltbek: retailers (Croma, Reliance, Amazon). MEP projects: commercial real estate, airports.",
+        orderbook: "AC backlog: 3–4 months pending delivery (summer demand). MEP project order book: ₹8,000+ cr. Voltbek white goods pipeline: 5 new SKUs in FY27.",
+        financials: "Q3 FY26: Revenue ₹4,100 cr (+20% YoY), PAT ₹450 cr (+22% YoY), EBITDA margin 12.8%. FY25: ROE 14%, ROCE 16%, D/E 0.0.",
+        future: "AC market targeting 40 mn units/year by 2030 (from 20 mn FY25) — Voltas leveraged to this growth. Voltbek targeting breakeven FY27, profitability FY28. Energy-efficient inverter ACs: premium mix improving margins. FY27E Revenue ₹18,000 cr.",
+        catalyst: "Heatwave-driven AC upgrade cycle, Voltbek white goods scale, inverter AC premiumisation",
+        risk: "Chinese brands (Haier, Midea) price competition; copper/aluminium cost inflation"
+      },
+      {
+        name: "Page Industries (Jockey)", ticker: "PAGEIND",
+        why: "Exclusive Jockey licensee for South Asia — monopoly in premium innerwear. ROE 60%+. EBITDA 18%+. Asset-light licensing model. Rising per-capita clothing spend in 1.4 Bn India. 15–20% revenue CAGR. Income tax relief directly boosts premium innerwear spend.",
+        clients: "B2C: urban middle-class (Jockey core), premium (Jockey World), sports (Speedo). Channel: MBO (multi-brand outlets), EBO (exclusive), e-commerce (Amazon, Nykaa), quick commerce.",
+        orderbook: "1,800+ EBOs + 70,000+ MBO presence. E-commerce: 25%+ of revenue. Speedo activewear growing 30%+ annually.",
+        financials: "Q3 FY26: Revenue ₹1,320 cr (+14% YoY), PAT ₹168 cr (+16% YoY), EBITDA margin 18.9%. FY25: ROE 62%, ROCE 75%, D/E 0.0.",
+        future: "Per-capita innerwear spend in India at $5 vs $30 in China — massive runway. Speedo activewear targeting ₹1,500 cr by FY28. New Jockey Women's premium line growing 40%+ from small base. Budget tax cut directly boosts urban consumer wallet for premium innerwear.",
+        catalyst: "Per-capita spending growth, Speedo activewear expansion, new women's premium range",
+        risk: "Premium ~65x PE valuation; Jockey global brand decisions affecting license terms"
+      }
+    ]
+  }
+];
+
+
+(function() {
+
+// ── Budget section ─────────────────────────────────────────
+function budgetHTML() {
+  const cards = BUDGET.cards.map(c => `
+    <div class="budget-card">
+      <div class="budget-card-header">
+        <span class="budget-card-icon">${c.icon}</span>
+        <span class="budget-card-label">${c.label}</span>
+      </div>
+      <ul class="budget-points">
+        ${c.points.map(p => `<li>${p}</li>`).join('')}
+      </ul>
+    </div>`).join('');
+
+  return `
+  <section class="budget-section report-section" id="budget">
+    <div class="budget-header">
+      <span class="budget-icon">📋</span>
+      <h2>${BUDGET.title}</h2>
+    </div>
+    <p class="budget-sub">${BUDGET.presented}</p>
+    <div class="budget-grid">${cards}</div>
+  </section>`;
+}
+
+// ── Individual sector ──────────────────────────────────────
+function sectorHTML(s) {
+  const news = s.news.map(n => `
+    <div class="news-item">
+      <span class="news-date">${n.date}</span>
+      <span class="news-headline">${n.headline}</span>
+      <span class="news-source">${n.source}</span>
+    </div>`).join('');
+
+  const metrics = s.metrics.map(m => `
+    <div class="metric-box">
+      <div class="metric-k">${m.k}</div>
+      <div class="metric-v">${m.v}</div>
+    </div>`).join('');
+
+  const stocks = s.stocks.map(st => `
+    <div class="stock-card">
+      <div class="stock-header">
+        <span class="stock-name">${st.name}</span>
+        <span class="stock-ticker">${st.ticker}</span>
+      </div>
+      <div class="stock-body">
+        <div class="stock-why">${st.why}</div>
+        <div class="stock-fields">
+          <div class="stock-field">
+            <div class="sf-label">🏢 Key Clients</div>
+            <div class="sf-value">${st.clients}</div>
+          </div>
+          <div class="stock-field">
+            <div class="sf-label">📦 Order Book / Pipeline</div>
+            <div class="sf-value">${st.orderbook}</div>
+          </div>
+        </div>
+        <div class="stock-financials">
+          <div class="sf-fin-label">📊 Financials</div>
+          <div class="sf-fin-value">${st.financials}</div>
+        </div>
+        <div class="stock-future">
+          <div class="sf-fut-label">🔭 Future Outlook (2–3 yr)</div>
+          <div class="sf-fut-value">${st.future}</div>
+        </div>
+        <div class="stock-tags">
+          <span class="tag tag-green"><span class="tag-icon">▲</span>${st.catalyst}</span>
+          <span class="tag tag-red"><span class="tag-icon">▼</span>${st.risk}</span>
+        </div>
+      </div>
+    </div>`).join('');
+
+  return `
+  <section class="report-section" id="${s.id}">
+    <div class="section-header">
+      <div class="section-emoji">${s.emoji}</div>
+      <div class="section-header-text">
+        <h2>${s.name}</h2>
+        <p>Sector ${s.num} of 13 &nbsp;·&nbsp; ${s.stocks.length} stock picks</p>
+      </div>
+      <div class="section-num">0${s.num}</div>
+    </div>
+
+    <div class="news-strip">
+      <div class="news-strip-header">📰 Latest News</div>
+      ${news}
+    </div>
+
+    <div class="metrics-grid">${metrics}</div>
+
+    <div class="analysis-grid">
+      <div class="analysis-card past">
+        <div class="analysis-label">📈 Past Performance</div>
+        <p>${s.analysis.past}</p>
+      </div>
+      <div class="analysis-card future">
+        <div class="analysis-label">🔭 Future Outlook</div>
+        <p>${s.analysis.future}</p>
+      </div>
+      <div class="analysis-card govt">
+        <div class="analysis-label">🏛️ Government / Policy Tailwinds</div>
+        <p>${s.analysis.govt}</p>
+      </div>
+      <div class="analysis-card biz">
+        <div class="analysis-label">💼 Business Dynamics</div>
+        <p>${s.analysis.biz}</p>
+      </div>
+    </div>
+
+    <div class="stocks-label">Top Stock Picks</div>
+    <div class="stocks-grid">${stocks}</div>
+  </section>`;
+}
+
+// ── Summary table ──────────────────────────────────────────
+function summaryHTML() {
+  let rows = '';
+  SECTORS.forEach(s => {
+    s.stocks.forEach((st, i) => {
+      rows += `
+      <tr>
+        ${i === 0 ? `<td class="tcat-cell" rowspan="${s.stocks.length}">${s.emoji} ${s.name}</td>` : ''}
+        <td><span class="tstock">${st.name}</span><br><span class="tticker">${st.ticker}</span></td>
+        <td>${st.catalyst}</td>
+        <td>${st.risk}</td>
+      </tr>`;
+    });
+  });
+
+  return `
+  <section class="summary-section report-section" id="summary">
+    <h2>📊 Master Stock Picks — All 13 Sectors</h2>
+    <p>Compiled April 2026 · Nifty LargeMidcap 250 focus · Medium-term horizon (1–3 years)</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Sector</th>
+            <th>Stock / Ticker</th>
+            <th>Key Catalyst</th>
+            <th>Key Risk</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+  </section>`;
+}
+
+// ── Render all ─────────────────────────────────────────────
+const root = document.getElementById('report-root');
+let html = budgetHTML();
+SECTORS.forEach(s => { html += sectorHTML(s); });
+html += summaryHTML();
+root.innerHTML = html;
+
+// ── Scrollspy ──────────────────────────────────────────────
+const targets = ['budget', ...SECTORS.map(s => s.id), 'summary'];
+const navLinks = {};
+targets.forEach(id => {
+  navLinks[id] = document.getElementById('nav-' + id);
+});
+
+function onScroll() {
+  let current = targets[0];
+  targets.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && window.scrollY >= el.offsetTop - 120) current = id;
+  });
+  document.querySelectorAll('#sidebar a').forEach(a => a.classList.remove('spy-active'));
+  const active = document.getElementById('nav-' + current);
+  if (active) {
+    active.classList.add('spy-active');
+    // keep in view in sidebar
+    active.scrollIntoView({block:'nearest'});
+  }
+}
+window.addEventListener('scroll', onScroll, {passive:true});
+onScroll();
+
+// ── Hamburger nav ──────────────────────────────────────────
+const toggle = document.getElementById('navToggle');
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('overlay');
+
+toggle.addEventListener('click', () => {
+  sidebar.classList.toggle('open');
+  overlay.classList.toggle('show');
+});
+overlay.addEventListener('click', () => {
+  sidebar.classList.remove('open');
+  overlay.classList.remove('show');
+});
+document.querySelectorAll('#sidebar a').forEach(a => {
+  a.addEventListener('click', () => {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('show');
+  });
+});
+
+})();
+
+</script>
+
+</body>
+</html>

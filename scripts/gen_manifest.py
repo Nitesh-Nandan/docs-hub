@@ -46,6 +46,12 @@ SECTIONS = {
         "desc": "Interview preparation notes, guides and practice material.",
         "order": 5,
     },
+    "market-research": {
+        "title": "Market Research",
+        "icon": "\U0001F50D",
+        "desc": "Market and equity research reports — sector views and stock deep-dives.",
+        "order": 6,
+    },
 }
 
 

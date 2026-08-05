@@ -206,7 +206,23 @@ window.MANIFEST = [
   "icon": "\ud83e\uddee",
   "desc": "Interactive financial calculators and tools.",
   "order": 3,
-  "docs": []
+  "docs": [
+   {
+    "file": "calculators/loan-investment_2026-08-06.html",
+    "title": "Portfolio Simulator",
+    "date": "2026-08-06"
+   },
+   {
+    "file": "calculators/retirement-calculator_2026-08-06.html",
+    "title": "RetireFlow",
+    "date": "2026-08-06"
+   },
+   {
+    "file": "calculators/sip-calculator_2026-08-06.html",
+    "title": "SIP / SWP / STP Calculator",
+    "date": "2026-08-06"
+   }
+  ]
  },
  {
   "id": "roadmaps",
@@ -214,7 +230,23 @@ window.MANIFEST = [
   "icon": "\ud83d\uddfa",
   "desc": "Long-term plans and milestone roadmaps \u2014 where things are headed and by when.",
   "order": 4,
-  "docs": []
+  "docs": [
+   {
+    "file": "roadmaps/algo-trading-roadmap_2026-08-06.html",
+    "title": "Algo Trading Mastery \u2014 Nitesh's Complete Guide",
+    "date": "2026-08-06"
+   },
+   {
+    "file": "roadmaps/indicators_2026-08-06.html",
+    "title": "Stock Indicator Reference",
+    "date": "2026-08-06"
+   },
+   {
+    "file": "roadmaps/langgraph-light_2026-08-06.html",
+    "title": "LangGraph Mastery \u2014 Nitesh's Complete Guide",
+    "date": "2026-08-06"
+   }
+  ]
  },
  {
   "id": "interview-prep",
@@ -223,5 +255,19 @@ window.MANIFEST = [
   "desc": "Interview preparation notes, guides and practice material.",
   "order": 5,
   "docs": []
+ },
+ {
+  "id": "market-research",
+  "title": "Market Research",
+  "icon": "\ud83d\udd0d",
+  "desc": "Market and equity research reports \u2014 sector views and stock deep-dives.",
+  "order": 6,
+  "docs": [
+   {
+    "file": "market-research/India_Equity_Report_v2_2026-08-06.html",
+    "title": "India Equity Research \u2014 April 2026",
+    "date": "2026-08-06"
+   }
+  ]
  }
 ];

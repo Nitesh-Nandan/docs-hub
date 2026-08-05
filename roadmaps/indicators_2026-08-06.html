@@ -1,0 +1,2215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Indicator Reference</title>
+    <style>
+        :root {
+            --bg: #f0f4f8;
+            --surface: #ffffff;
+            --sidebar-bg: #1e293b;
+            --sidebar-text: #cbd5e1;
+            --sidebar-hover: #334155;
+            --sidebar-active: #3b82f6;
+            --header-bg: #0f172a;
+            --border: #e2e8f0;
+            --text: #1e293b;
+            --text-muted: #64748b;
+            --code-bg: #f1f5f9;
+            --code-text: #0f172a;
+
+            /* Section colours */
+            --c-identity: #6366f1;
+            --c-core: #3b82f6;
+            --c-ma: #8b5cf6;
+            --c-price-action: #f97316;
+            --c-levels-10d: #06b6d4;
+            --c-levels-30d: #10b981;
+            --c-levels-52w: #059669;
+            --c-volume: #ec4899;
+            --c-derived: #6d28d9;
+            --c-historical: #d97706;
+
+            /* Card subsection colours */
+            --calc-bg: #eff6ff;
+            --calc-border: #bfdbfe;
+            --why-bg: #f0fdf4;
+            --why-border: #bbf7d0;
+            --ex-bg: #fffbeb;
+            --ex-border: #fde68a;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        /* ── Layout ── */
+        .app {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        header {
+            background: var(--header-bg);
+            color: #fff;
+            padding: 0 24px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            flex-shrink: 0;
+        }
+
+        header h1 {
+            font-size: 17px;
+            font-weight: 600;
+            white-space: nowrap;
+            color: #f1f5f9;
+            letter-spacing: -0.3px;
+        }
+
+        header .badge {
+            background: #1e3a5f;
+            color: #93c5fd;
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+
+        .search-wrap {
+            margin-left: auto;
+            position: relative;
+        }
+
+        .search-wrap input {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            color: #e2e8f0;
+            font-size: 13px;
+            padding: 6px 12px 6px 34px;
+            width: 240px;
+            outline: none;
+            transition: border-color 0.15s, background 0.15s;
+        }
+
+        .search-wrap input:focus {
+            border-color: #3b82f6;
+            background: #0f172a;
+        }
+
+        .search-wrap input::placeholder {
+            color: #64748b;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+            font-size: 14px;
+            pointer-events: none;
+        }
+
+        .main-layout {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* ── Sidebar ── */
+        .sidebar {
+            width: 256px;
+            min-width: 256px;
+            background: var(--sidebar-bg);
+            overflow-y: auto;
+            padding: 12px 0 24px;
+            scrollbar-width: thin;
+            scrollbar-color: #334155 transparent;
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+
+        .nav-section {
+            margin-bottom: 4px;
+        }
+
+        .nav-section-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px 4px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            color: #475569;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .nav-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .nav-items {
+            padding-left: 8px;
+        }
+
+        .nav-item {
+            display: block;
+            padding: 5px 16px 5px 24px;
+            font-size: 12.5px;
+            color: var(--sidebar-text);
+            text-decoration: none;
+            border-radius: 0 6px 6px 0;
+            margin-right: 8px;
+            transition: background 0.1s, color 0.1s;
+            font-family: "SF Mono", "Fira Code", Consolas, monospace;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .nav-item:hover {
+            background: var(--sidebar-hover);
+            color: #e2e8f0;
+        }
+
+        .nav-item.active {
+            background: #1e3a5f;
+            color: #60a5fa;
+            font-weight: 600;
+        }
+
+        /* ── Content ── */
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 28px 32px 60px;
+            scrollbar-width: thin;
+            scrollbar-color: #cbd5e1 transparent;
+        }
+
+        .content::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .content::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        /* ── Section ── */
+        .section {
+            margin-bottom: 48px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .section-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 17px;
+            flex-shrink: 0;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #0f172a;
+            letter-spacing: -0.4px;
+        }
+
+        .section-subtitle {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 1px;
+        }
+
+        /* ── Indicator card ── */
+        .indicator-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+            transition: box-shadow 0.15s;
+        }
+
+        .indicator-card:hover {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        .card-title-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--border);
+            background: #fafbfc;
+        }
+
+        .card-name {
+            font-family: "SF Mono", "Fira Code", Consolas, monospace;
+            font-size: 15px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .section-tag {
+            font-size: 10px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 20px;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+            margin-left: auto;
+        }
+
+        .card-body {
+            padding: 16px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* ── Subsections ── */
+        .subsection {
+            border-radius: 8px;
+            padding: 12px 14px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .subsection-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .subsection.calc {
+            background: var(--calc-bg);
+            border-left: 3px solid #3b82f6;
+        }
+
+        .subsection.calc .subsection-label {
+            color: #1d4ed8;
+        }
+
+        .subsection.why {
+            background: var(--why-bg);
+            border-left: 3px solid #22c55e;
+        }
+
+        .subsection.why .subsection-label {
+            color: #15803d;
+        }
+
+        .subsection.example {
+            background: var(--ex-bg);
+            border-left: 3px solid #f59e0b;
+        }
+
+        .subsection.example .subsection-label {
+            color: #b45309;
+        }
+
+        /* ── Table ── */
+        .indicator-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .indicator-table th {
+            background: #f1f5f9;
+            padding: 10px 14px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 600;
+            color: #475569;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .indicator-table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        .indicator-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .indicator-table tr:hover td {
+            background: #f8fafc;
+        }
+
+        .indicator-table td:first-child {
+            font-family: "SF Mono", "Fira Code", Consolas, monospace;
+            font-size: 13px;
+            color: #0f172a;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        /* ── Code ── */
+        code {
+            font-family: "SF Mono", "Fira Code", Consolas, monospace;
+            font-size: 12.5px;
+            background: var(--code-bg);
+            padding: 2px 5px;
+            border-radius: 4px;
+            color: #1e3a5f;
+        }
+
+        pre {
+            background: #0f172a;
+            color: #e2e8f0;
+            border-radius: 8px;
+            padding: 16px;
+            font-size: 13px;
+            line-height: 1.6;
+            overflow-x: auto;
+            margin: 4px 0;
+            font-family: "SF Mono", "Fira Code", Consolas, monospace;
+        }
+
+        pre .kw {
+            color: #93c5fd;
+        }
+
+        pre .str {
+            color: #86efac;
+        }
+
+        pre .cm {
+            color: #64748b;
+            font-style: italic;
+        }
+
+        pre .num {
+            color: #fca5a5;
+        }
+
+        pre .fn {
+            color: #c4b5fd;
+        }
+
+        /* ── Pill badges ── */
+        .pill {
+            display: inline-block;
+            padding: 1px 7px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        /* ── Dip deep-dive ── */
+        .deep-dive {
+            background: #0f172a;
+            border-radius: 12px;
+            padding: 24px 28px;
+            color: #e2e8f0;
+            margin-bottom: 20px;
+        }
+
+        .deep-dive h3 {
+            color: #f1f5f9;
+            font-size: 17px;
+            margin-bottom: 6px;
+        }
+
+        .deep-dive p {
+            color: #94a3b8;
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+
+        .step-row {
+            display: flex;
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+
+        .step-num {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #1e3a5f;
+            color: #60a5fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .step-body {
+            flex: 1;
+        }
+
+        .step-body strong {
+            color: #f1f5f9;
+            display: block;
+            margin-bottom: 4px;
+            font-size: 14px;
+        }
+
+        .step-body p {
+            color: #94a3b8;
+            font-size: 13.5px;
+            margin-bottom: 6px;
+        }
+
+        /* ── Search hidden ── */
+        .indicator-card.hidden {
+            display: none;
+        }
+
+        .section.all-hidden .section-header {
+            opacity: 0.3;
+        }
+
+        /* ── Highlight ── */
+        .highlight {
+            background: #fef08a;
+            border-radius: 2px;
+            padding: 0 2px;
+        }
+
+        /* ── Scrolltop ── */
+        .scrolltop {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            width: 40px;
+            height: 40px;
+            background: #3b82f6;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+            z-index: 200;
+            transition: opacity 0.2s;
+        }
+
+        .scrolltop:hover {
+            background: #2563eb;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- ── Header ── -->
+        <header>
+            <h1>📊 Stock Indicator Reference</h1>
+            <span class="badge">2Y Daily Candles · Upstox · NSE</span>
+            <div class="search-wrap">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="search" placeholder="Search indicators…" autocomplete="off">
+            </div>
+        </header>
+
+        <div class="main-layout">
+
+            <!-- ── Sidebar ── -->
+            <nav class="sidebar" id="sidebar">
+
+                <div class="nav-section">
+                    <div class="nav-section-header">
+                        <span class="nav-dot" style="background:#6366f1"></span>Identity
+                    </div>
+                    <div class="nav-items">
+                        <a class="nav-item" href="#identity-fields">identity fields</a>
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-header">
+                        <span class="nav-dot" style="background:#3b82f6"></span>Core Snapshot
+                    </div>
+                    <div class="nav-items">
+                        <a class="nav-item" href="#last_price">last_price</a>
+                        <a class="nav-item" href="#atr_pct">atr_pct</a>
+                        <a class="nav-item" href="#rsi_14">rsi_14</a>
+                        <a class="nav-item" href="#dma_20">dma_20</a>
+                        <a class="nav-item" href="#dma_50">dma_50</a>
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-header">
+                        <span class="nav-dot" style="background:#8b5cf6"></span>Moving Averages
+                    </div>
+                    <div class="nav-items">
+                        <a class="nav-item" href="#ma_200">ma_200</a>
+                        <a class="nav-item" href="#ema_21">ema_21</a>
+                        <a class="nav-item" href="#slope_50dma_10d">slope_50dma_10d</a>
+                        <a class="nav-item" href="#slope_200dma_10d">slope_200dma_10d</a>
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-header">
+                        <span class="nav-dot" style="background:#f97316"></span>Price Action
+                    </div>
+                    <div class="nav-items">
+                        <a class="nav-item" href="#price_change_pct">price_change_pct</a>
+                        <a class="nav-item" href="#close_position">close_position</a>
+                        <a class="nav-item" href="#base_tightness_20d">base_tightness_20d</a>
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-header">
+                        <span class="nav-dot" style="background:#06b6d4"></span>Price Levels: 10D
+                    </div>
+                    <div class="nav-items">
+                        <a class="nav-item" href="#high_10d">high_10d</a>
+                        <a class="nav-item" href="#upside_to_10d_high">upside_to_10d_high</a>
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-header">
+                        <span class="nav-dot" style="background:#10b981"></span>Price Levels: 30D
+                    </div>
+                    <div class="nav-items">
+                        <a class="nav-item" href="#high_30d">high_30d</a>
+                        <a class="nav-item" href="#low_30d">low_30d</a>
+                        <a class="nav-item" href="#range_30d_pct">range_30d_pct</a>
+                        <a class="nav-item" href="#cmp_vs_30d_high_pct">cmp_vs_30d_high_pct</a>
+                        <a class="nav-item" href="#upside_to_30d_high">upside_to_30d_high</a>
+                        <a class="nav-item" href="#cmp_vs_30d_low_pct">cmp_vs_30d_low_pct</a>
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-header">
+                        <span class="nav-dot" style="background:#059669"></span>Price Levels: 52W
+                    </div>
+                    <div class="nav-items">
+                        <a class="nav-item" href="#high_52w">high_52w</a>
+                        <a class="nav-item" href="#low_52w">low_52w</a>
+                        <a class="nav-item" href="#range_52w_pct">range_52w_pct</a>
+                        <a class="nav-item" href="#cmp_vs_52w_high_pct">cmp_vs_52w_high_pct</a>
+                        <a class="nav-item" href="#cmp_vs_52w_low_pct">cmp_vs_52w_low_pct</a>
+                        <a class="nav-item" href="#dip_from_52w_high_pct">dip_from_52w_high_pct</a>
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-header">
+                        <span class="nav-dot" style="background:#ec4899"></span>Volume
+                    </div>
+                    <div class="nav-items">
+                        <a class="nav-item" href="#avg_volume_20d">avg_volume_20d</a>
+                        <a class="nav-item" href="#rvol">rvol</a>
+                        <a class="nav-item" href="#consecutive_low_vol_down_days">consec_low_vol_days</a>
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-header">
+                        <span class="nav-dot" style="background:#6d28d9"></span>Derived Signals
+                    </div>
+                    <div class="nav-items">
+                        <a class="nav-item" href="#ma_alignment">ma_alignment</a>
+                        <a class="nav-item" href="#price_direction">price_direction</a>
+                        <a class="nav-item" href="#volume_character">volume_character</a>
+                        <a class="nav-item" href="#pattern">pattern</a>
+                        <a class="nav-item" href="#is_near_support">is_near_support</a>
+                        <a class="nav-item" href="#is_breaking_out">is_breaking_out</a>
+                        <a class="nav-item" href="#days_since_last_breakout">days_since_breakout</a>
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-header">
+                        <span class="nav-dot" style="background:#d97706"></span>Historical Pattern
+                    </div>
+                    <div class="nav-items">
+                        <a class="nav-item" href="#avg_atr_pct_2y">avg_atr_pct_2y</a>
+                        <a class="nav-item" href="#atr_pct_min">atr_pct_min</a>
+                        <a class="nav-item" href="#atr_pct_max">atr_pct_max</a>
+                        <a class="nav-item" href="#dip_events_total">dip_events_total</a>
+                        <a class="nav-item" href="#bounce_within_30d">bounce_within_30d</a>
+                        <a class="nav-item" href="#bounce_within_60d">bounce_within_60d</a>
+                        <a class="nav-item" href="#bounce_rate_30d">bounce_rate_30d</a>
+                        <a class="nav-item" href="#bounce_rate_60d">bounce_rate_60d</a>
+                        <a class="nav-item" href="#avg_recovery_days">avg_recovery_days</a>
+                        <a class="nav-item" href="#max_recovery_days">max_recovery_days</a>
+                        <a class="nav-item" href="#avg_dip_depth_pct">avg_dip_depth_pct</a>
+                        <a class="nav-item" href="#max_dip_depth_pct">max_dip_depth_pct</a>
+                        <a class="nav-item" href="#positive_months">positive_months</a>
+                        <a class="nav-item" href="#positive_month_pct">positive_month_pct</a>
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-header">
+                        <span class="nav-dot" style="background:#0284c7"></span>Deep Dive
+                    </div>
+                    <div class="nav-items">
+                        <a class="nav-item" href="#dip-detection">dip detection logic</a>
+                    </div>
+                </div>
+
+            </nav>
+
+            <!-- ── Main content ── -->
+            <main class="content" id="main-content">
+
+                <!-- ════ IDENTITY ════ -->
+                <section class="section" id="section-identity">
+                    <div class="section-header">
+                        <div class="section-icon" style="background:#ede9fe">🏷️</div>
+                        <div>
+                            <div class="section-title">Identity Fields</div>
+                            <div class="section-subtitle">Symbol, instrument key, run date, and industry classification
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="indicator-card" id="identity-fields">
+                        <div class="card-title-bar">
+                            <span class="card-name">Identity Fields</span>
+                            <span class="section-tag" style="background:#ede9fe;color:#4c1d95">Identity</span>
+                        </div>
+                        <div class="card-body" style="padding:0">
+                            <table class="indicator-table">
+                                <thead>
+                                    <tr>
+                                        <th>Field</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>symbol</td>
+                                        <td>NSE trading symbol (e.g. <code>HDFCBANK</code>)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>instrument_key</td>
+                                        <td>Upstox instrument identifier used for API calls</td>
+                                    </tr>
+                                    <tr>
+                                        <td>run_date</td>
+                                        <td>Date this snapshot was computed</td>
+                                    </tr>
+                                    <tr>
+                                        <td>industry</td>
+                                        <td>NSE industry classification from the Nifty 500 list</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ════ CORE SNAPSHOT ════ -->
+                <section class="section" id="section-core">
+                    <div class="section-header">
+                        <div class="section-icon" style="background:#dbeafe">📌</div>
+                        <div>
+                            <div class="section-title">Core Snapshot</div>
+                            <div class="section-subtitle">Price, volatility, RSI, and short/medium-term moving averages
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="indicator-card" id="last_price">
+                        <div class="card-title-bar">
+                            <span class="card-name">last_price</span>
+                            <span class="section-tag" style="background:#dbeafe;color:#1e40af">Core</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                The closing price of the most recent trading day.
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                The anchor for every other indicator. All percentages, distances, and comparisons are
+                                relative to this number.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                ACME closed at <strong>₹1,250</strong> today. This is the <code>last_price</code>.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="indicator-card" id="atr_pct">
+                        <div class="card-title-bar">
+                            <span class="card-name">atr_pct</span>
+                            <span class="section-tag" style="background:#dbeafe;color:#1e40af">Core</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                Simple average of the last 14 True Ranges divided by <code>last_price</code>, expressed
+                                as a percentage. True Range for each day =
+                                <code>max(high − low, |high − prev_close|, |low − prev_close|)</code>.
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                Measures daily volatility as a percentage of price. A 2% ATR means the stock typically
+                                moves ₹25 on a ₹1,250 stock. Low ATR stocks are calmer and suit smaller stop-losses;
+                                high ATR stocks need wider stops but offer larger swings.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                ACME's last 14 True Ranges average ₹31.25. ATR% = (31.25 / 1250) × 100 =
+                                <strong>2.5%</strong>.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="indicator-card" id="rsi_14">
+                        <div class="card-title-bar">
+                            <span class="card-name">rsi_14</span>
+                            <span class="section-tag" style="background:#dbeafe;color:#1e40af">Core</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                14-period RSI using Wilder's smoothing. Seed: simple average of first 14 gains and
+                                losses. Then: <code>avg_gain = (prev_avg_gain × 13 + current_gain) / 14</code>. RSI =
+                                100 − 100 / (1 + avg_gain / avg_loss).
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                Identifies overbought (&gt;70) and oversold (&lt;30) conditions. RSI of 25 on a strong
+                                stock often signals a dip-buying opportunity; RSI above 80 warns of potential
+                                exhaustion.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                ACME has been falling a week. avg_gain = 0.8, avg_loss = 2.1. RS = 0.38. RSI = 100 −
+                                100/1.38 = <strong>27.5</strong> (oversold territory).
+                            </div>
+                        </div>
+                    </div>
+                    <div class="indicator-card" id="dma_20">
+                        <div class="card-title-bar">
+                            <span class="card-name">dma_20</span>
+                            <span class="section-tag" style="background:#dbeafe;color:#1e40af">Core</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                <code>sum(close[-20:]) / 20</code> — simple moving average of the last 20 closing
+                                prices.
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                Short-term trend gauge. Price above DMA-20 = short-term uptrend. A pullback to the
+                                20-DMA in an uptrend is a classic mean-reversion buy setup.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                ACME's last 20 closes average <strong>₹1,235</strong>. Since CMP (₹1,250) > DMA-20
+                                (₹1,235), the short-term trend is up.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="indicator-card" id="dma_50">
+                        <div class="card-title-bar">
+                            <span class="card-name">dma_50</span>
+                            <span class="section-tag" style="background:#dbeafe;color:#1e40af">Core</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                <code>sum(close[-50:]) / 50</code> — simple moving average of the last 50 closing
+                                prices.
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                Medium-term trend. The 50-DMA is widely watched by institutional traders. A stock above
+                                its 50-DMA is in a healthy medium-term trend. The 20/50 crossover generates golden/death
+                                cross signals.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                ACME's 50-day SMA = <strong>₹1,190</strong>. CMP (₹1,250) is 5% above — solid
+                                medium-term uptrend.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="section-ma">
+                    <div class="section-header">
+                        <div class="section-icon" style="background:#ede9fe">📈</div>
+                        <div>
+                            <div class="section-title">Moving Averages</div>
+                            <div class="section-subtitle">Long-term trend, EMA, and DMA slope momentum</div>
+                        </div>
+                    </div>
+
+                    <div class="indicator-card" id="ma_200">
+                        <div class="card-title-bar">
+                            <span class="card-name">ma_200</span>
+                            <span class="section-tag" style="background:#ede9fe;color:#4c1d95">Moving Avg</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                Simple Moving Average of the last 200 closing prices. Requires ~10 months of data.
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                The "big picture" trend divider. Stocks above 200-DMA are in long-term uptrends; below
+                                it, downtrends. Institutional funds often won't buy below the 200-DMA.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                ACME's 200-DMA = <strong>₹1,100</strong>. CMP is ₹1,250 — 13.6% above. Long-term trend
+                                is firmly bullish.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="indicator-card" id="ema_21">
+                        <div class="card-title-bar">
+                            <span class="card-name">ema_21</span>
+                            <span class="section-tag" style="background:#ede9fe;color:#4c1d95">Moving Avg</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                21-period EMA seeded with the SMA of the first 21 closes, then:
+                                <code>EMA = close × (2/22) + prev_EMA × (20/22)</code>, walked forward over all
+                                available data.
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                More responsive than SMA — reacts faster to recent price changes. Swing traders use
+                                EMA-21 as a dynamic support/resistance line. In strong trends, pullbacks to EMA-21 are
+                                high-probability entries.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                ACME's EMA-21 = <strong>₹1,242</strong>. CMP (₹1,250) is just ₹8 above — hugging its
+                                21-EMA, a potential support bounce point.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="indicator-card" id="slope_50dma_10d">
+                        <div class="card-title-bar">
+                            <span class="card-name">slope_50dma_10d</span>
+                            <span class="section-tag" style="background:#ede9fe;color:#4c1d95">Moving Avg</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                % change of the 50-DMA over 10 trading days. Current 50-DMA =
+                                <code>mean(close[-50:])</code>. 10-day-ago 50-DMA = <code>mean(close[-60:-10])</code>.
+                                Slope = (current − old) / old × 100.
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                A rising 50-DMA (positive slope) means the medium-term trend is accelerating. Flattening
+                                or negative slope warns of trend exhaustion. Distinguishes between a trending stock and
+                                one that's above its MA but losing momentum.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                ACME's current 50-DMA = ₹1,190, 10 days ago was ₹1,175. Slope = (1190−1175)/1175×100 =
+                                <strong>+1.28%</strong> (healthy upward drift).
+                            </div>
+                        </div>
+                    </div>
+                    <div class="indicator-card" id="slope_200dma_10d">
+                        <div class="card-title-bar">
+                            <span class="card-name">slope_200dma_10d</span>
+                            <span class="section-tag" style="background:#ede9fe;color:#4c1d95">Moving Avg</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                Same method as <code>slope_50dma_10d</code> but for the 200-DMA. Current 200-DMA vs
+                                200-DMA from 10 days ago.
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                Captures momentum of the long-term trend. If the 200-DMA slope turns negative, the macro
+                                trend may be reversing — even if price is still above it.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                ACME's 200-DMA moved from ₹1,095 to ₹1,100 in 10 days. Slope = <strong>+0.46%</strong>
+                                (gently rising — long-term trend intact).
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="section-price-action">
+                    <div class="section-header">
+                        <div class="section-icon" style="background:#ffedd5">🕯️</div>
+                        <div>
+                            <div class="section-title">Price Action</div>
+                            <div class="section-subtitle">Daily return, candle quality, and consolidation tightness
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="indicator-card" id="price_change_pct">
+                        <div class="card-title-bar">
+                            <span class="card-name">price_change_pct</span>
+                            <span class="section-tag" style="background:#ffedd5;color:#9a3412">Price Action</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                <code>(today's close − yesterday's close) / yesterday's close × 100</code>
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                Raw daily return. Feeds into <code>price_direction</code> and <code>pattern</code>
+                                derivations. Also useful for screening stocks with unusual single-day moves.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                ACME closed ₹1,250 today, ₹1,230 yesterday. Change = (1250−1230)/1230×100 =
+                                <strong>+1.63%</strong>.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="indicator-card" id="close_position">
+                        <div class="card-title-bar">
+                            <span class="card-name">close_position</span>
+                            <span class="section-tag" style="background:#ffedd5;color:#9a3412">Price Action</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                <code>(close − day_low) / (day_high − day_low)</code>. Ranges 0.0 (closed at day low) to
+                                1.0 (at day high). Returns 0.5 if high = low (circuit hit).
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                Shows intraday buying/selling pressure. A close near 1.0 means buyers dominated; near
+                                0.0 means sellers had the last word. Especially powerful combined with volume — high
+                                close_position + high volume = strong demand.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                ACME's day range ₹1,220–₹1,260, closed ₹1,250. Position = (1250−1220)/(1260−1220) =
+                                <strong>0.75</strong> (upper quartile — bullish).
+                            </div>
+                        </div>
+                    </div>
+                    <div class="indicator-card" id="base_tightness_20d">
+                        <div class="card-title-bar">
+                            <span class="card-name">base_tightness_20d</span>
+                            <span class="section-tag" style="background:#ffedd5;color:#9a3412">Price Action</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                <code>(highest close − lowest close) / lowest close × 100</code> over the 20 trading
+                                days <em>before</em> today (excludes today).
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                Measures price consolidation. A tight base (&lt;10%) followed by a breakout is a classic
+                                VCP (Volatility Contraction Pattern). Breakouts from tight bases tend to have stronger
+                                follow-through than wide-range breakouts.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                ACME's last 20 closes ranged ₹1,210–₹1,260. Tightness = (1260−1210)/1210×100 =
+                                <strong>4.13%</strong> (very tight base — coiled for a move).
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="section-10d">
+                    <div class="section-header">
+                        <div class="section-icon" style="background:#cffafe">📅</div>
+                        <div>
+                            <div class="section-title">Price Levels: 10D</div>
+                            <div class="section-subtitle">Short-term resistance and breakout proximity (≈10 calendar
+                                days)</div>
+                        </div>
+                    </div>
+
+                    <div class="indicator-card" id="high_10d">
+                        <div class="card-title-bar">
+                            <span class="card-name">high_10d</span>
+                            <span class="section-tag" style="background:#cffafe;color:#155e75">10D Levels</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                Highest intraday high over the last 7 trading days, <strong>excluding today</strong> (7
+                                trading days ≈ 10 calendar days).
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                Short-term resistance level. A close above <code>high_10d</code> on volume is a
+                                near-term breakout signal. Also used to set trailing stop-losses.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                ACME's highest high in the last 7 sessions = <strong>₹1,265</strong> (hit 3 days ago).
+                                Today's close (₹1,250) hasn't reclaimed it yet.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="indicator-card" id="upside_to_10d_high">
+                        <div class="card-title-bar">
+                            <span class="card-name">upside_to_10d_high</span>
+                            <span class="section-tag" style="background:#cffafe;color:#155e75">10D Levels</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                <code>(high_10d − last_price) / last_price × 100</code>
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                Quantifies how far the stock needs to travel to reclaim its short-term high. Small
+                                upside (&lt;2%) = near breakout; large upside (&gt;5%) = significant pullback.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                (1265−1250)/1250×100 = <strong>1.2%</strong> (ACME is just 1.2% from its 10-day high —
+                                near breakout).
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="section-30d">
+                    <div class="section-header">
+                        <div class="section-icon" style="background:#d1fae5">📆</div>
+                        <div>
+                            <div class="section-title">Price Levels: 30D</div>
+                            <div class="section-subtitle">Monthly range, resistance, support, and mean-reversion target
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="indicator-card" id="high_30d">
+                        <div class="card-title-bar">
+                            <span class="card-name">high_30d</span>
+                            <span class="section-tag" style="background:#d1fae5;color:#064e3b">30D Levels</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                Highest intraday high over the last 22 trading days, <strong>excluding today</strong>
+                                (22 trading days ≈ 30 calendar days).
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                Monthly resistance level and primary mean-reversion target for swing trades. Stocks near
+                                their 30-day high are in a short-term uptrend; those far below are in a pullback. Used
+                                for GTT target setting.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                ACME's 30-day high = <strong>₹1,290</strong> (hit 12 days ago).
+                            </div>
+                        </div>
+                    </div>
+                    <div class="indicator-card" id="low_30d">
+                        <div class="card-title-bar">
+                            <span class="card-name">low_30d</span>
+                            <span class="section-tag" style="background:#d1fae5;color:#064e3b">30D Levels</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                Lowest intraday low over the last 22 trading days, excluding today.
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                Monthly support level. A break below <code>low_30d</code> signals a new leg down; a
+                                bounce off it confirms support.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                ACME's 30-day low = <strong>₹1,180</strong> (hit 18 days ago during a market-wide dip).
+                            </div>
+                        </div>
+                    </div>
+                    <div class="indicator-card" id="range_30d_pct">
+                        <div class="card-title-bar">
+                            <span class="card-name">range_30d_pct</span>
+                            <span class="section-tag" style="background:#d1fae5;color:#064e3b">30D Levels</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                <code>(high_30d − low_30d) / low_30d × 100</code>
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                Measures the stock's monthly trading range. Wide (&gt;15%) = high volatility, swing
+                                trade potential. Narrow (&lt;5%) = consolidation, potential breakout setup.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                (1290−1180)/1180×100 = <strong>9.32%</strong> (moderate range).
+                            </div>
+                        </div>
+                    </div>
+                    <div class="indicator-card" id="cmp_vs_30d_high_pct">
+                        <div class="card-title-bar">
+                            <span class="card-name">cmp_vs_30d_high_pct</span>
+                            <span class="section-tag" style="background:#d1fae5;color:#064e3b">30D Levels</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                <code>(last_price − high_30d) / high_30d × 100</code>
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                Negative value shows how far below the monthly high the stock is trading. A reading of
+                                −8% means the stock has pulled back 8% from its recent high — useful for identifying
+                                dip-buy candidates.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                (1250−1290)/1290×100 = <strong>−3.10%</strong> (ACME is 3.1% below its 30-day high).
+                            </div>
+                        </div>
+                    </div>
+                    <div class="indicator-card" id="upside_to_30d_high">
+                        <div class="card-title-bar">
+                            <span class="card-name">upside_to_30d_high</span>
+                            <span class="section-tag" style="background:#d1fae5;color:#064e3b">30D Levels</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                <code>(high_30d − last_price) / last_price × 100</code>
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                Frames the same distance from the buyer's perspective — how much can I gain if the stock
+                                reclaims its recent high? Used for GTT target setting and risk-reward evaluation.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                (1290−1250)/1250×100 = <strong>3.20%</strong> (3.2% upside to 30-day high).
+                            </div>
+                        </div>
+                    </div>
+                    <div class="indicator-card" id="cmp_vs_30d_low_pct">
+                        <div class="card-title-bar">
+                            <span class="card-name">cmp_vs_30d_low_pct</span>
+                            <span class="section-tag" style="background:#d1fae5;color:#064e3b">30D Levels</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                <code>(last_price − low_30d) / low_30d × 100</code>
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                Shows how far above the monthly support the stock sits. Small value (&lt;3%) = near
+                                30-day floor, potential support bounce. Large value (&gt;10%) = stock has rallied
+                                significantly off its recent low.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                (1250−1180)/1180×100 = <strong>5.93%</strong> (about 6% above 30-day low — some cushion
+                                above support).
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="section-52w">
+                    <div class="section-header">
+                        <div class="section-icon" style="background:#ecfdf5">📊</div>
+                        <div>
+                            <div class="section-title">Price Levels: 52W</div>
+                            <div class="section-subtitle">Annual range — the big psychological levels watched by all
+                                market participants</div>
+                        </div>
+                    </div>
+
+                    <div class="indicator-card" id="high_52w">
+                        <div class="card-title-bar">
+                            <span class="card-name">high_52w</span>
+                            <span class="section-tag" style="background:#ecfdf5;color:#065f46">52W Levels</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                Highest intraday high over the last 252 trading days (≈ 1 year).
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                The primary psychological resistance. 52-week-high breakouts attract momentum traders
+                                and media attention. Stocks near their yearly high attract institutional accumulation.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                ACME's 52-week high = <strong>₹1,350</strong> (hit 4 months ago).
+                            </div>
+                        </div>
+                    </div>
+                    <div class="indicator-card" id="low_52w">
+                        <div class="card-title-bar">
+                            <span class="card-name">low_52w</span>
+                            <span class="section-tag" style="background:#ecfdf5;color:#065f46">52W Levels</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                Lowest intraday low over the last 252 trading days.
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                Major support level. A stock near its 52-week low is either a deep value opportunity or
+                                a falling knife — other indicators help distinguish the two.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                ACME's 52-week low = <strong>₹880</strong> (hit 11 months ago during a market crash).
+                            </div>
+                        </div>
+                    </div>
+                    <div class="indicator-card" id="range_52w_pct">
+                        <div class="card-title-bar">
+                            <span class="card-name">range_52w_pct</span>
+                            <span class="section-tag" style="background:#ecfdf5;color:#065f46">52W Levels</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                <code>(high_52w − low_52w) / low_52w × 100</code>
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                Annual price range as a percentage. High range (&gt;80%) = very volatile. Low range
+                                (&lt;20%) = defensive/stable. Helps set position sizing — wider range stocks deserve
+                                smaller positions.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                (1350−880)/880×100 = <strong>53.41%</strong> (ACME swung 53% in a year — moderately
+                                volatile).
+                            </div>
+                        </div>
+                    </div>
+                    <div class="indicator-card" id="cmp_vs_52w_high_pct">
+                        <div class="card-title-bar">
+                            <span class="card-name">cmp_vs_52w_high_pct</span>
+                            <span class="section-tag" style="background:#ecfdf5;color:#065f46">52W Levels</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                <code>(last_price − high_52w) / high_52w × 100</code>
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                Shows how far below the yearly high the stock is. Within 5% = strong trend. 30%+ below
+                                may be structural decline or deep value territory.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                (1250−1350)/1350×100 = <strong>−7.41%</strong> (ACME is 7.4% below yearly high —
+                                moderate pullback).
+                            </div>
+                        </div>
+                    </div>
+                    <div class="indicator-card" id="cmp_vs_52w_low_pct">
+                        <div class="card-title-bar">
+                            <span class="card-name">cmp_vs_52w_low_pct</span>
+                            <span class="section-tag" style="background:#ecfdf5;color:#065f46">52W Levels</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                <code>(last_price − low_52w) / low_52w × 100</code>
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                Shows the rally from the yearly floor. A stock 100%+ above its 52W low has been a strong
+                                performer. Useful for relative strength screening.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                (1250−880)/880×100 = <strong>42.05%</strong> (ACME rallied 42% from its yearly low).
+                            </div>
+                        </div>
+                    </div>
+                    <div class="indicator-card" id="dip_from_52w_high_pct">
+                        <div class="card-title-bar">
+                            <span class="card-name">dip_from_52w_high_pct</span>
+                            <span class="section-tag" style="background:#ecfdf5;color:#065f46">52W Levels</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                <code>(high_52w − last_price) / high_52w × 100</code>
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                Same magnitude as <code>cmp_vs_52w_high_pct</code> but expressed as a positive number.
+                                "This stock is in a 7.4% dip from its 52W high" is more intuitive than "−7.4%". Used
+                                directly in screening queries:
+                                <code>WHERE dip_from_52w_high_pct BETWEEN 10 AND 25</code>.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                (1350−1250)/1350×100 = <strong>7.41%</strong>.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="section-volume">
+                    <div class="section-header">
+                        <div class="section-icon" style="background:#fce7f3">📊</div>
+                        <div>
+                            <div class="section-title">Volume</div>
+                            <div class="section-subtitle">Baseline volume, relative activity, and low-volume pullback
+                                streak</div>
+                        </div>
+                    </div>
+
+                    <div class="indicator-card" id="avg_volume_20d">
+                        <div class="card-title-bar">
+                            <span class="card-name">avg_volume_20d</span>
+                            <span class="section-tag" style="background:#fce7f3;color:#831843">Volume</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                Mean of daily volume over the last 20 trading days, <strong>excluding today</strong>.
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                The baseline for judging whether today's volume is unusual. Also a liquidity filter —
+                                stocks with avg volume &lt;100K shares/day are harder to enter/exit without slippage.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                ACME's average daily volume over 20 days = <strong>1,850,000 shares</strong>.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="indicator-card" id="rvol">
+                        <div class="card-title-bar">
+                            <span class="card-name">rvol</span>
+                            <span class="section-tag" style="background:#fce7f3;color:#831843">Volume</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                <code>today's volume / avg_volume_20d</code> — a relative volume ratio.
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                Rvol &gt;1.5 signals unusual institutional activity. Breakouts on rvol &gt;2.0 have much
+                                higher follow-through rates. Rvol &lt;0.5 on a down day is a positive sign — selling is
+                                on low conviction.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                ACME traded 3,700,000 shares today. Rvol = 3,700,000 / 1,850,000 = <strong>2.0</strong>
+                                (double the average — significant activity).
+                            </div>
+                        </div>
+                    </div>
+                    <div class="indicator-card" id="consecutive_low_vol_down_days">
+                        <div class="card-title-bar">
+                            <span class="card-name">consecutive_low_vol_down_days</span>
+                            <span class="section-tag" style="background:#fce7f3;color:#831843">Volume</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                Starting from today, count consecutive trading days where: (a) close was lower than
+                                previous close, AND (b) that day's volume was &lt;80% of its own 20-day average. Maximum
+                                look-back: 5 days.
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                The <strong>healthy pullback detector</strong>. When a stock dips on declining volume,
+                                sellers are exhausted — supply is drying up. 3+ consecutive low-volume down days often
+                                precede a reversal. It's the opposite of high-volume selling (institutional
+                                distribution).
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                ACME has been drifting lower for 3 days: each day closed red with volume at 65%, 72%,
+                                and 70% of the 20-day average. Result = <strong>3</strong> (supply drying up — watch for
+                                a bounce).
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="section-derived">
+                    <div class="section-header">
+                        <div class="section-icon" style="background:#ede9fe">🧠</div>
+                        <div>
+                            <div class="section-title">Derived Signals</div>
+                            <div class="section-subtitle">Human-readable classifications built from the raw indicators
+                                above</div>
+                        </div>
+                    </div>
+
+                    <div class="indicator-card" id="ma_alignment">
+                        <div class="card-title-bar">
+                            <span class="card-name">ma_alignment</span>
+                            <span class="section-tag" style="background:#ede9fe;color:#3730a3">Derived</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                Hierarchical check of price vs MAs:<br><br><code>FULL_BULL</code> — CMP &gt; DMA-20 &gt;
+                                DMA-50 &gt; MA-200<br><code>MEDIUM</code> — CMP &gt; DMA-50 &gt;
+                                MA-200<br><code>LOW</code> — CMP &gt; MA-200 only<br><code>BEAR</code> — CMP &lt;
+                                MA-200<br><br>When fewer MAs are available (stock listed &lt;200 days), uses whichever
+                                MAs exist.
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                Captures the structural trend in a single label. FULL_BULL stocks are in confirmed
+                                multi-timeframe uptrends — highest win rate for trend-following strategies. BEAR stocks
+                                should only be bought for contrarian plays with strict risk management.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                ACME: CMP ₹1,250 &gt; DMA-20 ₹1,235 &gt; DMA-50 ₹1,190 &gt; MA-200 ₹1,100 →
+                                <strong>FULL_BULL</strong>.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="indicator-card" id="price_direction">
+                        <div class="card-title-bar">
+                            <span class="card-name">price_direction</span>
+                            <span class="section-tag" style="background:#ede9fe;color:#3730a3">Derived</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                <code>UP</code> — price_change_pct &gt; +0.5%<br><code>DOWN</code> — price_change_pct
+                                &lt; −0.5%<br><code>FLAT</code> — between −0.5% and +0.5%
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                Simplifies today's price action into a label for pattern matching. Combined with
+                                <code>volume_character</code> to produce the <code>pattern</code> signal.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                ACME's price_change_pct = +1.63% → <strong>UP</strong>.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="indicator-card" id="volume_character">
+                        <div class="card-title-bar">
+                            <span class="card-name">volume_character</span>
+                            <span class="section-tag" style="background:#ede9fe;color:#3730a3">Derived</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                <code>HIGH</code> — rvol &gt; 1.5<br><code>LOW</code> — rvol &lt;
+                                0.8<br><code>NORMAL</code> — between 0.8 and 1.5
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                Labels today's volume relative to the norm. Combined with <code>price_direction</code>
+                                to classify the day's trading pattern.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                ACME's rvol = 2.0 → <strong>HIGH</strong>.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="indicator-card" id="pattern">
+                        <div class="card-title-bar">
+                            <span class="card-name">pattern</span>
+                            <span class="section-tag" style="background:#ede9fe;color:#3730a3">Derived</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                Combination of price_direction + volume_character, evaluated in
+                                order:<br><br><code>CIRCUIT_HIT</code> — high = low<br><code>CHURNING</code> — rvol
+                                &gt;2.0 but |price_change| &lt;0.3%<br><code>STRONG_BUYING</code> — UP + HIGH
+                                volume<br><code>WEAK_RALLY</code> — UP + LOW volume<br><code>STRONG_SELLING</code> —
+                                DOWN + HIGH volume<br><code>HEALTHY_PULLBACK</code> — DOWN + LOW
+                                volume<br><code>NEUTRAL</code> — everything else
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                Condenses the day's price-volume action into one actionable label.
+                                <strong>HEALTHY_PULLBACK + FULL_BULL + near_support</strong> is the classic dip-buy
+                                setup. STRONG_SELLING + BEAR is a stay-away signal.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                ACME: UP + HIGH → <strong>STRONG_BUYING</strong> (price rose on double-average volume —
+                                institutional demand).
+                            </div>
+                        </div>
+                    </div>
+                    <div class="indicator-card" id="is_near_support">
+                        <div class="card-title-bar">
+                            <span class="card-name">is_near_support</span>
+                            <span class="section-tag" style="background:#ede9fe;color:#3730a3">Derived</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                Returns <code>True</code> if CMP is within 2% of ANY of these levels:<br>• Prior
+                                consolidation high — max(close[-61:-21]) (the highest close 21–61 days ago)<br>•
+                                EMA-21<br>• DMA-50
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                Previous resistance becomes support. When a stock pulls back to a known support level,
+                                the risk-reward for a long entry is favorable — tight stop below support, target at
+                                prior high.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                ACME at ₹1,250, EMA-21 at ₹1,242. Distance = 0.64% &lt;2% → <strong>True</strong> (near
+                                EMA-21 support).
+                            </div>
+                        </div>
+                    </div>
+                    <div class="indicator-card" id="is_breaking_out">
+                        <div class="card-title-bar">
+                            <span class="card-name">is_breaking_out</span>
+                            <span class="section-tag" style="background:#ede9fe;color:#3730a3">Derived</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                True when <strong>all three</strong> conditions are met:<br>1.
+                                <code>close &gt; max(close[-21:-1])</code> — new 20-day closing high<br>2.
+                                <code>rvol &gt; 1.5</code> — above-average volume<br>3.
+                                <code>base_tightness_20d &lt; 15%</code> — came from a tight base
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                A breakout from a tight base on high volume is one of the strongest bullish signals.
+                                Tight consolidation means supply has been absorbed; high volume means demand overwhelmed
+                                supply with conviction.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                ACME closes ₹1,250, 20-day high close = ₹1,240, rvol = 2.0, tightness = 4.13%. All three
+                                conditions met → <strong>True</strong> (breakout confirmed).
+                            </div>
+                        </div>
+                    </div>
+                    <div class="indicator-card" id="days_since_last_breakout">
+                        <div class="card-title-bar">
+                            <span class="card-name">days_since_last_breakout</span>
+                            <span class="section-tag" style="background:#ede9fe;color:#3730a3">Derived</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                Looks back up to 60 trading days. For each past day, checks if it was a breakout candle
+                                (same 3 conditions as <code>is_breaking_out</code>). Returns trading days since the most
+                                recent one. Defaults to 60 if none found.
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                Recent breakouts (&lt;10 days) = early-stage momentum. Breakouts 20–40 days ago that
+                                haven't failed = sustained trend. No breakout in 60 days = range-bound or weak trend.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                ACME had a breakout candle 8 days ago that hasn't reversed → <strong>8</strong>
+                                (early-stage momentum, still actionable for a pullback entry).
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="section-historical">
+                    <div class="section-header">
+                        <div class="section-icon" style="background:#fef3c7">🕰️</div>
+                        <div>
+                            <div class="section-title">2-Year Historical Pattern</div>
+                            <div class="section-subtitle">ATR history, dip frequency, bounce rates, and monthly trend
+                                consistency</div>
+                        </div>
+                    </div>
+
+                    <div class="indicator-card" id="avg_atr_pct_2y">
+                        <div class="card-title-bar">
+                            <span class="card-name">avg_atr_pct_2y</span>
+                            <span class="section-tag" style="background:#fef3c7;color:#78350f">Historical</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                Mean of all rolling 14-day ATR% values computed over the full 2-year candle series using
+                                Wilder's smoothing.
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                Gives the stock's 'normal' volatility personality. A stock with avg ATR% of 1.5% is
+                                fundamentally different to trade than one at 4%. Used for position sizing, stop-loss
+                                width, and comparing current ATR to historical norms.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                ACME's 2-year average ATR% = <strong>2.3%</strong>. Today's ATR% is 2.5% — slightly
+                                above normal but not unusual.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="indicator-card" id="atr_pct_min">
+                        <div class="card-title-bar">
+                            <span class="card-name">atr_pct_min</span>
+                            <span class="section-tag" style="background:#fef3c7;color:#78350f">Historical</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                Minimum ATR% observed over the 2-year series.
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                Extreme low volatility often precedes a big move (expansion after contraction). If
+                                current ATR% is near <code>atr_pct_min</code>, the stock is coiled and likely to break
+                                sharply.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                ACME's lowest ATR% in 2 years = <strong>1.1%</strong> (during a low-volatility
+                                consolidation in mid-2024).
+                            </div>
+                        </div>
+                    </div>
+                    <div class="indicator-card" id="atr_pct_max">
+                        <div class="card-title-bar">
+                            <span class="card-name">atr_pct_max</span>
+                            <span class="section-tag" style="background:#fef3c7;color:#78350f">Historical</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                Maximum ATR% observed over the 2-year series.
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                Shows the stock's worst-case volatility. If current ATR% is approaching
+                                <code>atr_pct_max</code>, the stock is in an unusually volatile phase — widen stops or
+                                reduce position size.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                ACME's highest ATR% = <strong>4.8%</strong> (during the March 2024 selloff). Current
+                                2.5% is well below the extreme.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="indicator-card" id="dip_events_total">
+                        <div class="card-title-bar">
+                            <span class="card-name">dip_events_total</span>
+                            <span class="section-tag" style="background:#fef3c7;color:#78350f">Historical</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                Over the 2-year series, count every instance where closing price dropped ≥5% from the
+                                rolling 30-day peak (highest close over the prior 30 bars).
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                Tells you how often this stock experiences meaningful dips. 12 dip events in 2 years =
+                                one every ~6 weeks — frequent opportunities. 2–3 dips = very stable or untested.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                ACME had <strong>9 dip events</strong> in 2 years — roughly one every 11 weeks.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="indicator-card" id="bounce_within_30d">
+                        <div class="card-title-bar">
+                            <span class="card-name">bounce_within_30d</span>
+                            <span class="section-tag" style="background:#fef3c7;color:#78350f">Historical</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                Of all dip events, how many recovered ≥4% from the trough within 30 trading days.
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                Stocks that bounce quickly are ideal for dip-buying strategies with 4–6 week holding
+                                periods. High <code>bounce_within_30d</code> vs <code>dip_events_total</code> means
+                                strong buying support kicks in quickly.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                Of ACME's 9 dips, <strong>6</strong> recovered ≥4% within 30 days.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="indicator-card" id="bounce_within_60d">
+                        <div class="card-title-bar">
+                            <span class="card-name">bounce_within_60d</span>
+                            <span class="section-tag" style="background:#fef3c7;color:#78350f">Historical</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                Of all dip events, how many recovered ≥4% within 60 trading days. Cumulative — includes
+                                all 30-day bounces plus any recovering between day 31 and day 60.
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                Captures slower recoveries. Some quality stocks take 6–8 weeks. If
+                                <code>bounce_within_60d</code> is much higher than <code>bounce_within_30d</code>, the
+                                stock recovers — just slowly.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                Of ACME's 9 dips, <strong>8</strong> recovered within 60 days (6 fast + 2 slow). Only 1
+                                led to sustained decline.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="indicator-card" id="bounce_rate_30d">
+                        <div class="card-title-bar">
+                            <span class="card-name">bounce_rate_30d</span>
+                            <span class="section-tag" style="background:#fef3c7;color:#78350f">Historical</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                <code>bounce_within_30d / dip_events_total</code>. Ranges 0 to 1.
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                Probability that a dip recovers quickly. Rate &gt;0.7 = 70%+ of historical dips bounced
+                                within a month — strong evidence for a dip-buying edge. Below 0.4 = dips tend to
+                                persist.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                6 / 9 = <strong>0.667</strong> (67% of ACME's dips recovered within 30 days).
+                            </div>
+                        </div>
+                    </div>
+                    <div class="indicator-card" id="bounce_rate_60d">
+                        <div class="card-title-bar">
+                            <span class="card-name">bounce_rate_60d</span>
+                            <span class="section-tag" style="background:#fef3c7;color:#78350f">Historical</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                <code>bounce_within_60d / dip_events_total</code>. Ranges 0 to 1.
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                Overall recovery probability. 0.9+ = stock almost always recovers — only a question of
+                                time. Combining with <code>bounce_rate_30d</code> gives the speed profile.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                8 / 9 = <strong>0.889</strong> (89% of dips recovered within 60 days — high confidence
+                                that dip-buying works).
+                            </div>
+                        </div>
+                    </div>
+                    <div class="indicator-card" id="avg_recovery_days">
+                        <div class="card-title-bar">
+                            <span class="card-name">avg_recovery_days</span>
+                            <span class="section-tag" style="background:#fef3c7;color:#78350f">Historical</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                For all dip events that recovered ≥4% from trough, the average number of trading days
+                                from trough to recovery.
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                Sets holding period expectations. Avg recovery of 15 days → a 30-day position covers it
+                                comfortably. 45 days → more patience and capital commitment needed.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                ACME's 8 recovered dips averaged <strong>18.5 trading days</strong> to recover (≈3.5
+                                calendar weeks).
+                            </div>
+                        </div>
+                    </div>
+                    <div class="indicator-card" id="max_recovery_days">
+                        <div class="card-title-bar">
+                            <span class="card-name">max_recovery_days</span>
+                            <span class="section-tag" style="background:#fef3c7;color:#78350f">Historical</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                The longest recovery in the 2-year series, in trading days.
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                The worst-case scenario for a dip buyer. How long you might have to wait in the worst
+                                case. Useful for setting maximum holding period rules.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                ACME's slowest recovery took <strong>52 trading days</strong> (about 2.5 months — during
+                                a prolonged market correction).
+                            </div>
+                        </div>
+                    </div>
+                    <div class="indicator-card" id="avg_dip_depth_pct">
+                        <div class="card-title-bar">
+                            <span class="card-name">avg_dip_depth_pct</span>
+                            <span class="section-tag" style="background:#fef3c7;color:#78350f">Historical</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                Average percentage drop from the 30-day rolling peak to the trough, across all dip
+                                events.
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                If avg depth is 8% and the stock has already dipped 7%, most of the downside may be
+                                done. If avg is 8% and it's only dipped 5%, there may be more to come.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                ACME's average dip depth = <strong>7.8%</strong> from the 30-day peak.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="indicator-card" id="max_dip_depth_pct">
+                        <div class="card-title-bar">
+                            <span class="card-name">max_dip_depth_pct</span>
+                            <span class="section-tag" style="background:#fef3c7;color:#78350f">Historical</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                The deepest single dip (peak to trough) in the 2-year series.
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                Worst-case drawdown from a dip event. Stress-tests stop-loss levels — if max dip was 18%
+                                and your stop is at 10%, you would have been stopped out during the worst correction.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                ACME's deepest dip = <strong>16.2%</strong> (during a sector-wide selloff — outlier
+                                event).
+                            </div>
+                        </div>
+                    </div>
+                    <div class="indicator-card" id="positive_months">
+                        <div class="card-title-bar">
+                            <span class="card-name">positive_months</span>
+                            <span class="section-tag" style="background:#fef3c7;color:#78350f">Historical</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                Over ~24 months of data, count months where the last close &gt; first open (month ended
+                                higher than it started).
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                Simple measure of trend consistency. 18/24 positive months = strong, persistent uptrend.
+                                10/24 = choppy, harder to trade directionally.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                ACME had <strong>16 positive months</strong> out of 24.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="indicator-card" id="positive_month_pct">
+                        <div class="card-title-bar">
+                            <span class="card-name">positive_month_pct</span>
+                            <span class="section-tag" style="background:#fef3c7;color:#78350f">Historical</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subsection calc">
+                                <div class="subsection-label">⚙️ How it's calculated</div>
+                                <code>positive_months / total_months</code>. Ranges 0 to 1.
+                            </div>
+                            <div class="subsection why">
+                                <div class="subsection-label">💡 Why it matters</div>
+                                Normalized trend consistency. Rate &gt;0.65 = reliably trending stock. Below 0.45 = more
+                                random-walk than trend.
+                            </div>
+                            <div class="subsection example">
+                                <div class="subsection-label">📝 Example (ACME @ ₹1,250)</div>
+                                16 / 24 = <strong>0.667</strong> (67% of months were green — ACME trends more than it
+                                chops).
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="section-deepdive">
+                    <div class="section-header">
+                        <div class="section-icon" style="background:#dbeafe">🔬</div>
+                        <div>
+                            <div class="section-title">Deep Dive: Dip Detection Logic</div>
+                            <div class="section-subtitle">Step-by-step walkthrough of how bounce_within_30d and
+                                bounce_within_60d are computed</div>
+                        </div>
+                    </div>
+
+                    <div class="deep-dive" id="dip-detection">
+                        <h3>How <code style="color:#93c5fd">_detect_bounces()</code> works</h3>
+                        <p>The dip detection is a sliding scanner across the 2-year close price series. Here is exactly
+                            what happens at each step.</p>
+
+                        <div class="step-row">
+                            <div class="step-num">1</div>
+                            <div class="step-body">
+                                <strong>Find the rolling peak</strong>
+                                <p>At each trading day <code style="color:#86efac">i</code>, compute the highest close
+                                    over the prior 30 trading days (not including day <code
+                                        style="color:#86efac">i</code>):</p>
+                                <pre><span class="kw">rolling_peak</span> = max(closes[i - 30 : i])</pre>
+                                <p>This is the "recent high" the stock has been trading at.</p>
+                            </div>
+                        </div>
+
+                        <div class="step-row">
+                            <div class="step-num">2</div>
+                            <div class="step-body">
+                                <strong>Check if today is a dip (≥5% threshold)</strong>
+                                <p>Compare day <code style="color:#86efac">i</code>'s close against that rolling peak:
+                                </p>
+                                <pre><span class="kw">dip_pct</span> = ((rolling_peak - closes[i]) / rolling_peak) * <span class="num">100</span></pre>
+                                <p>If <code style="color:#fca5a5">dip_pct ≥ 5%</code>, it counts as a <strong
+                                        style="color:#fbbf24">dip event</strong>. Trigger: "the stock closed ≥5% below
+                                    its highest close of the past 30 trading days."</p>
+                            </div>
+                        </div>
+
+                        <div class="step-row">
+                            <div class="step-num">3</div>
+                            <div class="step-body">
+                                <strong>Find the actual trough</strong>
+                                <p>Once a dip is detected at day <code style="color:#86efac">i</code>, search the next
+                                    30 days for the lowest close — the real bottom:</p>
+                                <pre>trough = closes[i]
+<span class="kw">for</span> j <span class="kw">in</span> range(i, i + <span class="num">30</span>):
+    <span class="kw">if</span> closes[j] &lt; trough:
+        trough = closes[j]</pre>
+                                <p>The day the 5% threshold was first breached may not be the bottom — the stock could
+                                    keep falling a few more days.</p>
+                            </div>
+                        </div>
+
+                        <div class="step-row">
+                            <div class="step-num">4</div>
+                            <div class="step-body">
+                                <strong>Check for 30-day recovery</strong>
+                                <p>Starting from the day after the trough, check if the stock recovered ≥4% from that
+                                    trough within 30 days. If yes → <code
+                                        style="color:#86efac">bounce_within_30d += 1</code>.</p>
+                            </div>
+                        </div>
+
+                        <div class="step-row">
+                            <div class="step-num">5</div>
+                            <div class="step-body">
+                                <strong>Check for 60-day recovery (if no 30-day recovery)</strong>
+                                <p>If not recovered in 30 days, scan days 31–60 from the trough. If found → <code
+                                        style="color:#86efac">bounce_within_60d += 1</code> (counts slow-but-valid
+                                    recoveries).</p>
+                            </div>
+                        </div>
+
+                        <div class="step-row">
+                            <div class="step-num">6</div>
+                            <div class="step-body">
+                                <strong>Skip ahead to avoid double-counting</strong>
+                                <p>After processing a dip event, the scanner jumps forward past the recovery point (or
+                                    past 60 days if no recovery) so the same dip isn't counted twice.</p>
+                            </div>
+                        </div>
+
+                        <h3 style="margin-top:20px">Concrete example with numbers</h3>
+                        <pre><span class="cm"># Day 1–30: ACME closes hover around ₹1,300</span>
+<span class="cm">#           rolling peak at day 30 = ₹1,310</span>
+
+<span class="cm"># Day 31: ACME closes at ₹1,240</span>
+dip_pct = (<span class="num">1310</span> - <span class="num">1240</span>) / <span class="num">1310</span> * <span class="num">100</span>  <span class="cm"># = 5.34%  ← ≥5%, DIP DETECTED</span>
+
+<span class="cm"># Days 31–60: Search for trough</span>
+<span class="cm"># Day 35: closes at ₹1,205 (lowest)  ← this is the trough</span>
+
+<span class="cm"># Days 36–65: Search for 30-day recovery from ₹1,205</span>
+<span class="cm"># Day 48: closes at ₹1,260</span>
+recovery = (<span class="num">1260</span> - <span class="num">1205</span>) / <span class="num">1205</span> * <span class="num">100</span>  <span class="cm"># = 4.56%  ← ≥4%, BOUNCED</span>
+
+<span class="cm"># Result:</span>
+dip_events      += <span class="num">1</span>
+bounce_within_30d += <span class="num">1</span>
+recovery_days    = <span class="num">48</span> - <span class="num">35</span>   <span class="cm"># = 13 days</span>
+dip_depth        = (<span class="num">1310</span> - <span class="num">1205</span>) / <span class="num">1310</span> * <span class="num">100</span>  <span class="cm"># = 8.02%</span>
+
+<span class="cm"># Scanner jumps to day 49, looks for next dip</span></pre>
+
+                        <p>The dip is tracked as "close dropped ≥5% below the best close of the prior 30 trading days" —
+                            it is a close-to-close measurement, not intraday.</p>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+    <button class="scrolltop" id="scrolltop" title="Back to top">↑</button>
+
+    <script>
+        // ── Active nav on scroll ──────────────────────────────────────────────────────
+        const allCards = document.querySelectorAll(".indicator-card, .deep-dive[id]");
+        const navItems = document.querySelectorAll(".nav-item");
+        const mainContent = document.getElementById("main-content");
+
+        function getActive() {
+            const scrollTop = mainContent.scrollTop + 100;
+            let active = null;
+            allCards.forEach(el => {
+                if (el.id && el.getBoundingClientRect().top + mainContent.scrollTop - mainContent.getBoundingClientRect().top <= scrollTop) {
+                    active = el.id;
+                }
+            });
+            return active;
+        }
+
+        mainContent.addEventListener("scroll", () => {
+            const activeId = getActive();
+            navItems.forEach(a => {
+                a.classList.toggle("active", a.getAttribute("href") === "#" + activeId);
+            });
+            document.getElementById("scrolltop").style.display = mainContent.scrollTop > 300 ? "flex" : "none";
+        });
+
+        // Smooth scroll on nav click
+        navItems.forEach(a => {
+            a.addEventListener("click", e => {
+                e.preventDefault();
+                const target = document.querySelector(a.getAttribute("href"));
+                if (target) target.scrollIntoView({ behavior: "smooth" });
+            });
+        });
+
+        // ── Scroll to top ─────────────────────────────────────────────────────────────
+        document.getElementById("scrolltop").addEventListener("click", () => {
+            mainContent.scrollTo({ top: 0, behavior: "smooth" });
+        });
+
+        // ── Search ────────────────────────────────────────────────────────────────────
+        const searchInput = document.getElementById("search");
+
+        searchInput.addEventListener("input", () => {
+            const q = searchInput.value.trim().toLowerCase();
+            const cards = document.querySelectorAll(".indicator-card");
+
+            cards.forEach(card => {
+                if (!q) {
+                    card.classList.remove("hidden");
+                    return;
+                }
+                const text = card.textContent.toLowerCase();
+                const id = (card.id || "").toLowerCase();
+                card.classList.toggle("hidden", !text.includes(q) && !id.includes(q));
+            });
+
+            // Hide section headers if all children hidden
+            document.querySelectorAll(".section").forEach(sec => {
+                const visible = sec.querySelectorAll(".indicator-card:not(.hidden)");
+                sec.style.display = (q && visible.length === 0) ? "none" : "";
+            });
+        });
+    </script>
+</body>
+
+</html>
