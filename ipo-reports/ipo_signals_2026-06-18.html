@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IPO Opportunity Review — BHARATCOAL &amp; CORONA · QGLP-A</title>
+<style>
+  :root{
+    --bg:#f6f8fb; --panel:#ffffff; --panel2:#f1f4f8; --line:#e2e8f0;
+    --txt:#1a2230; --mut:#64748b; --acc:#2563eb;
+    --bet:#15803d; --sel:#b45309; --bye:#dc2626;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;padding:0 0 60px}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+  header{background:linear-gradient(135deg,#ffffff,#eef3fb);border-bottom:1px solid var(--line);padding:26px 0 22px;margin-bottom:24px;box-shadow:0 1px 3px rgba(16,24,40,.04)}
+  header h1{font-size:23px;font-weight:700;letter-spacing:-.2px}
+  header .sub{color:var(--mut);margin-top:6px;font-size:13.5px}
+  header .chip{display:inline-block;background:var(--panel2);border:1px solid var(--line);border-radius:20px;padding:3px 11px;font-size:12px;color:var(--mut);margin-right:6px;margin-top:10px}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:22px}
+  .tab{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 13px;cursor:pointer;font-size:13.5px;font-weight:600;color:var(--mut);display:flex;align-items:center;gap:7px;transition:.12s}
+  .tab:hover{border-color:var(--acc);color:var(--txt)}
+  .tab.active{background:var(--panel2);color:var(--txt);border-color:var(--acc)}
+  .tab .dot{width:8px;height:8px;border-radius:50%}
+  .tab.edu{background:#e8f0fe;border-color:#bcd3fb;color:#1d4ed8}
+  .tab.edu.active{background:#d6e4fd}
+  .tab.verdict{margin-left:auto;background:#e8f0fe;border-color:#bcd3fb;color:#1d4ed8}
+  .tab.verdict.active{background:#d6e4fd}
+  .score-pill{font-size:11px;font-weight:700;padding:1px 7px;border-radius:10px;background:var(--panel2)}
+  .pane{display:none;animation:fade .2s}
+  .pane.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .shead{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  .shead h2{font-size:20px}
+  .shead .name{color:var(--mut);font-size:13.5px;margin-top:3px}
+  .shead .sig{color:var(--mut);font-size:12.5px;margin-top:10px;line-height:1.7}
+  .shead .sig b{color:var(--txt);font-weight:600}
+  .bigscore{text-align:center;flex-shrink:0;min-width:150px}
+  .bigscore .lab{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--mut);margin-bottom:2px}
+  .bigscore .num{font-size:42px;font-weight:800;line-height:1}
+  .bigscore .den{font-size:16px;color:var(--mut);font-weight:600}
+  .verdict-badge{display:inline-block;font-size:11.5px;font-weight:700;padding:4px 12px;border-radius:20px;margin-top:8px;letter-spacing:.3px}
+  .qchip{display:block;margin-top:9px;font-size:11px;color:var(--mut)}
+  .qchip b{font-weight:700}
+  .v-BET{background:rgba(63,185,80,.16);color:var(--bet);border:1px solid rgba(63,185,80,.4)}
+  .v-SELECTIVE{background:rgba(210,153,34,.16);color:var(--sel);border:1px solid rgba(210,153,34,.4)}
+  .v-BYE{background:rgba(248,81,73,.16);color:var(--bye);border:1px solid rgba(248,81,73,.4)}
+  .mstrip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+  .metric{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  .metric .k{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.4px}
+  .metric .v{font-size:18px;font-weight:700;margin-top:3px}
+  .pos{color:var(--bet)} .neg{color:var(--bye)}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 22px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  .card h3{font-size:13px;text-transform:uppercase;letter-spacing:.5px;color:var(--mut);margin-bottom:14px}
+  .card h3 .tagline{text-transform:none;letter-spacing:0;color:var(--acc);font-weight:600;font-size:12px;margin-left:8px}
+  .row{margin-bottom:15px}
+  .row:last-child{margin-bottom:0}
+  .row .lbl{display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:5px}
+  .row .lbl .pts{font-weight:700}
+  .bar{height:7px;background:var(--panel2);border-radius:4px;overflow:hidden}
+  .bar i{display:block;height:100%;border-radius:4px}
+  .row .desc{font-size:12.5px;color:var(--mut);margin-top:6px}
+  .row .why{font-size:12px;color:#1d4ed8;margin-top:5px;background:rgba(37,99,235,.06);border-left:2px solid var(--acc);border-radius:0 6px 6px 0;padding:5px 10px;font-style:italic}
+  .lens-mini{display:flex;flex-wrap:wrap;gap:8px}
+  .lens-mini .lm{flex:1;min-width:120px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+  .lens-mini .lm .t{font-size:11px;color:var(--mut)}
+  .lens-mini .lm .p{font-size:15px;font-weight:700;margin-top:2px}
+  .prom{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  .prom h3{font-size:13px;text-transform:uppercase;letter-spacing:.5px;color:var(--mut);margin-bottom:9px}
+  .prom p{font-size:13.5px;line-height:1.65;color:#3a4453}
+  .prom .q{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px;margin-left:8px;vertical-align:middle}
+  .flags{background:rgba(248,81,73,.07);border:1px solid rgba(248,81,73,.25);border-radius:10px;padding:13px 16px;font-size:13px;margin-bottom:16px}
+  .flags.clean{background:rgba(63,185,80,.07);border-color:rgba(63,185,80,.25)}
+  .flags b{display:block;margin-bottom:5px;font-size:12px;text-transform:uppercase;letter-spacing:.4px;color:var(--mut)}
+  .arg{background:var(--panel2);border-left:3px solid var(--acc);border-radius:0 10px 10px 0;padding:16px 18px;margin-bottom:16px}
+  .arg h3{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--acc);margin-bottom:9px}
+  .arg .math{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--mut);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin-bottom:11px}
+  .arg p{font-size:14px;line-height:1.68}
+  .takeaway{font-size:14px;line-height:1.65;background:var(--panel);border:1px solid var(--line);border-radius:0 8px 8px 0;border-left:3px solid var(--mut);padding:13px 16px;margin-bottom:12px}
+  .teach{font-size:13.5px;line-height:1.6;background:rgba(210,153,34,.08);border:1px solid rgba(210,153,34,.3);border-radius:0 8px 8px 0;border-left:3px solid var(--sel);padding:13px 16px}
+  .teach b{color:var(--sel)}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin:6px 0 22px}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
+  th{font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:var(--mut)}
+  td.s{font-weight:700;text-align:center}
+  tr.rank1 td{background:rgba(210,153,34,.06)}
+  .pick{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-bottom:14px}
+  .pick h3{font-size:17px;display:flex;align-items:center;gap:10px;margin-bottom:4px}
+  .pick .alloc{font-size:12px;color:var(--mut);margin-bottom:10px}
+  .pick p{font-size:13.5px;color:#3a4453;line-height:1.65}
+  .note{font-size:12.5px;color:var(--mut);background:var(--panel);border:1px dashed var(--line);border-radius:10px;padding:14px 16px;margin-top:18px;line-height:1.7}
+  h2.section{font-size:16px;margin:22px 0 12px}
+  .lead{font-size:14px;line-height:1.7;color:#3a4453;margin-bottom:16px}
+  .pillar-def{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin-bottom:11px}
+  .pillar-def h4{font-size:14px;margin-bottom:5px;color:var(--txt)}
+  .pillar-def h4 span{font-size:11px;font-weight:700;color:var(--acc);background:rgba(37,99,235,.09);border:1px solid rgba(37,99,235,.28);border-radius:8px;padding:1px 8px;margin-right:8px}
+  .pillar-def p{font-size:13px;color:var(--mut);line-height:1.6}
+  .book{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+  .book:last-child{border-bottom:0}
+  .book .bk{font-weight:600;color:var(--txt);min-width:230px}
+  .book .bi{color:var(--mut)}
+  .veto{font-size:13px;color:#3a4453;line-height:1.7;background:rgba(248,81,73,.06);border:1px solid rgba(248,81,73,.22);border-radius:10px;padding:13px 16px;margin-top:6px}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1>IPO Opportunity Review — Opportunity-First (QGLP-A)</h1>
+  <div class="sub">Is it a multi-year wealth opportunity — not just a good company? · BHARATCOAL &amp; CORONA · data through 2026-06-18</div>
+  <div>
+    <span class="chip">2 stocks</span>
+    <span class="chip">headline = opportunity score · quality score shown alongside</span>
+    <span class="chip">a cheap price tag ≠ a cheap business</span>
+    <span class="chip">built to teach, not just to score</span>
+  </div>
+</div></header>
+
+<div class="wrap">
+  <div class="tabs" id="tabs"></div>
+  <div id="panes"></div>
+</div>
+
+<script>
+const STOCKS = [
+ {sym:"BHARATCOAL", name:"Bharat Coking Coal Ltd (BCCL)",
+  opp:{score:2.5, verdict:"AVOID"}, qual:{score:3.5, verdict:"BYE-BYE"},
+  sig:{px:42.55, date:"2026-06-18", list:"2026-01-19", age:"5.0m"},
+  m:{issue:"₹23", now:"₹42.55", frm_list:"+5%", to_liq:"₹213cr"},
+  desc:"<b>India's only major coking-coal producer</b> — a wholly-owned <b>Coal India subsidiary</b> (est. 1972, Dhanbad). It mines coking coal (metallurgical coal for steelmaking), non-coking coal and washed coal. The coking-coal franchise sounds strategic — India imports ~85% of its metallurgical coal — but it is a <b>cyclical, commodity, government-run miner</b>, not a value-creation machine.",
+  future:"<b>Why the IPO:</b> it raised <i>zero</i> money for the company — a <b>100% Offer-for-Sale (₹1,071cr) by parent Coal India</b>, a government disinvestment that keeps state control intact. <b>Customers:</b> domestic steel / captive PSU off-take; pricing is policy- and parent-influenced, not market-set. <b>Reinvestment:</b> this is the problem — it is a <b>PSU whose capital allocation serves the state</b>, capex earns commodity returns, and earnings are violently cyclical. <b>FY26 was ugly:</b> revenue fell ~14% and <b>PAT collapsed ~90% to ₹128cr (from ₹1,240cr)</b>, propped up only by ₹1,279cr of other income; raw-coal production fell to 35.5MT (from 40.5MT) and <b>May-26 output was down 25.5% YoY.</b> <b>Future plans:</b> new washeries (Bhojudih 2MTPA; Dugdha handed to JSW Steel) for import substitution — real, but small against a declining production base and an ESG-headwind end-market.",
+  street:"<b>Sell-side:</b> <b>no formal post-listing institutional coverage</b> — no analyst targets exist (it's a fresh PSU divestment). IPO notes leaned 'subscribe for listing pop / strategic asset', which the 146× oversubscription and 96% listing pop delivered. <b>Recent news:</b> shares jumped on the <b>Dugdha washery hand-over to JSW Steel</b> (18-Jun, the ATH catalyst) but had <b>fallen ~8% on 1-Jun on the 25.5% production drop</b> — the tape is whipsawing on operational headlines, not compounding fundamentals.",
+  prom:{q:"GOVT / PSU", c:"#b45309", t:"Promoter is the <b>President of India (Ministry of Coal) via Coal India Ltd</b> — a <b>100% OFS</b> divestment with <b>no fresh capital</b> for the business. This is a <b>state-run miner, not a founder-owner</b>: capital allocation serves the exchequer, the parent is also the controlling counterparty, and a permanent divestment overhang means more government supply to come. The seller is the government, and in an OFS the seller knows more than you."},
+  pillars:[
+   {lbl:"Engine · Growth + runway", pts:1, why:"Lynch: the big money is in fast growers with a long runway, not declining commodity producers.",
+    desc:"The coking-coal import-substitution story is real, <b>but the actual numbers are going the wrong way</b> — FY26 revenue −14%, production 35.5MT vs 40.5MT, May-26 output −25.5%. A policy-bound, cyclical TAM, not an open runway."},
+   {lbl:"Engine · Reinvestment ability", pts:0, why:"Akre's 3rd leg / Mukherjea: a PSU reinvests at the state's behest, often below cost of capital.",
+    desc:"FY25 ROE ~21% <b>evaporated in FY26 as PAT crashed ~90%</b>; capital allocation serves the government, not the shareholder. Nothing here compounds at a high, durable rate."},
+   {lbl:"Moat & Longevity", pts:1, why:"Dorsey: a moat is worthless if the end-market is structurally decaying.",
+    desc:"A genuine near-monopoly in domestic coking coal — <b>but the product is coal</b>: cyclical, commodity-priced, and under a permanent ESG / energy-transition headwind. Durable share of a shrinking, low-return pond."},
+   {lbl:"Alignment", pts:0, why:"Ritter: in an OFS the seller knows more than you. Mukherjea: PSUs serve the state, not shareholders.",
+    desc:"<b>100% OFS government divestment</b> — no fresh capital, more state selling mandated, parent is also the controlling customer. Textbook govt-vs-shareholder conflict."},
+   {lbl:"Price & Asymmetry", pts:0, why:"Agrawal: price comes last — but a ₹42 'penny' tag is not the same as cheap value.",
+    desc:"On collapsed FY26 PAT (₹128cr) the ₹18,800cr market cap is <b>~147× earnings</b>, and it's already +85% from the ₹23 issue. <b>The low share price is an illusion of cheapness</b> on a cyclical bottom-of-the-trough multiple."},
+  ],
+  qrows:[["Business",1],["Growth",0],["Profit & BS",1],["Structure",0],["Valuation",0]],
+  flags:["<b>No-engine gate:</b> Pillar A (Engine) = 1 → opportunity capped at 4 (cyclical commodity, not a compounder).","<b>PSU veto:</b> government-controlled → capped at 5 (capital allocation + permanent divestment overhang).","<b>Pure-OFS:</b> 100% offer-for-sale, no fresh capital → capped at 6.","<b>FY26 PAT −90%</b> and production declining — a quality red flag on its own.","Coal / ESG structural headwind; earnings violently cyclical."],
+  math:"Engine A 1 + Moat B 1 + Align C 0 + Price D 0 = 2 raw  →  no-engine gate (cap 4) + PSU veto (cap 5) + pure-OFS (cap 6)  →  2.5/10",
+  arg:"This is the easy call of the pair — and a trap dressed as a bargain. At ₹42 with a 'monopoly' label it <i>looks</i> cheap, but the QGLP-A lens asks whether it will <b>compound</b>, and on every pillar it fails. There is <b>no engine</b>: production and revenue are <i>declining</i>, and FY26 PAT collapsed ~90%. There is <b>no reinvestment</b>: a PSU allocates capital for the state at commodity returns. The <b>moat sits in a decaying market</b> (coal). It is a <b>100% government OFS</b> with no fresh capital and a permanent supply overhang. And the cheap-looking price is <b>~147× trough earnings</b>. The no-engine gate, the PSU veto and the pure-OFS veto all bite — this is a 2.5. Trade it for a washery-news pop if you must, but that is gambling on headlines, not owning a compounder.",
+  take:"<b>Not an opportunity — a cyclical PSU commodity bought at the wrong time.</b> A ₹42 price tag and a 'coking-coal monopoly' label mask declining production, a 90% FY26 earnings collapse, government capital allocation and a 100% OFS with no fresh money. Pass; at most a short-term news/re-rating gamble, never a wealth hold.",
+  teaches:"<b>A low share price is not a low valuation — and 'monopoly' is not 'opportunity.'</b> The most seductive IPO trap is a strategic-sounding, cheap-looking PSU. Always check the engine first: if production is shrinking, earnings are cyclical and the cash is allocated by the state, no label and no ₹-tag makes it a compounder."},
+
+ {sym:"CORONA", name:"Corona Remedies Ltd",
+  opp:{score:6.0, verdict:"OPPORTUNITY"}, qual:{score:8.0, verdict:"BET"},
+  sig:{px:1836, date:"2026-06-18", list:"2025-12-15", age:"6.1m"},
+  m:{issue:"₹1,062", now:"₹1,836", frm_list:"+28%", to_liq:"₹9cr"},
+  desc:"An Ahmedabad-based <b>branded-formulations pharma company</b> — develops, makes and markets prescription brands across <b>women's healthcare, cardiology, pain management, urology</b> and other chronic therapies. Distribution is the moat: a <b>pan-India field force of 2,671 medical representatives across 22 states</b>, with two brands already crossing ₹100cr revenue.",
+  future:"<b>Why the IPO:</b> a <b>100% Offer-for-Sale (₹655cr) by the founding Mehta family</b> — a cash-out, no fresh capital for the company. <b>Customers:</b> doctors / chemists via prescription pull — sticky, repeat, brand-driven demand rather than tenders. <b>Reinvestment (the engine):</b> this is what makes it real — <b>ROE 27.5% (FY25) → ~31% 9MFY26, ROCE 41–48%</b>, with a <b>modest ~30% dividend payout (₹10/sh FY26)</b> so ~70% of a 30%-ROE profit base is <b>retained and compounded</b>. <b>Growth:</b> revenue ₹884→1,014→1,196→1,403cr (FY23–26, ~17% CAGR); <b>PAT ₹85→90→149→199cr, +33% in FY26</b>; Q4FY26 PAT +44%. <b>Future plans:</b> chronic-therapy deepening + biosimilars expansion — a large, under-penetrated Indian branded-pharma runway.",
+  street:"<b>Sell-side:</b> thin but positive — <b>2 analysts, consensus BUY, mean target ₹1,948</b>. But at ₹1,836 that's <b>only ~6–9% upside</b> — <b>the easy re-rating has already happened</b> (+73% from the ₹1,062 issue, near the ₹1,949 52-week high). <b>Recent news:</b> a <b>17-Jun block deal of 44.9 lakh shares (~₹777cr)</b> spiked the stock — large-holder churn worth watching for an unlock/exit overhang. <b>Liquidity is thin</b> (~₹9cr/day 20-day turnover), so entries and exits move the tape.",
+  prom:{q:"FOUNDER-FAMILY", c:"#15803d", t:"<b>Founder Mehta family</b> (Dr Kirtikumar Mehta and family) — genuine <b>owner-operators</b> who built the franchise, which beats PE- or government-controlled names on alignment. <b>The caveat:</b> the IPO was a <b>100% OFS cash-out</b> by the family — they sold, no fresh capital went into the business — though they retain a controlling majority post-listing, so their wealth stays tied to execution."},
+  pillars:[
+   {lbl:"Engine · Growth + runway", pts:2, why:"Lynch: a fast grower in a large, under-penetrated market is where multibaggers live.",
+    desc:"~17% revenue / ~33% PAT growth, accelerating (Q4FY26 PAT +44%), in chronic therapies + biosimilars with a <b>large, under-penetrated Indian branded-pharma TAM.</b> A real fast grower with a long runway."},
+   {lbl:"Engine · Reinvestment ability", pts:2, why:"Akre's 3rd leg: a high ROE you can actually reinvest is the engine of compounding.",
+    desc:"<b>ROE 27–31%, ROCE 41–48%, ~30% payout</b> — it <b>retains and redeploys ~70% of a 30%-ROE profit base.</b> This is the textbook reinvestment engine BHARATCOAL completely lacks."},
+   {lbl:"Moat & Longevity", pts:1, why:"Dorsey: brand + distribution create switching costs that make high returns persist.",
+    desc:"Brand equity + a 2,671-MR prescription network + two ₹100cr+ brands give real stickiness, <b>but Indian branded generics is competitive</b> and the moat is good rather than impregnable — hence 1, not 2."},
+   {lbl:"Alignment", pts:1, why:"Skin-in-the-game: founder-owners beat PE/govt — but a 100% OFS means they were sellers here.",
+    desc:"<b>Founder-family owners</b> (a plus) <b>but the IPO was a 100% family cash-out</b> with no fresh capital into the business. Aligned long-term, yet the listing event was them selling to you."},
+   {lbl:"Price & Asymmetry", pts:0, why:"Agrawal: price comes last — but a great business after the re-rating is a poor entry.",
+    desc:"<b>+73% from issue, near the 52-week high, only ~6–9% to the Street target, ~55× P/E.</b> The quality is real but the <b>asymmetry is gone at today's price</b> — you'd be buying the ATH, not a discount."},
+  ],
+  qrows:[["Business",2],["Growth",2],["Profit & BS",2],["Structure",1],["Valuation",1]],
+  flags:["<b>Pure-OFS veto:</b> 100% family cash-out, no fresh capital → opportunity capped at 6.","<b>Price re-rated:</b> only ~6–9% to the Street target; entering at/near the ATH.","Thin liquidity (~₹9cr/day) — a 44.9-lakh-share block deal moved the stock; watch for unlock/exit overhang.","Premium ~55× P/E — justified by 30%+ ROE & growth, but no margin of safety.","Positive: ROE 27–31%, ROCE 41–48%, ~17%/33% revenue/PAT growth, two ₹100cr+ brands."],
+  math:"Engine A 4 + Moat B 1 + Align C 1 + Price D 0 = 6 raw  →  pure-OFS veto (cap 6); engine clears the gate  →  6.0/10",
+  arg:"The genuine opportunity of the pair — and the lesson is the mirror image of BHARATCOAL. Corona has a <b>real, proven engine</b> (Pillar A = 4): a 27–31% ROE that it actually <b>reinvests</b> (only ~30% paid out), 17%/33% revenue/PAT growth, and a large under-penetrated branded-pharma runway. That is the raw material of a multi-year compounder — exactly what the coal PSU lacks. <b>But two legs are weak.</b> Alignment is founder-family yet the IPO was a <b>100% cash-out</b> (the pure-OFS veto caps the score at 6); and decisively, <b>the price has already run</b> — +73% from issue, at the ATH, only ~6–9% to the Street target, ~55× earnings. So the asymmetry that rewards opportunity-hunters is gone <i>today</i>. A real engine, aligned-enough owners, bought after the re-rating nets to a 6.0 — a watchlist compounder, not a buy at the high.",
+  take:"<b>The real opportunity here — but not at this price.</b> A high-ROE, reinvesting, growing branded-pharma franchise (quality 8.0) is precisely the compounder profile you want. It's held to 'conditional' only by a full ~55× valuation (~6–9% to target) and a 100% family OFS. <b>Put it on the watchlist and buy a meaningful pullback / a proven independent quarter</b> — don't chase the ATH.",
+  teaches:"<b>The best business and the best investment are not always the same stock — and never at the same price.</b> Corona is the higher-quality company by a mile, yet it scores 'OPPORTUNITY-conditional' because you've arrived after the re-rating. Lead with the engine (Corona has it, the coal PSU doesn't), but demand your asymmetry at the <i>entry price</i> — a great compounder bought at the high is a mediocre return."},
+];
+
+const OVDOT = v => v==="CONVICTION"?"var(--bet)":v==="OPPORTUNITY"?"var(--sel)":"var(--bye)";
+const OVCLS = v => v==="CONVICTION"?"v-BET":v==="OPPORTUNITY"?"v-SELECTIVE":"v-BYE";
+const QVCLS = v => v==="BET"?"v-BET":v==="SELECTIVE"?"v-SELECTIVE":"v-BYE";
+const BARCOL = (p,mx)=> p/mx>=1?"var(--bet)":p/mx>=.5?"var(--sel)":"var(--bye)";
+
+const tabs=document.getElementById("tabs"), panes=document.getElementById("panes");
+
+/* ---- Framework / education tab (first) ---- */
+const et=document.createElement("div");
+et.className="tab edu active";et.innerHTML="📘 How to read this";
+et.onclick=()=>select(0);
+tabs.appendChild(et);
+
+const ep=document.createElement("div");
+ep.className="pane active";
+ep.innerHTML=`
+  <p class="lead">A technical signal tells you <b>when</b> a young stock breaks out. The runbook tells you <b>whether it's safe</b> (not a fraud or value trap). This report answers the question that actually builds wealth: <b>is it a multi-year compounding <i>opportunity</i>, bought before the crowd?</b> Most IPOs are not — Jay Ritter's research shows IPOs underperform peers ~34% vs 62% over three years. So the bar is high, and we lead with the <b>opportunity score (QGLP-A)</b>, showing the runbook <b>quality score</b> alongside as a safety check.</p>
+
+  <h2 class="section">The 4 pillars — score the opportunity 0–10</h2>
+  <div class="pillar-def"><h4><span>A · ENGINE</span>Does it actually compound? (the gate)</h4><p>Two sub-questions: <b>A1 Growth + runway</b> — is it growing fast with a large, under-penetrated market to keep growing? <b>A2 Reinvestment</b> — can it redeploy profits at a high return (low payout, capital base compounding)? <b>If the Engine ≤ 1, the whole score is capped at 4</b> — a profitable slow-grower or dividend payer is not an opportunity, however high its ROE.</p></div>
+  <div class="pillar-def"><h4><span>B · MOAT</span>Will the high return persist? (longevity)</h4><p>A durable moat — brand, switching costs, network, cost edge — is <i>why</i> returns don't mean-revert. A monopoly in a structurally decaying market (e.g. coal) has its longevity capped.</p></div>
+  <div class="pillar-def"><h4><span>C · ALIGNMENT</span>Will the compounding accrue to me?</h4><p>Founder-owners with wealth on the line and <b>fresh capital going into the business</b> &gt;&gt; professional managers &gt;&gt; <b>pure-OFS cash-outs (PE or government)</b>. In an OFS, the seller knows more than you.</p></div>
+  <div class="pillar-def"><h4><span>D · PRICE</span>Is the upside still on the table?</h4><p>"Price comes last" — but if the stock has already re-rated to fair value or analyst targets, the asymmetry is gone even if the business is fine. The opportunity lives at the <i>entry price</i>.</p></div>
+
+  <div class="veto"><b>Structural vetoes (cap the score, never add):</b> &nbsp; Government/PSU control → cap 5 &nbsp;·&nbsp; Pure-OFS (no fresh capital) → cap 6 &nbsp;·&nbsp; Hot-market froth listing → cap 6 &nbsp;·&nbsp; No engine (A ≤ 1) → cap 4.</div>
+
+  <h2 class="section">Verdict bands</h2>
+  <table>
+    <tr><th>Band</th><th>Score</th><th>Meaning</th></tr>
+    <tr><td><span class="verdict-badge v-BET">CONVICTION</span></td><td class="s">8–10</td><td>A genuine compounder, aligned, upside left. Size up.</td></tr>
+    <tr><td><span class="verdict-badge v-SELECTIVE">OPPORTUNITY</span></td><td class="s">6–7.5</td><td>Real engine, one leg weak (price / alignment / proof). Half-size or wait.</td></tr>
+    <tr><td><span class="verdict-badge v-BYE">NOT AN OPPORTUNITY</span></td><td class="s">4–5.5</td><td>May be a fine company, but won't compound for you — or you've missed the entry. Pass.</td></tr>
+    <tr><td><span class="verdict-badge v-BYE">AVOID</span></td><td class="s">&lt;4</td><td>Steer clear.</td></tr>
+  </table>
+
+  <h2 class="section">Where this comes from — the reading list</h2>
+  <div class="card" style="padding:8px 22px">
+    <div class="book"><div class="bk">Christopher Mayer — <i>100 Baggers</i></div><div class="bi">"Twin engines": sustained EPS growth × a long reinvestment runway, run by owner-operators. You don't get 100× from a dividend payer.</div></div>
+    <div class="book"><div class="bk">Chuck Akre — three-legged stool</div><div class="bi">Compounding at a high rate × honest owner-managers × a runway to reinvest free cash. Leg 3 is the one everyone forgets.</div></div>
+    <div class="book"><div class="bk">Raamdeo Agrawal — QGLP</div><div class="bi">Quality × Growth × Longevity × Price. "Price comes last" — longevity turns growth into wealth.</div></div>
+    <div class="book"><div class="bk">Peter Lynch — <i>One Up on Wall Street</i></div><div class="bi">Categorise first; the money is in fast growers with a runway, not "slow growers" wearing a quality mask.</div></div>
+    <div class="book"><div class="bk">Saurabh Mukherjea — <i>Coffee Can Investing</i></div><div class="bi">Avoid PSUs: govt-vs-shareholder conflict, capex below cost of capital, no value-creation engine. Cheapness doesn't compensate.</div></div>
+    <div class="book"><div class="bk">Jay Ritter — IPO long-run studies</div><div class="bi">IPOs underperform peers over 3 years; worst in hot "windows of opportunity." The seller knows more than you.</div></div>
+  </div>
+  <div class="note">Read the two stock tabs as a matched pair: <b>BHARATCOAL</b> = a cheap-<i>looking</i> PSU commodity with <b>no engine</b> (declining, capped, government-allocated); <b>CORONA</b> = a <b>real, high-ROE compounder</b> bought after a +73% run. The low price tag is the worse stock; the expensive one is the actual opportunity — that inversion is the whole lesson.</div>`;
+panes.appendChild(ep);
+
+/* ---- per-stock tabs ---- */
+STOCKS.forEach((s,i)=>{
+  const idx=i+1;
+  const t=document.createElement("div");
+  t.className="tab";
+  t.innerHTML=`<span class="dot" style="background:${OVDOT(s.opp.verdict)}"></span>${s.sym}
+    <span class="score-pill" style="color:${OVDOT(s.opp.verdict)}">${s.opp.score}</span>`;
+  t.onclick=()=>select(idx);
+  tabs.appendChild(t);
+
+  const pillars=s.pillars.map(r=>`
+    <div class="row">
+      <div class="lbl"><span>${r.lbl}</span><span class="pts" style="color:${BARCOL(r.pts,2)}">${r.pts}/2</span></div>
+      <div class="bar"><i style="width:${r.pts/2*100}%;background:${BARCOL(r.pts,2)}"></i></div>
+      <div class="desc">${r.desc}</div>
+      <div class="why">Why it matters — ${r.why}</div>
+    </div>`).join("");
+  const qmini=s.qrows.map(q=>`<div class="lm"><div class="t">${q[0]}</div><div class="p" style="color:${BARCOL(q[1],2)}">${q[1]}/2</div></div>`).join("");
+  const flags=`<div class="flags${s.flagsClean?" clean":""}"><b>${s.flagsClean?"Caps / flags — clean":"Caps &amp; red flags"}</b>${s.flags.map(f=>"• "+f).join("<br>")}</div>`;
+
+  const p=document.createElement("div");
+  p.className="pane";
+  p.innerHTML=`
+    <div class="shead">
+      <div>
+        <h2>${s.sym}</h2>
+        <div class="name">${s.name}</div>
+        <div class="sig">Signal: <b>athbreak</b> at ₹${s.sig.px} on <b>${s.sig.date}</b><br>
+          Listed <b>${s.sig.list}</b> · age at signal <b>${s.sig.age}</b></div>
+      </div>
+      <div class="bigscore">
+        <div class="lab">Opportunity score</div>
+        <div><span class="num" style="color:${OVDOT(s.opp.verdict)}">${s.opp.score}</span><span class="den">/10</span></div>
+        <div class="verdict-badge ${OVCLS(s.opp.verdict)}">${s.opp.verdict}</div>
+        <div class="qchip">Quality screen: <b>${s.qual.score}/10</b> · <span class="${QVCLS(s.qual.verdict)}" style="padding:1px 7px;border-radius:8px">${s.qual.verdict}</span></div>
+      </div>
+    </div>
+    <div class="mstrip">
+      <div class="metric"><div class="k">Issue px</div><div class="v">${s.m.issue}</div></div>
+      <div class="metric"><div class="k">Now</div><div class="v">${s.m.now}</div></div>
+      <div class="metric"><div class="k">From listing</div><div class="v ${s.m.frm_list.startsWith('-')?'neg':'pos'}">${s.m.frm_list}</div></div>
+      <div class="metric"><div class="k">20d turnover</div><div class="v">${s.m.to_liq}</div></div>
+    </div>
+    <div class="card"><h3>What it does</h3><p style="font-size:14px;line-height:1.65;color:#3a4453">${s.desc}</p></div>
+    <div class="card"><h3>Future prospects · why the IPO · customers</h3><p style="font-size:13.5px;line-height:1.7;color:#3a4453">${s.future}</p></div>
+    <div class="card"><h3>Street view &amp; recent news</h3><p style="font-size:13.5px;line-height:1.7;color:#3a4453">${s.street}</p></div>
+    <div class="prom"><h3>Promoters &amp; management <span class="q" style="background:${s.prom.c}22;color:${s.prom.c};border:1px solid ${s.prom.c}55">${s.prom.q}</span></h3><p>${s.prom.t}</p></div>
+    <div class="card"><h3>Opportunity scorecard — QGLP-A <span class="tagline">the 4 pillars · each with why it matters</span></h3>${pillars}</div>
+    <div class="card"><h3>Quality screen (runbook 5-lens) <span class="tagline">the safety check — is it a landmine?</span></h3><div class="lens-mini">${qmini}</div></div>
+    ${flags}
+    <div class="arg"><h3>⚖️ Why this score</h3><div class="math">${s.math}</div><p>${s.arg}</p></div>
+    <div class="takeaway"><b>Bottom line.</b> ${s.take}</div>
+    <div class="teach"><b>📚 What this teaches you.</b> ${s.teaches}</div>`;
+  panes.appendChild(p);
+});
+
+/* ---- Where to invest tab ---- */
+const vt=document.createElement("div");
+vt.className="tab verdict";vt.innerHTML="🎯 Where to Invest";
+vt.onclick=()=>select(STOCKS.length+1);
+tabs.appendChild(vt);
+
+const ranked=[...STOCKS].sort((a,b)=>b.opp.score-a.opp.score);
+const trows=ranked.map((s,i)=>`
+  <tr class="${i===0?'rank1':''}">
+    <td>${i+1}</td><td><b>${s.sym}</b></td>
+    <td class="s" style="color:${OVDOT(s.opp.verdict)}">${s.opp.score}</td>
+    <td><span class="verdict-badge ${OVCLS(s.opp.verdict)}">${s.opp.verdict}</span></td>
+    <td class="s" style="color:var(--mut)">${s.qual.score}</td>
+  </tr>`).join("");
+
+const vp=document.createElement("div");
+vp.className="pane";
+vp.innerHTML=`
+  <h2 class="section">The ranking — by opportunity, not by price tag</h2>
+  <table>
+    <tr><th>#</th><th>Symbol</th><th>Opp score</th><th>Verdict</th><th>Quality</th></tr>
+    ${trows}
+  </table>
+
+  <div class="pick">
+    <h3><span class="dot" style="width:10px;height:10px;border-radius:50%;background:var(--sel)"></span> One watchlist compounder, one pass — and the cheaper stock is the pass</h3>
+    <div class="alloc">No capital deployed today · CORONA → watchlist (buy a pullback) · BHARATCOAL → avoid</div>
+    <p><b>CORONA (6.0, quality 8.0)</b> is the genuine opportunity: a 27–31%-ROE branded-pharma franchise that <b>reinvests ~70% of its profit</b> and grows revenue/PAT ~17%/33% — a real compounder. It's held to 'conditional' only because you've <b>arrived after a +73% run</b> (≤9% to the Street target, ~55× earnings) and the IPO was a 100% family cash-out. <b>Track it; buy a meaningful pullback or a proven independent quarter — don't chase the ATH.</b> <b>BHARATCOAL (2.5, quality 3.5)</b> looks cheap at ₹42 but is the opposite animal: a <b>cyclical government coal miner with no engine</b> — production and revenue declining, FY26 PAT down 90%, capital allocated by the state, 100% OFS. Avoid as a wealth hold; only a short-term news/re-rating gamble.</p>
+  </div>
+
+  <div class="note">
+    <b>The point of this report:</b> a naive eye anchors on the price tag — ₹42 "must be cheap," ₹1,836 "must be expensive." The opportunity lens <b>inverts that</b>: BHARATCOAL is the expensive one (147× trough earnings, no compounding), and CORONA — up 73% and at ~55× — is the one with a real engine worth owning at the right entry. <b>Lead with the engine, demand alignment, and insist on your asymmetry at the entry price. Most IPOs underperform, so "pass — but watch" is often the correct answer.</b>
+  </div>`;
+panes.appendChild(vp);
+
+function select(n){
+  document.querySelectorAll(".tab").forEach((t,i)=>t.classList.toggle("active",i===n));
+  document.querySelectorAll(".pane").forEach((p,i)=>p.classList.toggle("active",i===n));
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+</script>
+</body>
+</html>

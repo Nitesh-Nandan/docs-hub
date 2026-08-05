@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IPO Opportunity Review — 4 Jul 2026 · QGLP-A</title>
+<style>
+  :root{
+    --bg:#f6f8fb; --panel:#ffffff; --panel2:#f1f4f8; --line:#e2e8f0;
+    --txt:#1a2230; --mut:#64748b; --acc:#2563eb;
+    --bet:#15803d; --sel:#b45309; --bye:#dc2626;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;padding:0 0 60px}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+  header{background:linear-gradient(135deg,#ffffff,#eef3fb);border-bottom:1px solid var(--line);padding:26px 0 22px;margin-bottom:24px;box-shadow:0 1px 3px rgba(16,24,40,.04)}
+  header h1{font-size:23px;font-weight:700;letter-spacing:-.2px}
+  header .sub{color:var(--mut);margin-top:6px;font-size:13.5px}
+  header .chip{display:inline-block;background:var(--panel2);border:1px solid var(--line);border-radius:20px;padding:3px 11px;font-size:12px;color:var(--mut);margin-right:6px;margin-top:10px}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:22px}
+  .tab{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 13px;cursor:pointer;font-size:13.5px;font-weight:600;color:var(--mut);display:flex;align-items:center;gap:7px;transition:.12s}
+  .tab:hover{border-color:var(--acc);color:var(--txt)}
+  .tab.active{background:var(--panel2);color:var(--txt);border-color:var(--acc)}
+  .tab .dot{width:8px;height:8px;border-radius:50%}
+  .tab.edu{background:#e8f0fe;border-color:#bcd3fb;color:#1d4ed8}
+  .tab.edu.active{background:#d6e4fd}
+  .tab.verdict{margin-left:auto;background:#e8f0fe;border-color:#bcd3fb;color:#1d4ed8}
+  .tab.verdict.active{background:#d6e4fd}
+  .score-pill{font-size:11px;font-weight:700;padding:1px 7px;border-radius:10px;background:var(--panel2)}
+  .pane{display:none;animation:fade .2s}
+  .pane.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .shead{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  .shead h2{font-size:20px}
+  .shead .name{color:var(--mut);font-size:13.5px;margin-top:3px}
+  .shead .sig{color:var(--mut);font-size:12.5px;margin-top:10px;line-height:1.7}
+  .shead .sig b{color:var(--txt);font-weight:600}
+  .bigscore{text-align:center;flex-shrink:0;min-width:150px}
+  .bigscore .lab{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--mut);margin-bottom:2px}
+  .bigscore .num{font-size:42px;font-weight:800;line-height:1}
+  .bigscore .den{font-size:16px;color:var(--mut);font-weight:600}
+  .verdict-badge{display:inline-block;font-size:11.5px;font-weight:700;padding:4px 12px;border-radius:20px;margin-top:8px;letter-spacing:.3px}
+  .qchip{display:block;margin-top:9px;font-size:11px;color:var(--mut)}
+  .qchip b{font-weight:700}
+  .v-BET{background:rgba(63,185,80,.16);color:var(--bet);border:1px solid rgba(63,185,80,.4)}
+  .v-SELECTIVE{background:rgba(210,153,34,.16);color:var(--sel);border:1px solid rgba(210,153,34,.4)}
+  .v-BYE{background:rgba(248,81,73,.16);color:var(--bye);border:1px solid rgba(248,81,73,.4)}
+  .mstrip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+  .metric{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  .metric .k{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.4px}
+  .metric .v{font-size:18px;font-weight:700;margin-top:3px}
+  .pos{color:var(--bet)} .neg{color:var(--bye)}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 22px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  .card h3{font-size:13px;text-transform:uppercase;letter-spacing:.5px;color:var(--mut);margin-bottom:14px}
+  .card p{font-size:13.5px;line-height:1.65;color:#3a4453}
+  .card p+p{margin-top:10px}
+  .row{margin-bottom:15px}
+  .row:last-child{margin-bottom:0}
+  .row .lbl{display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:5px}
+  .row .lbl .pts{font-weight:700}
+  .bar{height:7px;background:var(--panel2);border-radius:4px;overflow:hidden}
+  .bar i{display:block;height:100%;border-radius:4px}
+  .row .desc{font-size:12.5px;color:var(--mut);margin-top:6px}
+  .row .why{font-size:12px;color:#1d4ed8;margin-top:5px;background:rgba(37,99,235,.06);border-left:2px solid var(--acc);border-radius:0 6px 6px 0;padding:5px 10px;font-style:italic}
+  .lens-mini{display:flex;flex-wrap:wrap;gap:8px}
+  .lens-mini .lm{flex:1;min-width:120px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+  .lens-mini .lm .t{font-size:11px;color:var(--mut)}
+  .lens-mini .lm .p{font-size:15px;font-weight:700;margin-top:2px}
+  .prom{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  .prom h3{font-size:13px;text-transform:uppercase;letter-spacing:.5px;color:var(--mut);margin-bottom:9px}
+  .prom p{font-size:13.5px;line-height:1.65;color:#3a4453}
+  .prom .q{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px;margin-left:8px;vertical-align:middle}
+  .flags{background:rgba(248,81,73,.07);border:1px solid rgba(248,81,73,.25);border-radius:10px;padding:13px 16px;font-size:13px;margin-bottom:16px}
+  .flags.clean{background:rgba(63,185,80,.07);border-color:rgba(63,185,80,.25)}
+  .flags b{display:block;margin-bottom:5px;font-size:12px;text-transform:uppercase;letter-spacing:.4px;color:var(--mut)}
+  .arg{background:var(--panel2);border-left:3px solid var(--acc);border-radius:0 10px 10px 0;padding:16px 18px;margin-bottom:16px}
+  .arg h3{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--acc);margin-bottom:9px}
+  .arg .math{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--mut);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin-bottom:11px}
+  .arg p{font-size:14px;line-height:1.68}
+  .takeaway{font-size:14px;line-height:1.65;background:var(--panel);border:1px solid var(--line);border-radius:0 8px 8px 0;border-left:3px solid var(--mut);padding:13px 16px;margin-bottom:12px}
+  .teach{font-size:13.5px;line-height:1.6;background:rgba(210,153,34,.08);border:1px solid rgba(210,153,34,.3);border-radius:0 8px 8px 0;border-left:3px solid var(--sel);padding:13px 16px}
+  .teach b{color:var(--sel)}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin:6px 0 22px}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
+  th{font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:var(--mut)}
+  td.s{font-weight:700;text-align:center}
+  tr.rank1 td{background:rgba(210,153,34,.06)}
+  .pick{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-bottom:14px}
+  .pick h3{font-size:17px;display:flex;align-items:center;gap:10px;margin-bottom:4px}
+  .pick .alloc{font-size:12px;color:var(--mut);margin-bottom:10px}
+  .pick p{font-size:13.5px;color:#3a4453;line-height:1.65}
+  .note{font-size:12.5px;color:var(--mut);background:var(--panel);border:1px dashed var(--line);border-radius:10px;padding:14px 16px;margin-top:18px;line-height:1.7}
+  h2.section{font-size:16px;margin:22px 0 12px}
+  .lead{font-size:14px;line-height:1.7;color:#3a4453;margin-bottom:16px}
+  .pillar-def{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin-bottom:11px}
+  .pillar-def h4{font-size:14px;margin-bottom:5px;color:var(--txt)}
+  .pillar-def h4 span{font-size:11px;font-weight:700;color:var(--acc);background:rgba(37,99,235,.09);border:1px solid rgba(37,99,235,.28);border-radius:8px;padding:1px 8px;margin-right:8px}
+  .pillar-def p{font-size:13px;color:var(--mut);line-height:1.6}
+  .book{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+  .book:last-child{border-bottom:0}
+  .book .bk{font-weight:600;color:var(--txt);min-width:230px}
+  .book .bi{color:var(--mut)}
+  .veto{font-size:13px;color:#3a4453;line-height:1.7;background:rgba(248,81,73,.06);border:1px solid rgba(248,81,73,.22);border-radius:10px;padding:13px 16px;margin-top:6px}
+  .warn{background:rgba(248,81,73,.08);border:1px solid rgba(248,81,73,.3);border-radius:12px;padding:16px 20px;margin-bottom:18px}
+  .warn h3{font-size:13px;text-transform:uppercase;letter-spacing:.4px;color:var(--bye);margin-bottom:8px}
+  .warn p{font-size:13.5px;line-height:1.65;color:#3a4453}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1>IPO Opportunity Review — Opportunity-First (QGLP-A)</h1>
+  <div class="sub">Is it a multi-year wealth opportunity — not just a good company? · 5 screener signals · data through 2026-07-03</div>
+  <div>
+    <span class="chip">5 signals in · 2 real IPOs</span>
+    <span class="chip">3 mis-flagged veterans (listing-date bug)</span>
+    <span class="chip">headline = opportunity score</span>
+    <span class="chip">profit ≠ opportunity</span>
+  </div>
+</div></header>
+
+<div class="wrap">
+  <div class="tabs">
+    <div class="tab edu active" onclick="show(0,this)">📖 How to read this</div>
+    <div class="tab" onclick="show(1,this)"><span class="dot" style="background:var(--sel)"></span>SAIPARENT <span class="score-pill">6.5</span></div>
+    <div class="tab" onclick="show(2,this)"><span class="dot" style="background:var(--sel)"></span>OMNI <span class="score-pill">6.5</span></div>
+    <div class="tab" onclick="show(3,this)"><span class="dot" style="background:var(--bye)"></span>GNRL / KPL / FEDDERSHOL</div>
+    <div class="tab verdict" onclick="show(4,this)">🎯 Where to invest</div>
+  </div>
+
+  <!-- ============ FRAMEWORK TAB ============ -->
+  <div class="pane active">
+    <p class="lead">This report scores each fresh listing on the only question that builds wealth from IPOs:
+    <b>"Is this a multi-year compounding machine, run by aligned owners, that I can still buy with the upside ahead of me?"</b>
+    A profitable company that cannot compound — or one where the easy re-rating has already happened — is <i>not</i> an opportunity.</p>
+
+    <div class="card">
+      <h3>The two lenses</h3>
+      <p><b>1 · Quality score (runbook, /10)</b> — the safety check. Is it a real, non-fraudulent business, not a value trap? Five lenses (business, growth, profitability, IPO structure, valuation), added up.</p>
+      <p><b>2 · Opportunity score (QGLP-A, /10)</b> — <b>the headline.</b> Will it compound <i>for me</i>, and is the upside still on the table? This is a <i>gated</i> score, not an additive one — that's the whole point.</p>
+    </div>
+
+    <h2 class="section">QGLP-A — the 4 pillars</h2>
+    <div class="pillar-def"><h4><span>A · ENGINE (0–4) · GATING</span> Does it actually compound?</h4>
+      <p>A1 growth + runway (&gt;20% growth into a large under-penetrated TAM) and A2 reinvestment ability (can it redeploy profit at high ROIC, or is the cash paid out?). <b>If A ≤ 1, the whole score is capped at 4</b> — a profitable non-compounder is a dividend stock, not an opportunity.</p></div>
+    <div class="pillar-def"><h4><span>B · MOAT &amp; LONGEVITY (0–2)</span> Will the high return persist?</h4>
+      <p>Durable moat (intangibles, switching costs, cost edge) and an end-market that isn't structurally decaying. No moat → returns mean-revert → no longevity.</p></div>
+    <div class="pillar-def"><h4><span>C · ALIGNMENT (0–2)</span> Will the compounding accrue to ME?</h4>
+      <p>Founder-owner with fresh capital going <i>into</i> the business = 2. Pure OFS cash-out / PE exit / government divestment = 0. In an OFS, the seller knows more than you.</p></div>
+    <div class="pillar-def"><h4><span>D · PRICE &amp; ASYMMETRY (0–2)</span> Is the upside still on the table?</h4>
+      <p>Margin of safety vs realistic downside. If the stock already sits at/near fair value or street targets after a big run, the asymmetry is gone even if the business is fine.</p></div>
+
+    <div class="veto"><b>Structural vetoes (cap, never add):</b> Government/PSU control → cap 5 · Pure-OFS no fresh capital → cap 6 · Hot-window froth listing → cap 6 · No engine (A ≤ 1) → cap 4.
+    <br><b>Verdict bands:</b> 8–10 CONVICTION (size up) · 6–7.5 OPPORTUNITY-conditional (half-size / wait for the condition) · 4–5.5 NOT AN OPPORTUNITY · &lt;4 AVOID.</div>
+
+    <div class="warn">
+      <h3>⚠ Read this before the stock tabs — 3 of the 5 signals are false positives</h3>
+      <p>The IPO_ATHBREAK screener infers "listing date" from the <i>first candle in the DB</i>. On <b>2026-04-20</b> a batch of ~91 older stocks was backfilled, so their first candle is 2026-04-20 and they mis-fire as "fresh IPOs." <b>GNRL, KPL and FEDDERSHOL are all long-listed veterans</b> caught by this bug — they are not IPOs and QGLP-A (an IPO framework) does not apply. Only <b>SAIPARENT</b> and <b>OMNI</b> are genuine 2026 listings. See the third tab.</p>
+    </div>
+
+    <div class="card">
+      <h3>The reading list — how great investors think</h3>
+      <div class="book"><div class="bk">100 Baggers — Christopher Mayer</div><div class="bi">"Twin engines": high sustained EPS growth × multiple expansion, on a long reinvestment runway, run by owner-operators. You don't get 100x from a dividend payer.</div></div>
+      <div class="book"><div class="bk">The Three-Legged Stool — Chuck Akre</div><div class="bi">Compounding business × honest owner-managers × a runway to reinvest free cash above cost of capital. Leg 3 is the one everyone forgets.</div></div>
+      <div class="book"><div class="bk">QGLP — Raamdeo Agrawal</div><div class="bi">Quality × Growth × Longevity × Price. "Price comes last." Longevity turns growth into wealth.</div></div>
+      <div class="book"><div class="bk">One Up on Wall Street — Peter Lynch</div><div class="bi">Categorise first. The big money is in fast growers with a long runway — not stalwarts or slow growers wearing a quality mask.</div></div>
+      <div class="book"><div class="bk">Coffee Can Investing — Saurabh Mukherjea</div><div class="bi">Avoid PSUs: govt-vs-shareholder conflict, sub-cost-of-capital capex, no value-creation engine. Cheapness doesn't compensate.</div></div>
+      <div class="book"><div class="bk">IPO long-run studies — Jay Ritter</div><div class="bi">IPOs underperform peers over 3 years, worst in hot "windows." The seller knows more than you — especially in an OFS. Default skepticism is rational.</div></div>
+      <div class="book"><div class="bk">The Little Book That Builds Wealth — Pat Dorsey</div><div class="bi">Moats (intangibles, switching costs, network, cost edge) are why high returns persist. No moat → mean reversion.</div></div>
+    </div>
+  </div>
+
+  <!-- ============ SAIPARENT ============ -->
+  <div class="pane">
+    <div class="shead">
+      <div>
+        <h2>SAIPARENT</h2>
+        <div class="name">Sai Parenterals Ltd · pharma formulations + CDMO · SMALL CAP ₹2,733 cr</div>
+        <div class="sig">Signal: <b>ATH breakout · BUY</b> · ref close <b>₹612.1</b> on <b>2026-07-01</b> (status: NEEDS REVIEW) · listed <b>2026-04-02</b> (age ~3m) · genuine 2026 IPO ✓</div>
+      </div>
+      <div class="bigscore">
+        <div class="lab">Opportunity</div>
+        <div class="num" style="color:var(--sel)">6.5</div><div class="den">/ 10</div>
+        <div class="verdict-badge v-SELECTIVE">OPPORTUNITY — conditional</div>
+        <span class="qchip">Quality (runbook): <b>6/10</b></span>
+      </div>
+    </div>
+
+    <div class="mstrip">
+      <div class="metric"><div class="k">Issue price</div><div class="v">₹392</div></div>
+      <div class="metric"><div class="k">Now</div><div class="v">₹618.6</div></div>
+      <div class="metric"><div class="k">From listing close</div><div class="v pos">+50.9%</div></div>
+      <div class="metric"><div class="k">20d turnover</div><div class="v">₹18 cr</div></div>
+    </div>
+
+    <div class="card"><h3>What it does</h3>
+      <p>Sai Parenterals makes pharmaceutical <b>formulations</b> — injectables (its heritage), tablets, capsules, syrups and ointments — for India and export markets, and runs a fast-growing <b>CDMO</b> (contract manufacturing) arm. Post-IPO it owns <b>Noumed Pharmaceuticals (Australia)</b>, an OTC-medicines business, via a Singapore holdco — its lever into regulated Western OTC distribution.</p>
+    </div>
+
+    <div class="card"><h3>Future prospects · why the IPO · customers</h3>
+      <p><b>Why they listed:</b> ₹409 cr issue = <b>~₹285 cr fresh (70%)</b> + ~₹124 cr OFS. The fresh money repays bridge/term loans taken to acquire Noumed — i.e. capital went <i>into</i> the business, and the <b>OFS was entirely non-promoter early investors, not the founders</b>. That's the alignment you want.</p>
+      <p><b>The engine:</b> CDMO revenue scaled <b>₹5.3 cr → ₹31 cr (FY23→FY25)</b>, ~6× in two years. The transformational catalyst landed <b>1 Jul 2026</b>: Noumed signed an <b>exclusive ₹1,300 cr (AUD 202M) OTC supply deal</b> with an Australian pharmacy network — <b>7.5 years, ~₹173 cr/yr run-rate</b>, roughly a full current quarter of revenue from a single contract, effective immediately. Long TAM (regulated-market OTC + CDMO), reinvestment-heavy young company (low payout).</p>
+      <p><b>The catch:</b> FY25 base is tiny — revenue ₹164 cr, PAT ₹14.5 cr, EBITDA ₹39 cr. Much of the story is <i>forward</i>, and execution on the Noumed deal is unproven in the P&amp;L yet.</p>
+    </div>
+
+    <div class="card"><h3>Street view &amp; recent news</h3>
+      <p>No formal post-listing institutional coverage yet. IPO-stage valuation was already steep — <b>~88–111× P/E</b> at the issue price; peers Gland Pharma and Innova Captab trade far lower. The stock is now <b>+58% above issue</b> and at an all-time high, so the multiple is richer still. <b>News flow is strongly positive:</b> the ₹1,300 cr Noumed OTC deal (1 Jul) and an analyst/investor meet (2 Jul) are what drove the ATH breakout this signal fired on.</p>
+    </div>
+
+    <div class="prom"><h3>Promoters &amp; management <span class="q" style="background:rgba(63,185,80,.16);color:var(--bet)">GOOD</span></h3>
+      <p>Founder-promoter group retained control — the OFS came from <b>non-promoter early investors booking profit, not the founders</b>. Fresh issue funds the Noumed acquisition rather than a cash-out. This is a <b>founder-run growth company deploying fresh capital into an offshore expansion</b> — aligned, though the offshore/Singapore-holdco structure adds complexity to watch.</p>
+    </div>
+
+    <div class="card"><h3>QGLP-A scorecard <span style="text-transform:none;letter-spacing:0;color:var(--acc);font-weight:600;font-size:12px;margin-left:8px">primary — the opportunity</span></h3>
+      <div class="row"><div class="lbl"><span>A · Engine — Growth + runway</span><span class="pts">2 / 2</span></div>
+        <div class="bar"><i style="width:100%;background:var(--bet)"></i></div>
+        <div class="desc">CDMO ~6× in two years + a transformational ₹1,300 cr / 7.5-yr Noumed OTC contract at ~₹173 cr/yr. Regulated-market OTC and CDMO are large, under-penetrated TAMs.</div>
+        <div class="why">Lynch: the big money is in fast growers with a long runway — and this has just been handed one.</div></div>
+      <div class="row"><div class="lbl"><span>A · Engine — Reinvestment ability</span><span class="pts">1.5 / 2</span></div>
+        <div class="bar"><i style="width:75%;background:var(--bet)"></i></div>
+        <div class="desc">Young company, low payout, fresh capital funding the Noumed build-out — it <i>reinvests</i>. Marked down only because ROE is modest off a tiny base and the offshore capital cycle is unproven.</div>
+        <div class="why">Akre's 3rd leg: a business that can redeploy its cash flow at a high return is what compounds.</div></div>
+      <div class="row"><div class="lbl"><span>B · Moat &amp; Longevity</span><span class="pts">1 / 2</span></div>
+        <div class="bar"><i style="width:50%;background:var(--sel)"></i></div>
+        <div class="desc">Regulatory/approval barriers in injectables + a locked 7.5-yr exclusive contract give some durability, but it is <b>sub-scale vs Gland/Innova</b> and the moat is contract- not franchise-based.</div>
+        <div class="why">Dorsey: an exclusive contract is a moat with an expiry date — real, but not a franchise.</div></div>
+      <div class="row"><div class="lbl"><span>C · Alignment</span><span class="pts">2 / 2</span></div>
+        <div class="bar"><i style="width:100%;background:var(--bet)"></i></div>
+        <div class="desc">70% fresh issue into the business; OFS was non-promoter investors, founders did not sell. Best-in-class alignment for this batch.</div>
+        <div class="why">Ritter: fear the OFS where the <i>owner</i> sells. Here the owner stayed and put money in.</div></div>
+      <div class="row"><div class="lbl"><span>D · Price &amp; Asymmetry</span><span class="pts">0.5 / 2</span></div>
+        <div class="bar"><i style="width:25%;background:var(--bye)"></i></div>
+        <div class="desc"><b>~100×+ P/E</b> on trailing earnings, +58% above issue, sitting at an all-time high. The Noumed re-rating is largely <i>in</i> the price — you're paying up-front for execution.</div>
+        <div class="why">Agrawal: price comes last, but it still comes. Perfection is priced in here.</div></div>
+    </div>
+
+    <div class="card"><h3>Quality screen <span style="text-transform:none;letter-spacing:0;color:var(--mut);font-weight:600;font-size:12px;margin-left:8px">secondary — safety check · 6/10</span></h3>
+      <div class="lens-mini">
+        <div class="lm"><div class="t">Business quality</div><div class="p">1/2</div></div>
+        <div class="lm"><div class="t">Growth</div><div class="p">2/2</div></div>
+        <div class="lm"><div class="t">Profitability &amp; BS</div><div class="p">1/2</div></div>
+        <div class="lm"><div class="t">IPO structure</div><div class="p">2/2</div></div>
+        <div class="lm"><div class="t">Valuation</div><div class="p">0/2</div></div>
+      </div>
+    </div>
+
+    <div class="flags"><b>Red-flag box</b>No fraud/litigation/promoter-selling flags. Watch: (1) valuation is egregious (~100×+); (2) offshore Noumed/Singapore-holdco structure and its debt; (3) execution of the ₹1,300 cr deal is not yet in reported numbers. No hard cap applied.</div>
+
+    <div class="arg"><h3>Why this score</h3>
+      <div class="math">Engine A 3.5 + Moat B 1 + Align C 2 + Price D 0.5 = 7.0 raw → froth trim on price → 6.5</div>
+      <p>The engine is <b>real and gating-clear</b> (A=3.5): a genuinely fast-growing CDMO just handed a multi-year, ₹1,300 cr exclusive contract, funded by fresh capital under aligned founders. That is exactly the profile QGLP-A rewards. It is held to <b>conditional, not conviction,</b> by a single leg — <b>price</b>: ~100×+ earnings at an ATH after +58%, so the asymmetry is thin and you're underwriting flawless Noumed execution. No structural veto applies (mostly fresh, founder-run, not a PSU).</p>
+    </div>
+
+    <div class="takeaway"><b>Bottom line:</b> A real compounder-in-the-making with the best alignment of the batch — but bought at the worst possible price (ATH, ~100×+). <b>Don't chase the breakout.</b> Build on weakness / half-size, and let a quarter or two prove the Noumed run-rate converts to earnings before sizing up.</div>
+    <div class="teach"><b>What this teaches:</b> a transformational contract and a fair price rarely arrive together — by the time the news is on the tape, the multiple has usually eaten the upside. The engine tells you <i>whether to want it</i>; the price tells you <i>whether to buy it today</i>.</div>
+  </div>
+
+  <!-- ============ OMNI ============ -->
+  <div class="pane">
+    <div class="shead">
+      <div>
+        <h2>OMNI</h2>
+        <div class="name">Omnitech Engineering Ltd · high-precision engineered components · SMALL CAP ₹6,290 cr</div>
+        <div class="sig">Signal: <b>ATH breakout · BUY</b> · ref close <b>₹536.4</b> on <b>2026-06-30</b> (status: EXPIRED) · listed <b>2026-03-05</b> (age ~4m) · genuine 2026 IPO ✓</div>
+      </div>
+      <div class="bigscore">
+        <div class="lab">Opportunity</div>
+        <div class="num" style="color:var(--sel)">6.5</div><div class="den">/ 10</div>
+        <div class="verdict-badge v-SELECTIVE">OPPORTUNITY — conditional</div>
+        <span class="qchip">Quality (runbook): <b>7/10</b></span>
+      </div>
+    </div>
+
+    <div class="mstrip">
+      <div class="metric"><div class="k">Listing-day close</div><div class="v">₹205</div></div>
+      <div class="metric"><div class="k">Now</div><div class="v">₹508.7</div></div>
+      <div class="metric"><div class="k">From listing close</div><div class="v pos">+178%</div></div>
+      <div class="metric"><div class="k">20d turnover</div><div class="v">₹27 cr</div></div>
+    </div>
+
+    <div class="card"><h3>What it does</h3>
+      <p>Founded in Rajkot in 2006, Omnitech makes <b>high-precision engineered components and assemblies</b> for three end-markets: <b>energy / oilfield (~50%)</b>, <b>motion control &amp; automation (~30%)</b> and <b>industrial equipment (~20%)</b>. It is an export-led precision-machining house — <b>~75% of revenue is international</b> (USA, Canada, Germany) — supplying marquee names including <b>Halliburton, Weatherford and Suzlon</b>.</p>
+    </div>
+
+    <div class="card"><h3>Future prospects · why the IPO · customers</h3>
+      <p><b>Why they listed:</b> ₹583 cr issue = <b>₹418 cr fresh (72%)</b> + ₹165 cr OFS by promoter Udaykumar Parekh; promoter stake steps down 94% → <b>74%</b>. Fresh capital funds capacity expansion — money into the business, promoter still deeply invested.</p>
+      <p><b>The engine:</b> the standout of the batch. <b>Order book jumped to ₹1,765 cr (Sep-25) from ₹284 cr (Mar-25)</b> — a ~4× book-to-bill — driven by a single <b>₹1,040 cr energy order</b>. FY26 revenue <b>+49% to ₹511 cr</b>, PAT <b>₹79 cr</b>; Q3 FY26 net profit <b>+171%</b>. Real revenue visibility for years, into the global oilfield-services capex up-cycle.</p>
+      <p><b>The catch:</b> that same ₹1,040 cr order is a <b>customer-concentration risk</b> — a majority of the order book rides one client. Precision-machining is also cyclical and tied to energy capex.</p>
+    </div>
+
+    <div class="card"><h3>Street view &amp; recent news</h3>
+      <p>Ironically it <b>listed at an ~11% discount</b> (₹202 vs issue) on weak demand — then compounded <b>+178%</b> as the order book and profit surge became visible. Trailing <b>P/E has climbed from ~62× (Mar) to ~89× (early Jul)</b> — the market has fully re-rated the growth. Formal broker targets are thin; five domestic mutual funds took the anchor book, which is a quality tell. Q3 FY26's +171% profit print is the recent driver.</p>
+    </div>
+
+    <div class="prom"><h3>Promoters &amp; management <span class="q" style="background:rgba(63,185,80,.16);color:var(--bet)">GOOD</span></h3>
+      <p>Founder-promoter Udaykumar Parekh retains <b>~74%</b> post-issue and raised mostly <b>fresh capital</b> for capacity — strongly aligned, real skin in the game. The OFS slice is a partial, measured trim, not a cash-out. Watch customer concentration and related-party/export-pricing disclosures as the order book converts.</p>
+    </div>
+
+    <div class="card"><h3>QGLP-A scorecard <span style="text-transform:none;letter-spacing:0;color:var(--acc);font-weight:600;font-size:12px;margin-left:8px">primary — the opportunity</span></h3>
+      <div class="row"><div class="lbl"><span>A · Engine — Growth + runway</span><span class="pts">2 / 2</span></div>
+        <div class="bar"><i style="width:100%;background:var(--bet)"></i></div>
+        <div class="desc">Revenue +49%, PAT +171% (Q3), and a 4× book-to-bill order book (₹284 cr → ₹1,765 cr). Global oilfield-services + automation capex is a long runway.</div>
+        <div class="why">Lynch: a genuine fast grower — and here the order book pre-books the growth.</div></div>
+      <div class="row"><div class="lbl"><span>A · Engine — Reinvestment ability</span><span class="pts">2 / 2</span></div>
+        <div class="bar"><i style="width:100%;background:var(--bet)"></i></div>
+        <div class="desc">Fresh ₹418 cr into capacity, high returns on capital, low payout — the model absorbs capital and compounds it. Best reinvestment profile of the set.</div>
+        <div class="why">Mayer/Akre: growth × a runway to reinvest at high ROIC is the twin-engine setup.</div></div>
+      <div class="row"><div class="lbl"><span>B · Moat &amp; Longevity</span><span class="pts">1.5 / 2</span></div>
+        <div class="bar"><i style="width:75%;background:var(--sel)"></i></div>
+        <div class="desc">Qualification barriers + switching costs of supplying Halliburton/Weatherford/Suzlon (multi-year approvals, tight tolerances) give a real moat — trimmed for heavy single-customer concentration.</div>
+        <div class="why">Dorsey: switching costs in a qualified supply chain are durable — until one client is most of the book.</div></div>
+      <div class="row"><div class="lbl"><span>C · Alignment</span><span class="pts">2 / 2</span></div>
+        <div class="bar"><i style="width:100%;background:var(--bet)"></i></div>
+        <div class="desc">Founder at ~74%, 72% fresh issue funding capacity. A measured OFS trim, not an exit.</div>
+        <div class="why">Ritter: the seller who keeps three-quarters of the company is not running for the door.</div></div>
+      <div class="row"><div class="lbl"><span>D · Price &amp; Asymmetry</span><span class="pts">0.5 / 2</span></div>
+        <div class="bar"><i style="width:25%;background:var(--bye)"></i></div>
+        <div class="desc"><b>~89× P/E</b> after a <b>+178%</b> run, at an all-time high. The re-rating from 62× → 89× has already happened; you're now paying a growth-perfection multiple.</div>
+        <div class="why">Agrawal: the business is A-grade, but at 89× the price has borrowed years of that growth.</div></div>
+    </div>
+
+    <div class="card"><h3>Quality screen <span style="text-transform:none;letter-spacing:0;color:var(--mut);font-weight:600;font-size:12px;margin-left:8px">secondary — safety check · 7/10</span></h3>
+      <div class="lens-mini">
+        <div class="lm"><div class="t">Business quality</div><div class="p">2/2</div></div>
+        <div class="lm"><div class="t">Growth</div><div class="p">2/2</div></div>
+        <div class="lm"><div class="t">Profitability &amp; BS</div><div class="p">2/2</div></div>
+        <div class="lm"><div class="t">IPO structure</div><div class="p">2/2</div></div>
+        <div class="lm"><div class="t">Valuation</div><div class="p">0/2</div></div>
+      </div>
+    </div>
+
+    <div class="flags"><b>Red-flag box</b>Clean on fraud/litigation/promoter-selling. Key risks: (1) <b>customer concentration</b> — the ₹1,040 cr single order dominates the book (runbook &gt;30% flag); (2) cyclical energy-capex exposure; (3) valuation ~89× at ATH. Anchor lock-in: 50% released ~Apr, remainder ~Jun 2026 — largely passed. No hard cap applied.</div>
+
+    <div class="arg"><h3>Why this score</h3>
+      <div class="math">Engine A 4 + Moat B 1.5 + Align C 2 + Price D 0.5 = 8.0 raw → froth/valuation trim → 6.5</div>
+      <p>On the <b>engine and alignment, this is the best of the batch</b> — a genuine 4/4 engine (hyper-growth pre-booked by a 4× order book, funded by fresh capital under a 74% founder). Left on business quality alone it earns an 8. It is dragged to <b>conditional</b> by the same thing as SAIPARENT — <b>price</b> (89× at an ATH after +178%) — plus a real customer-concentration dent on the moat. A high-quality compounder you've arrived at expensive.</p>
+    </div>
+
+    <div class="takeaway"><b>Bottom line:</b> The strongest business of the five and a legitimate multi-year compounding candidate — but the market already knows it (89×, +178%). <b>Accumulate on pullbacks / half-size;</b> a 20–30% drawdown to a saner multiple would turn this from "conditional" into a genuine conviction add. Track customer concentration each quarter.</div>
+    <div class="teach"><b>What this teaches:</b> a discount listing that then triples is the market repricing a mis-understood business — great to <i>own</i> early, dangerous to <i>enter</i> after the repricing. Elite engine, but at 89× the price is doing the market's job for it.</div>
+  </div>
+
+  <!-- ============ MIS-FLAGGED ============ -->
+  <div class="pane">
+    <div class="warn">
+      <h3>⚠ These three are NOT IPOs — do not run QGLP-A on them</h3>
+      <p>All three first appear in the DB on <b>2026-04-20</b> (the backfill date) with exactly 50 candles, so the IPO_ATHBREAK screener treats them as fresh listings. They are in fact <b>long-listed micro-caps</b>. The correct action is to <b>drop them from the IPO queue</b> — and, if genuinely interested, route the one with a real business (KPL) to <code>/stock-analyze</code>, not <code>/ipo-analyze</code>.</p>
+    </div>
+
+    <table>
+      <thead><tr><th>Ticker</th><th>Actually is</th><th>Listed</th><th>Mkt cap</th><th>Read</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="s" style="text-align:left">KPL</td>
+          <td><b>Kwality Pharmaceuticals</b> — pharma mfg &amp; trading, incorporated 1983</td>
+          <td>legacy listing</td>
+          <td>₹2,779 cr</td>
+          <td>A real multibagger, not an IPO: +125% (1y), +490% (3y), +1,675% (5y); 9 straight positive quarters, PAT +75% latest. If interested, analyse via <b>/stock-analyze</b> as a momentum/quality name — the entry (~₹2,700, near 52w-high ₹2,890) is the question, not "is it a good IPO."</td>
+        </tr>
+        <tr>
+          <td class="s" style="text-align:left">GNRL</td>
+          <td><b>Gujarat Natural Resources</b> — oil &amp; gas exploration micro-cap</td>
+          <td>legacy listing</td>
+          <td>₹1,575 cr</td>
+          <td>Penny-grade (~₹102) explorer, thin fundamentals, 52w range ₹83–121. Speculative micro-cap, not an opportunity under any lens. <b>Ignore.</b></td>
+        </tr>
+        <tr>
+          <td class="s" style="text-align:left">FEDDERSHOL</td>
+          <td><b>Fedders Holding</b> — small holding company</td>
+          <td>legacy listing</td>
+          <td>₹828 cr</td>
+          <td>~₹41 micro-cap, 52w range ₹32–45, negligible turnover (₹5.6 cr/20d). Low-quality shell-ish holdco. <b>Ignore.</b></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="note"><b>Action for the screener:</b> this is the known listing-date bug — <code>listing_date</code> is inferred as the first DB candle, so the 2026-04-20 backfill batch mis-fires. Fix at source: gate IPO_ATHBREAK on a true listing date (corporate-action/exchange feed) or exclude symbols whose first candle equals the backfill date. Until fixed, treat any "IPO" whose first candle is 2026-04-20 as suspect.</div>
+  </div>
+
+  <!-- ============ WHERE TO INVEST ============ -->
+  <div class="pane">
+    <p class="lead">Two genuine IPOs, both <b>OPPORTUNITY-conditional (6.5)</b> — real engines, aligned founders, held back by one shared flaw: <b>both are at all-time highs on ~90–100× earnings.</b> Neither is a "buy the breakout" today; both are "buy the pullback" watch-list names. Three signals are noise.</p>
+
+    <table>
+      <thead><tr><th>Rank</th><th>Ticker</th><th>Opp</th><th>Qual</th><th>Verdict</th><th>The one-line</th></tr></thead>
+      <tbody>
+        <tr class="rank1"><td class="s">1</td><td><b>OMNI</b></td><td class="s" style="color:var(--sel)">6.5</td><td class="s">7</td><td>OPPORTUNITY-cond.</td><td>Best engine of the set (4/4) + founder-aligned, but 89× at ATH after +178% and single-customer heavy — accumulate on weakness.</td></tr>
+        <tr><td class="s">2</td><td><b>SAIPARENT</b></td><td class="s" style="color:var(--sel)">6.5</td><td class="s">6</td><td>OPPORTUNITY-cond.</td><td>Transformational ₹1,300 cr Noumed deal + best alignment, but ~100×+ at ATH and forward-loaded — build on weakness, let earnings prove out.</td></tr>
+        <tr><td class="s">—</td><td>KPL</td><td class="s">n/a</td><td class="s">—</td><td>NOT AN IPO</td><td>Real multibagger pharma but mis-flagged — route to /stock-analyze if interested.</td></tr>
+        <tr><td class="s">—</td><td>GNRL</td><td class="s">n/a</td><td class="s">—</td><td>NOT AN IPO</td><td>Speculative oil-&amp;-gas micro-cap — ignore.</td></tr>
+        <tr><td class="s">—</td><td>FEDDERSHOL</td><td class="s">n/a</td><td class="s">—</td><td>NOT AN IPO</td><td>Low-quality holdco micro-cap — ignore.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="pick">
+      <h3>🥇 OMNI — Omnitech Engineering <span class="verdict-badge v-SELECTIVE" style="margin-top:0">WATCH · buy the pullback</span></h3>
+      <div class="alloc">Half-slot only, and only on a drawdown</div>
+      <p>The highest-quality business of the five and a legitimate multi-year compounder — hyper-growth pre-booked by a 4× order book, founder at 74%, fresh capital funding capacity. The single reason it's a "watch" not a "buy" is price: 89× after +178%. A pullback to a saner multiple (say &lt;60×) flips it toward conviction. Between now and then, track whether the ₹1,040 cr order concentration diversifies.</p>
+    </div>
+    <div class="pick">
+      <h3>🥈 SAIPARENT — Sai Parenterals <span class="verdict-badge v-SELECTIVE" style="margin-top:0">WATCH · needs earnings proof</span></h3>
+      <div class="alloc">Quarter-to-half slot, on weakness, after a print</div>
+      <p>Best alignment of the batch and a genuinely transformational catalyst (₹1,300 cr Noumed OTC deal at ~a full quarter of revenue/yr). But the base is tiny, the multiple is ~100×+, and the whole thesis is forward — you want at least one quarter showing the Noumed run-rate hitting the P&amp;L before sizing. Don't chase the ATH.</p>
+    </div>
+    <div class="note"><b>Discipline reminder:</b> both real names are held to <i>conditional</i> by the same lesson — the engine says "want it," the price says "not here." The screener's job is to surface the engine early; yours is to wait for the price. And 3 of today's 5 signals were bugs, not businesses — always confirm the listing is real before you spend a minute on fundamentals.</div>
+  </div>
+</div>
+
+<script>
+function show(i,el){
+  document.querySelectorAll('.pane').forEach((p,n)=>p.classList.toggle('active',n===i));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>

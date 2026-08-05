@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IPO Opportunity Review — RSL · QGLP-A</title>
+<style>
+  :root{
+    --bg:#f6f8fb; --panel:#ffffff; --panel2:#f1f4f8; --line:#e2e8f0;
+    --txt:#1a2230; --mut:#64748b; --acc:#2563eb;
+    --bet:#15803d; --sel:#b45309; --bye:#dc2626;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;padding:0 0 60px}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+  header{background:linear-gradient(135deg,#ffffff,#eef3fb);border-bottom:1px solid var(--line);padding:26px 0 22px;margin-bottom:24px;box-shadow:0 1px 3px rgba(16,24,40,.04)}
+  header h1{font-size:23px;font-weight:700;letter-spacing:-.2px}
+  header .sub{color:var(--mut);margin-top:6px;font-size:13.5px}
+  header .chip{display:inline-block;background:var(--panel2);border:1px solid var(--line);border-radius:20px;padding:3px 11px;font-size:12px;color:var(--mut);margin-right:6px;margin-top:10px}
+  header .chip.warn{background:rgba(248,81,73,.1);border-color:rgba(248,81,73,.35);color:var(--bye);font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:22px}
+  .tab{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 13px;cursor:pointer;font-size:13.5px;font-weight:600;color:var(--mut);display:flex;align-items:center;gap:7px;transition:.12s}
+  .tab:hover{border-color:var(--acc);color:var(--txt)}
+  .tab.active{background:var(--panel2);color:var(--txt);border-color:var(--acc)}
+  .tab .dot{width:8px;height:8px;border-radius:50%}
+  .tab.edu{background:#e8f0fe;border-color:#bcd3fb;color:#1d4ed8}
+  .tab.edu.active{background:#d6e4fd}
+  .score-pill{font-size:11px;font-weight:700;padding:1px 7px;border-radius:10px;background:var(--panel2)}
+  .pane{display:none;animation:fade .2s}
+  .pane.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .shead{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  .shead h2{font-size:20px}
+  .shead .name{color:var(--mut);font-size:13.5px;margin-top:3px}
+  .shead .sig{color:var(--mut);font-size:12.5px;margin-top:10px;line-height:1.7}
+  .shead .sig b{color:var(--txt);font-weight:600}
+  .bigscore{text-align:center;flex-shrink:0;min-width:150px}
+  .bigscore .lab{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--mut);margin-bottom:2px}
+  .bigscore .num{font-size:42px;font-weight:800;line-height:1}
+  .bigscore .den{font-size:16px;color:var(--mut);font-weight:600}
+  .verdict-badge{display:inline-block;font-size:11.5px;font-weight:700;padding:4px 12px;border-radius:20px;margin-top:8px;letter-spacing:.3px}
+  .qchip{display:block;margin-top:9px;font-size:11px;color:var(--mut)}
+  .qchip b{font-weight:700}
+  .v-BET{background:rgba(63,185,80,.16);color:var(--bet);border:1px solid rgba(63,185,80,.4)}
+  .v-SELECTIVE{background:rgba(210,153,34,.16);color:var(--sel);border:1px solid rgba(210,153,34,.4)}
+  .v-BYE{background:rgba(248,81,73,.16);color:var(--bye);border:1px solid rgba(248,81,73,.4)}
+  .mstrip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+  .metric{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  .metric .k{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.4px}
+  .metric .v{font-size:18px;font-weight:700;margin-top:3px}
+  .pos{color:var(--bet)} .neg{color:var(--bye)}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 22px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  .card h3{font-size:13px;text-transform:uppercase;letter-spacing:.5px;color:var(--mut);margin-bottom:14px}
+  .card h3 .tagline{text-transform:none;letter-spacing:0;color:var(--acc);font-weight:600;font-size:12px;margin-left:8px}
+  .row{margin-bottom:15px}
+  .row:last-child{margin-bottom:0}
+  .row .lbl{display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:5px}
+  .row .lbl .pts{font-weight:700}
+  .bar{height:7px;background:var(--panel2);border-radius:4px;overflow:hidden}
+  .bar i{display:block;height:100%;border-radius:4px}
+  .row .desc{font-size:12.5px;color:var(--mut);margin-top:6px}
+  .row .why{font-size:12px;color:#1d4ed8;margin-top:5px;background:rgba(37,99,235,.06);border-left:2px solid var(--acc);border-radius:0 6px 6px 0;padding:5px 10px;font-style:italic}
+  .lens-mini{display:flex;flex-wrap:wrap;gap:8px}
+  .lens-mini .lm{flex:1;min-width:120px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+  .lens-mini .lm .t{font-size:11px;color:var(--mut)}
+  .lens-mini .lm .p{font-size:15px;font-weight:700;margin-top:2px}
+  .prom{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  .prom h3{font-size:13px;text-transform:uppercase;letter-spacing:.5px;color:var(--mut);margin-bottom:9px}
+  .prom p{font-size:13.5px;line-height:1.65;color:#3a4453}
+  .prom .q{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px;margin-left:8px;vertical-align:middle}
+  .flags{background:rgba(248,81,73,.07);border:1px solid rgba(248,81,73,.25);border-radius:10px;padding:13px 16px;font-size:13px;margin-bottom:16px}
+  .flags.clean{background:rgba(63,185,80,.07);border-color:rgba(63,185,80,.25)}
+  .flags b{display:block;margin-bottom:5px;font-size:12px;text-transform:uppercase;letter-spacing:.4px;color:var(--mut)}
+  .arg{background:var(--panel2);border-left:3px solid var(--acc);border-radius:0 10px 10px 0;padding:16px 18px;margin-bottom:16px}
+  .arg h3{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--acc);margin-bottom:9px}
+  .arg .math{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--mut);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin-bottom:11px}
+  .arg p{font-size:14px;line-height:1.68}
+  .takeaway{font-size:14px;line-height:1.65;background:var(--panel);border:1px solid var(--line);border-radius:0 8px 8px 0;border-left:3px solid var(--mut);padding:13px 16px;margin-bottom:12px}
+  .teach{font-size:13.5px;line-height:1.6;background:rgba(210,153,34,.08);border:1px solid rgba(210,153,34,.3);border-radius:0 8px 8px 0;border-left:3px solid var(--sel);padding:13px 16px}
+  .teach b{color:var(--sel)}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin:6px 0 22px}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
+  th{font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:var(--mut)}
+  td.s{font-weight:700;text-align:center}
+  .note{font-size:12.5px;color:var(--mut);background:var(--panel);border:1px dashed var(--line);border-radius:10px;padding:14px 16px;margin-top:18px;line-height:1.7}
+  h2.section{font-size:16px;margin:22px 0 12px}
+  .lead{font-size:14px;line-height:1.7;color:#3a4453;margin-bottom:16px}
+  .pillar-def{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin-bottom:11px}
+  .pillar-def h4{font-size:14px;margin-bottom:5px;color:var(--txt)}
+  .pillar-def h4 span{font-size:11px;font-weight:700;color:var(--acc);background:rgba(37,99,235,.09);border:1px solid rgba(37,99,235,.28);border-radius:8px;padding:1px 8px;margin-right:8px}
+  .pillar-def p{font-size:13px;color:var(--mut);line-height:1.6}
+  .book{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+  .book:last-child{border-bottom:0}
+  .book .bk{font-weight:600;color:var(--txt);min-width:230px}
+  .book .bi{color:var(--mut)}
+  .veto{font-size:13px;color:#3a4453;line-height:1.7;background:rgba(248,81,73,.06);border:1px solid rgba(248,81,73,.22);border-radius:10px;padding:13px 16px;margin-top:6px}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1>IPO Opportunity Review — RSL (QGLP-A)</h1>
+  <div class="sub">Is it a multi-year wealth opportunity — not just a good company? · Rajputana Stainless Ltd · data through 2026-08-05</div>
+  <div>
+    <span class="chip">✓ VALID signal — genuine fresh listing (NSE/BSE 19-Mar-2026)</span>
+    <span class="chip">headline = opportunity score · quality score alongside</span>
+    <span class="chip">fresh all-time-high close ₹150.45 today (+5.9%)</span>
+  </div>
+</div></header>
+
+<div class="wrap">
+  <div class="tabs" id="tabs"></div>
+  <div id="panes"></div>
+</div>
+
+<script>
+const STOCK = {
+  sym:"RSL", name:"Rajputana Stainless Ltd — integrated stainless-steel long &amp; flat products ('RSL' brand), Gujarat",
+  opp:{score:3.5, verdict:"AVOID"}, qual:{score:5, verdict:"BYE-BYE"},
+  sig:{px:150.45, date:"2026-08-05", list:"2026-03-19", age:"4.6m"},
+  m:[["Issue → Day-1 close","₹122 → ₹113 (−7.4%)"],["Now (ATH)","₹150.45 (+23% vs issue)"],["Mkt cap · P/E","₹1,256cr · 25.2×"],["20d turnover","₹5.96cr/day"]],
+  desc:"A Gujarat-based <b>integrated maker of stainless-steel long and flat products</b> — billets, forging ingots, rolled black &amp; bright bars, flats/patti — across <b>80+ steel grades</b>, sold under the 'RSL' brand. Integration runs melting (48,000 MTPA) → rolling (36,000 MTPA) → bright bar (6,000 MTPA). End-users sit in seamless pipes, forging, automotive, aerospace, defence, oil &amp; gas and precision engineering — but RSL is the <b>upstream commodity-adjacent supplier</b> to those glamorous sectors, not a play on them. Sales are <b>99.94% domestic</b>, with ~91% of revenue from just three states. Listed 19-Mar-2026 after a cold IPO: no anchor book, subscribed just <b>1.12×</b> (retail 0.27×), and a <b>−7.4% listing day</b>. Since then the market has quietly re-rated it +33% off the day-1 close to today's all-time high.",
+  future:"<b>Why they IPO'd:</b> ₹255cr = <b>₹179cr fresh + ₹76cr promoter OFS</b>. Of the fresh money, <b>₹98cr repaid debt</b> and only <b>₹18.6cr</b> is expansion capex — so the IPO primarily fixed the balance sheet and gave the promoter partial liquidity; it did not fund a growth leap. Borrowings are down to ₹69cr (from ₹102cr), which mechanically boosts FY27 EPS via interest savings — a <b>one-time step, not an engine</b>. <b>Growth runway:</b> revenue has gone 952 → 910 → 932 → 1,007cr over FY23–26 (~2% CAGR); FY26 grew +8% and <b>Q4FY26 just +2.8% YoY</b>. All the PAT growth (₹24cr → ₹50cr) came from operating margin expanding 5% → 9% — a lever with a visible ceiling in commodity stainless. The stated next act is <b>higher-margin seamless pipes</b>: 17,610 sq-m of land is earmarked, but the unit is not yet funded or built — optionality, not visibility. <b>Reinvestment:</b> payout is tiny (~8%, ₹0.50 dividend), so earnings are retained — but they feed working capital (WC days up 56 → 74) more than new capacity. <b>Customers:</b> top-10 ≈ 42–45% of revenue with <b>no long-term contracts</b>; no marquee names disclosed.",
+  street:"<b>Zero institutional coverage</b> — no brokerage targets exist for this ₹1,256cr smallcap (the anchor book was withdrawn at IPO; QIBs took it to only 2.5× on the final day). At issue, Chittorgarh's reviewer called it <b>'aggressively priced'</b> on degrowing toplines; MarketsMojo has since moved its valuation grade from 'very expensive' to 'expensive' (P/E ~22–25× through Jul-26). <b>Recent news:</b> FY26 results (3-Jun-2026) — revenue crossed ₹1,000cr (+8%), PAT ₹49.8cr (+25%), maiden ₹0.50 dividend. The stock's +33% move since listing is <b>pure multiple re-rating</b> (19× day-1 → 25× today) on those numbers — there is no target price to measure remaining upside against, and no earnings upgrade behind the move. <b>Read:</b> the discovery re-rating a cold IPO sometimes offers has already been collected by whoever bought the March listing-day discount.",
+  prom:{q:"ADEQUATE — founder family, partial cash-out", c:"var(--sel)", t:"Promoted by the <b>Mehta family</b> — Shankarlal Deepchand Mehta, Babulal D. Mehta, Jayesh Natvarlal Pithva and Yashkumar Shankarlal Mehta — first-generation Gujarat steel entrepreneurs; no PE or institutional pedigree. Holding fell <b>78.2% → 57.0%</b> at the IPO, with promoter Shankarlal Mehta personally selling the entire <b>₹76cr OFS</b>. A 57% stake keeps real skin in the game and the majority of the raise did go into the company (debt repayment), but note the pattern: the family took money out at ₹122 — the market's first chance to buy was also their first chance to sell. No pledging reported post-listing. <b>Watch 17-Sep-2026:</b> the 6-month lock-in on ~18% of the share count (pre-IPO non-promoter holders + promoter shares above minimum contribution) expires ~6 weeks from this report."},
+  pillars:[
+   {lbl:"Engine · Growth + runway", pts:0.5, why:"Mayer's 100-baggers all had sustained EPS growth from *volume*, not a margin lever that runs out — twin engines need topline fuel.",
+    desc:"Revenue CAGR FY23–26 is <b>~2%</b> (952 → 1,007cr, with FY24 an outright decline); FY26 +8% and <b>Q4 only +2.8%</b>. The 25–28% PAT CAGR is real but comes from OPM 5% → 9% plus deleveraging — margin expansion in commodity stainless cannot repeat indefinitely. The seamless-pipes TAM story is earmarked land, not an order book."},
+   {lbl:"Engine · Reinvestment ability", pts:1, why:"Akre's 3rd leg: retention only compounds if the retained rupee earns a high return — working capital absorption is not reinvestment.",
+    desc:"Payout is only <b>~8%</b> and ROE is 19.3% — the raw material of compounding exists. But the retained cash is feeding <b>working capital (days 56 → 74)</b>, CFO (₹32cr) trails PAT (₹50cr), announced growth capex is just ₹18.6cr, and the IPO's ₹98cr went to old debt, not new capacity. Redeployment at high ROIC is asserted, not demonstrated."},
+   {lbl:"Moat & Longevity", pts:0.5, why:"Dorsey: without a moat, high returns mean-revert — 'integrated' and '80 grades' are table stakes in a fragmented industry, not pricing power.",
+    desc:"Mid-pack economics prove the point: <b>~8% operating margin</b> vs Mukand 18%, in a fragmented, competitive space (Chittorgarh's words) with raw-material passthrough risk, ~45% top-10 customer share on <b>no long-term contracts</b>, and 91% of revenue from three states. Today's 19% ROE partly reflects a cyclically kind stainless market."},
+   {lbl:"Alignment", pts:1, why:"Skin in the game cuts both ways: 57% retained is real alignment — but in an OFS the seller knows more than you (Ritter).",
+    desc:"Founder family keeps <b>57%</b> and 70% of the issue was fresh capital into the company — genuinely better than a PE cash-out. Docked for the <b>₹76cr promoter OFS at issue</b>, proceeds fixing the past (debt) rather than funding the future, and the <b>~18% supply unlock on 17-Sep-2026</b>."},
+   {lbl:"Price & Asymmetry", pts:0.5, why:"Agrawal: price comes last, but it still comes — buying after the re-rating means the asymmetry has changed hands.",
+    desc:"The market offered this at <b>19× (₹113)</b> in March when nobody wanted it; today it asks <b>25.2× / 3.4× book at the all-time high</b> after +33%, with zero coverage to anchor value and Q4 topline nearly flat. Upside now requires the unbuilt seamless-pipes unit to deliver; downside is a stalled margin story on 25× with a lock-in unlock six weeks out."},
+  ],
+  qrows:[["Business",1],["Growth",1],["Profit & BS",1.5],["Structure",1],["Valuation",1]],
+  flags:["<b>Material litigation / contingent liabilities — cap 5 applied.</b> DRHP discloses legal proceedings of ₹128.6cr ≈ <b>72.8% of net worth</b> (contingent liabilities ~₹110cr: central excise, GST, VAT, income-tax and civil matters involving company, directors and promoters). Nature is tax-dispute, not fraud/SEBI — so we apply cap 5 rather than the fraud-tier cap 3 — but the quantum is material by any standard and unprovisioned.","<b>Lock-in expiry within 60 days — noted (cap 7, non-binding).</b> 6-month pre-IPO lock-in ends <b>~17-Sep-2026</b>: roughly 18% of the share count (pre-IPO public + promoter excess over minimum contribution) becomes saleable ~6 weeks after this ATH signal.","<b>Cold IPO tells:</b> anchor book withdrawn, overall subscription 1.12×, retail 0.27×, −7.4% listing. Institutions looked and passed at ₹122.","<b>Cash conversion:</b> CFO ₹32cr vs PAT ₹50cr; working-capital days 56 → 74. Profits are increasingly parked in inventory/receivables.","No SEBI investigation, auditor resignation, promoter pledging or post-listing promoter selling found. Two post-listing prints (Q4FY26, FY26) did not fall below the pre-IPO trajectory — no trajectory cap."],
+  math:"Engine A 1.5 (0.5+1) + Moat B 0.5 + Align C 1 + Price D 0.5 = 3.5 raw → engine gate (A ≤ 1 → cap 4) narrowly clears at 1.5; no PSU / pure-OFS / froth veto (70% fresh issue; the listing was cold, not frothy) → 3.5/10 · Quality: 1+1+1.5+1+1 = 5.5 raw → litigation cap 5 → 5/10",
+  arg:"The signal is valid — RSL is a genuine March-2026 listing breaking to an all-time high at 4.6 months, exactly the pattern the strategy hunts. The company, however, fails both lenses. <b>As an opportunity:</b> there is no compounding engine. Three years of revenue are essentially flat (~2% CAGR, Q4FY26 +2.8%), and the impressive 25% PAT growth is a margin lever (OPM 5%→9%) plus a deleveraging step — both real, both exhaustible, neither a runway. Retained earnings are soaking into working capital, the seamless-pipes future is an empty plot of land, and the price has already travelled from 19× to 25.2× without a single earnings upgrade — the discovery re-rating went to whoever bought the −7.4% listing day, not to whoever buys the ATH. <b>As a quality screen:</b> a decent 19% ROE, low-debt balance sheet sits next to litigation/contingent exposure equal to 73% of net worth, a customer book with no contracts, and an IPO that institutions inspected and declined (no anchors, 1.12×). A 3.5 opportunity / 5 quality combination reads: <b>ordinary commodity business, re-rated to fair-or-better, with a supply event six weeks out.</b>",
+  take:"<b>Skip it.</b> The ATH breakout is technically genuine but fundamentally unsupported — momentum here is multiple expansion on a flat-topline steel maker, with ~18% of the share count unlocking around 17-Sep-2026. If you want stainless/steel-capex exposure, demand either a volume-growth engine (capacity actually being built) or a moat (Mukand-grade margins); RSL currently offers neither. Revisit only if the seamless-pipes unit is funded and ordered, and the stock digests the September unlock.",
+  teaches:"<b>Decompose PAT growth before you call it growth.</b> '+25% profit' can mean three very different things: more volume (an engine), fatter margins (a lever with a ceiling), or cheaper debt (a one-time step). Only the first compounds for a decade — and it is the one RSL doesn't have. When topline is flat and PAT is sprinting, you are watching a lever, not an engine; pay a lever price (low-teens multiple), never an engine price (25×)."
+};
+
+const OVDOT = v => v==="CONVICTION"?"var(--bet)":(v==="OPPORTUNITY"||v==="SELECTIVE")?"var(--sel)":"var(--bye)";
+const OVCLS = v => v==="CONVICTION"?"v-BET":(v==="OPPORTUNITY"||v==="SELECTIVE")?"v-SELECTIVE":"v-BYE";
+const QVCLS = v => v==="BET"?"v-BET":v==="SELECTIVE"?"v-SELECTIVE":"v-BYE";
+const BARCOL = (p,mx)=> p/mx>=1?"var(--bet)":p/mx>=.5?"var(--sel)":"var(--bye)";
+
+const tabs=document.getElementById("tabs"), panes=document.getElementById("panes");
+
+/* ---- Framework / education tab ---- */
+const et=document.createElement("div");
+et.className="tab edu active";et.innerHTML="📘 How to read this";
+et.onclick=()=>select(0);
+tabs.appendChild(et);
+const ep=document.createElement("div");
+ep.className="pane active";
+ep.innerHTML=`
+  <p class="lead">A technical signal tells you <b>when</b> a young stock breaks out; the runbook tells you <b>whether it's safe</b>; this report answers the question that builds wealth: <b>is it a multi-year compounding <i>opportunity</i>, bought before the crowd?</b> Most IPOs underperform (Ritter: ~34% vs 62% over 3 years), so the bar is high. We lead with the <b>opportunity score (QGLP-A)</b> and show the runbook <b>quality score</b> alongside as a safety check.</p>
+  <div class="pillar-def"><h4><span>A · ENGINE</span>Does it actually compound? (the gate)</h4><p><b>A1 Growth + runway</b> — growing fast with a large, under-penetrated market? <b>A2 Reinvestment</b> — can it redeploy profits at a high return? <b>If Engine ≤ 1, the score caps at 4</b> — a profitable slow-grower or dividend payer is not an opportunity.</p></div>
+  <div class="pillar-def"><h4><span>B · MOAT</span>Will the high return persist? (longevity)</h4><p>A durable moat — brand, switching costs, network, cost edge — is why returns don't mean-revert. A leader in a contested or decaying market has its longevity capped.</p></div>
+  <div class="pillar-def"><h4><span>C · ALIGNMENT</span>Will the compounding accrue to me?</h4><p>Founder-owners with wealth on the line and <b>fresh capital into the business</b> &gt;&gt; professional managers &gt;&gt; pure-OFS cash-outs (PE or government). In an OFS, the seller knows more than you.</p></div>
+  <div class="pillar-def"><h4><span>D · PRICE</span>Is the upside still on the table?</h4><p>"Price comes last" — but if the stock has already re-rated to fair value/targets, the asymmetry is gone even if the business is fine. The opportunity lives at the <i>entry price</i>.</p></div>
+  <div class="veto"><b>Structural vetoes (cap, never add):</b> &nbsp; PSU/govt → cap 5 &nbsp;·&nbsp; pure-OFS → cap 6 &nbsp;·&nbsp; froth listing → cap 6 &nbsp;·&nbsp; no engine (A ≤ 1) → cap 4.</div>
+  <h2 class="section">Verdict bands</h2>
+  <table>
+    <tr><th>Band</th><th>Score</th><th>Meaning</th></tr>
+    <tr><td><span class="verdict-badge v-BET">CONVICTION</span></td><td class="s">8–10</td><td>A genuine compounder, aligned, upside left. Size up.</td></tr>
+    <tr><td><span class="verdict-badge v-SELECTIVE">OPPORTUNITY</span></td><td class="s">6–7.5</td><td>Real engine, one leg weak (price / proof / alignment). Build / half-size.</td></tr>
+    <tr><td><span class="verdict-badge v-BYE">NOT AN OPPORTUNITY</span></td><td class="s">4–5.5</td><td>Fine company maybe, but won't compound for you — or you've missed the entry.</td></tr>
+    <tr><td><span class="verdict-badge v-BYE">AVOID</span></td><td class="s">&lt;4</td><td>Steer clear.</td></tr>
+  </table>
+  <h2 class="section">The reading list</h2>
+  <div class="card" style="padding:8px 22px">
+    <div class="book"><div class="bk">Christopher Mayer — <i>100 Baggers</i></div><div class="bi">Sustained EPS growth × a long reinvestment runway, run by owner-operators.</div></div>
+    <div class="book"><div class="bk">Chuck Akre — three-legged stool</div><div class="bi">High compounding × honest owner-managers × a runway to reinvest free cash.</div></div>
+    <div class="book"><div class="bk">Raamdeo Agrawal — QGLP</div><div class="bi">Quality × Growth × Longevity × Price. "Price comes last."</div></div>
+    <div class="book"><div class="bk">Peter Lynch — <i>One Up on Wall Street</i></div><div class="bi">The money is in fast growers with a runway — RSL is a <b>slow grower wearing a margin-expansion mask</b>.</div></div>
+    <div class="book"><div class="bk">Saurabh Mukherjea — <i>Coffee Can Investing</i></div><div class="bi">Avoid PSUs; compounders held for years make multibaggers.</div></div>
+    <div class="book"><div class="bk">Jay Ritter — IPO long-run studies</div><div class="bi">IPOs underperform; worst in hot windows. The seller knows more than you — RSL's promoter sold ₹76cr at ₹122.</div></div>
+  </div>`;
+panes.appendChild(ep);
+
+/* ---- stock tab ---- */
+const s=STOCK;
+const t=document.createElement("div");
+t.className="tab";
+t.innerHTML=`<span class="dot" style="background:${OVDOT(s.opp.verdict)}"></span>${s.sym}
+  <span class="score-pill" style="color:${OVDOT(s.opp.verdict)}">${s.opp.score}</span>`;
+t.onclick=()=>select(1);
+tabs.appendChild(t);
+
+const pillars=s.pillars.map(r=>`
+  <div class="row">
+    <div class="lbl"><span>${r.lbl}</span><span class="pts" style="color:${BARCOL(r.pts,2)}">${r.pts}/2</span></div>
+    <div class="bar"><i style="width:${r.pts/2*100}%;background:${BARCOL(r.pts,2)}"></i></div>
+    <div class="desc">${r.desc}</div>
+    <div class="why">Why it matters — ${r.why}</div>
+  </div>`).join("");
+const qmini=s.qrows.map(q=>`<div class="lm"><div class="t">${q[0]}</div><div class="p" style="color:${BARCOL(q[1],2)}">${q[1]}/2</div></div>`).join("");
+const mstrip=s.m.map(x=>`<div class="metric"><div class="k">${x[0]}</div><div class="v">${x[1]}</div></div>`).join("");
+const flags=`<div class="flags"><b>Caps &amp; red flags</b>${s.flags.map(f=>"• "+f).join("<br>")}</div>`;
+
+const p=document.createElement("div");
+p.className="pane";
+p.innerHTML=`
+  <div class="shead">
+    <div>
+      <h2>${s.sym}</h2>
+      <div class="name">${s.name}</div>
+      <div class="sig">Listed <b>${s.sig.list}</b> (age <b>${s.sig.age}</b>) · issue ₹122 · signal price ₹${s.sig.px} (<b>${s.sig.date}</b>)<br>
+        <b>LIVE athbreak signal</b> — fresh all-time-high close ₹150.45 (+5.9% today), clearing the prior high ₹142.89. Signal premise: <b style="color:var(--bet)">valid</b> — genuine fresh listing.</div>
+    </div>
+    <div class="bigscore">
+      <div class="lab">Opportunity score</div>
+      <div><span class="num" style="color:${OVDOT(s.opp.verdict)}">${s.opp.score}</span><span class="den">/10</span></div>
+      <div class="verdict-badge ${OVCLS(s.opp.verdict)}">${s.opp.verdict}</div>
+      <div class="qchip">Quality screen: <b>${s.qual.score}/10</b> · <span class="${QVCLS(s.qual.verdict)}" style="padding:1px 7px;border-radius:8px">${s.qual.verdict}</span></div>
+    </div>
+  </div>
+  <div class="mstrip">${mstrip}</div>
+  <div class="card"><h3>What it does</h3><p style="font-size:14px;line-height:1.65;color:#3a4453">${s.desc}</p></div>
+  <div class="card"><h3>Future prospects · why the IPO · customers</h3><p style="font-size:13.5px;line-height:1.7;color:#3a4453">${s.future}</p></div>
+  <div class="card"><h3>Street view &amp; recent news</h3><p style="font-size:13.5px;line-height:1.7;color:#3a4453">${s.street}</p></div>
+  <div class="prom"><h3>Promoters &amp; management <span class="q" style="background:${s.prom.c}22;color:${s.prom.c};border:1px solid ${s.prom.c}55">${s.prom.q}</span></h3><p>${s.prom.t}</p></div>
+  <div class="card"><h3>Opportunity scorecard — QGLP-A <span class="tagline">the 4 pillars · each with why it matters</span></h3>${pillars}</div>
+  <div class="card"><h3>Quality screen (runbook 5-lens) <span class="tagline">the safety check — is it a landmine?</span></h3><div class="lens-mini">${qmini}</div></div>
+  ${flags}
+  <div class="arg"><h3>⚖️ Why this score</h3><div class="math">${s.math}</div><p>${s.arg}</p></div>
+  <div class="takeaway"><b>Bottom line.</b> ${s.take}</div>
+  <div class="teach"><b>📚 What this teaches you.</b> ${s.teaches}</div>
+  <div class="note">Financials (screener.in, FY = Apr–Mar): revenue FY22 ₹770cr → FY23 ₹952cr → FY24 ₹910cr → FY25 ₹932cr → FY26 ₹1,007cr; PAT ₹8 → 24 → 32 → 40 → 50cr; OPM 5% → 9%; ROE 19.3%, ROCE 25.2%; borrowings ₹69cr; CFO FY26 ₹32cr; promoter 57.03%; dividend payout 8%. IPO (Mar-2026): ₹255cr at ₹122 = ₹179cr fresh (₹98cr debt repayment + ₹18.6cr capex + GCP) + ₹76cr OFS; no anchors; subscribed 1.12×; listed −7.4%. Capacity: melting 48,000 / rolling 36,000 / bright bar 6,000 MTPA. Sources: screener.in, chittorgarh.com, upstox.com, hdfcsky.com, ipocentral.in, marketsmojo.com, ANI (FY26 results, 3-Jun-2026), lab DB candles through 2026-08-05.</div>`;
+panes.appendChild(p);
+
+function select(n){
+  document.querySelectorAll(".tab").forEach((t,i)=>t.classList.toggle("active",i===n));
+  document.querySelectorAll(".pane").forEach((p,i)=>p.classList.toggle("active",i===n));
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+</script>
+</body>
+</html>

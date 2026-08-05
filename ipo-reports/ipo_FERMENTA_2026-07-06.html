@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IPO Opportunity Review — FERMENTA · QGLP-A</title>
+<style>
+  :root{
+    --bg:#f6f8fb; --panel:#ffffff; --panel2:#f1f4f8; --line:#e2e8f0;
+    --txt:#1a2230; --mut:#64748b; --acc:#2563eb;
+    --bet:#15803d; --sel:#b45309; --bye:#dc2626;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;padding:0 0 60px}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+  header{background:linear-gradient(135deg,#ffffff,#eef3fb);border-bottom:1px solid var(--line);padding:26px 0 22px;margin-bottom:24px;box-shadow:0 1px 3px rgba(16,24,40,.04)}
+  header h1{font-size:23px;font-weight:700;letter-spacing:-.2px}
+  header .sub{color:var(--mut);margin-top:6px;font-size:13.5px}
+  header .chip{display:inline-block;background:var(--panel2);border:1px solid var(--line);border-radius:20px;padding:3px 11px;font-size:12px;color:var(--mut);margin-right:6px;margin-top:10px}
+  header .chip.warn{background:rgba(248,81,73,.1);border-color:rgba(248,81,73,.35);color:var(--bye);font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:22px}
+  .tab{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 13px;cursor:pointer;font-size:13.5px;font-weight:600;color:var(--mut);display:flex;align-items:center;gap:7px;transition:.12s}
+  .tab:hover{border-color:var(--acc);color:var(--txt)}
+  .tab.active{background:var(--panel2);color:var(--txt);border-color:var(--acc)}
+  .tab .dot{width:8px;height:8px;border-radius:50%}
+  .tab.edu{background:#e8f0fe;border-color:#bcd3fb;color:#1d4ed8}
+  .tab.edu.active{background:#d6e4fd}
+  .score-pill{font-size:11px;font-weight:700;padding:1px 7px;border-radius:10px;background:var(--panel2)}
+  .pane{display:none;animation:fade .2s}
+  .pane.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .bugbox{background:rgba(248,81,73,.09);border:1px solid rgba(248,81,73,.35);border-radius:12px;padding:16px 20px;margin-bottom:16px;font-size:13.5px;line-height:1.65}
+  .bugbox b.title{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--bye);margin-bottom:7px}
+  .shead{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  .shead h2{font-size:20px}
+  .shead .name{color:var(--mut);font-size:13.5px;margin-top:3px}
+  .shead .sig{color:var(--mut);font-size:12.5px;margin-top:10px;line-height:1.7}
+  .shead .sig b{color:var(--txt);font-weight:600}
+  .bigscore{text-align:center;flex-shrink:0;min-width:150px}
+  .bigscore .lab{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--mut);margin-bottom:2px}
+  .bigscore .num{font-size:42px;font-weight:800;line-height:1}
+  .bigscore .den{font-size:16px;color:var(--mut);font-weight:600}
+  .verdict-badge{display:inline-block;font-size:11.5px;font-weight:700;padding:4px 12px;border-radius:20px;margin-top:8px;letter-spacing:.3px}
+  .qchip{display:block;margin-top:9px;font-size:11px;color:var(--mut)}
+  .qchip b{font-weight:700}
+  .v-BET{background:rgba(63,185,80,.16);color:var(--bet);border:1px solid rgba(63,185,80,.4)}
+  .v-SELECTIVE{background:rgba(210,153,34,.16);color:var(--sel);border:1px solid rgba(210,153,34,.4)}
+  .v-BYE{background:rgba(248,81,73,.16);color:var(--bye);border:1px solid rgba(248,81,73,.4)}
+  .mstrip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+  .metric{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  .metric .k{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.4px}
+  .metric .v{font-size:18px;font-weight:700;margin-top:3px}
+  .pos{color:var(--bet)} .neg{color:var(--bye)}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 22px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  .card h3{font-size:13px;text-transform:uppercase;letter-spacing:.5px;color:var(--mut);margin-bottom:14px}
+  .card h3 .tagline{text-transform:none;letter-spacing:0;color:var(--acc);font-weight:600;font-size:12px;margin-left:8px}
+  .row{margin-bottom:15px}
+  .row:last-child{margin-bottom:0}
+  .row .lbl{display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:5px}
+  .row .lbl .pts{font-weight:700}
+  .bar{height:7px;background:var(--panel2);border-radius:4px;overflow:hidden}
+  .bar i{display:block;height:100%;border-radius:4px}
+  .row .desc{font-size:12.5px;color:var(--mut);margin-top:6px}
+  .row .why{font-size:12px;color:#1d4ed8;margin-top:5px;background:rgba(37,99,235,.06);border-left:2px solid var(--acc);border-radius:0 6px 6px 0;padding:5px 10px;font-style:italic}
+  .lens-mini{display:flex;flex-wrap:wrap;gap:8px}
+  .lens-mini .lm{flex:1;min-width:120px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+  .lens-mini .lm .t{font-size:11px;color:var(--mut)}
+  .lens-mini .lm .p{font-size:15px;font-weight:700;margin-top:2px}
+  .prom{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  .prom h3{font-size:13px;text-transform:uppercase;letter-spacing:.5px;color:var(--mut);margin-bottom:9px}
+  .prom p{font-size:13.5px;line-height:1.65;color:#3a4453}
+  .prom .q{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px;margin-left:8px;vertical-align:middle}
+  .flags{background:rgba(248,81,73,.07);border:1px solid rgba(248,81,73,.25);border-radius:10px;padding:13px 16px;font-size:13px;margin-bottom:16px}
+  .flags.clean{background:rgba(63,185,80,.07);border-color:rgba(63,185,80,.25)}
+  .flags b{display:block;margin-bottom:5px;font-size:12px;text-transform:uppercase;letter-spacing:.4px;color:var(--mut)}
+  .arg{background:var(--panel2);border-left:3px solid var(--acc);border-radius:0 10px 10px 0;padding:16px 18px;margin-bottom:16px}
+  .arg h3{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--acc);margin-bottom:9px}
+  .arg .math{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--mut);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin-bottom:11px}
+  .arg p{font-size:14px;line-height:1.68}
+  .takeaway{font-size:14px;line-height:1.65;background:var(--panel);border:1px solid var(--line);border-radius:0 8px 8px 0;border-left:3px solid var(--mut);padding:13px 16px;margin-bottom:12px}
+  .teach{font-size:13.5px;line-height:1.6;background:rgba(210,153,34,.08);border:1px solid rgba(210,153,34,.3);border-radius:0 8px 8px 0;border-left:3px solid var(--sel);padding:13px 16px}
+  .teach b{color:var(--sel)}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin:6px 0 22px}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
+  th{font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:var(--mut)}
+  td.s{font-weight:700;text-align:center}
+  .note{font-size:12.5px;color:var(--mut);background:var(--panel);border:1px dashed var(--line);border-radius:10px;padding:14px 16px;margin-top:18px;line-height:1.7}
+  h2.section{font-size:16px;margin:22px 0 12px}
+  .lead{font-size:14px;line-height:1.7;color:#3a4453;margin-bottom:16px}
+  .pillar-def{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin-bottom:11px}
+  .pillar-def h4{font-size:14px;margin-bottom:5px;color:var(--txt)}
+  .pillar-def h4 span{font-size:11px;font-weight:700;color:var(--acc);background:rgba(37,99,235,.09);border:1px solid rgba(37,99,235,.28);border-radius:8px;padding:1px 8px;margin-right:8px}
+  .pillar-def p{font-size:13px;color:var(--mut);line-height:1.6}
+  .book{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+  .book:last-child{border-bottom:0}
+  .book .bk{font-weight:600;color:var(--txt);min-width:230px}
+  .book .bi{color:var(--mut)}
+  .veto{font-size:13px;color:#3a4453;line-height:1.7;background:rgba(248,81,73,.06);border:1px solid rgba(248,81,73,.22);border-radius:10px;padding:13px 16px;margin-top:6px}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1>IPO Opportunity Review — FERMENTA (QGLP-A)</h1>
+  <div class="sub">Is it a multi-year wealth opportunity — not just a good company? · Fermenta Biotech Ltd · data through 2026-07-06</div>
+  <div>
+    <span class="chip warn">⚠ INVALID IPO SIGNAL — 75-year-old company, not a fresh listing (backfill bug)</span>
+    <span class="chip">headline = opportunity score · quality score alongside</span>
+    <span class="chip">+15.2% today on FSSAI plant-based D3 approval</span>
+  </div>
+</div></header>
+
+<div class="wrap">
+  <div class="tabs" id="tabs"></div>
+  <div id="panes"></div>
+</div>
+
+<script>
+const STOCK = {
+  sym:"FERMENTA", name:"Fermenta Biotech Ltd — Vitamin D3 API &amp; nutraceutical ingredients (formerly DIL Ltd)",
+  opp:{score:5.5, verdict:"NOT AN OPPORTUNITY"}, qual:{score:6.5, verdict:"SELECTIVE"},
+  sig:{px:395.05, date:"2026-07-06", list:"2026-04-20*", age:"—"},
+  m:[["First DB candle*","₹318"],["Now","₹395 (+15.2% today)"],["Mkt cap","₹1,153cr"],["20d turnover","₹9.1cr"]],
+  desc:"One of the <b>world's largest manufacturers of Vitamin D3</b> (cholecalciferol) — APIs and ingredients for pharma, food fortification, and animal feed — plus enzymes and environmental solutions, exporting to 50+ countries from plants at Kullu and Dahej. <b>It is NOT an IPO:</b> incorporated 1951, BSE-listed for decades as DIL Ltd, renamed Fermenta Biotech after a 2019 reverse merger, and it <b>applied for a direct NSE listing in June 2026</b> — which is why it only recently appears in our NSE candle DB. Today it jumped <b>+15.2% to ₹395</b> (day high ₹401 = 52-week high) after <b>FSSAI approved its patented 100% plant-based Vitamin D3 ('VITADEE Green')</b> for food and supplement use in India.",
+  future:"<b>Why it 'listed':</b> no IPO at all — a <b>direct NSE listing of existing BSE shares</b> (applied 17-Jun-2026). No DRHP, no fresh issue, no OFS, no lock-ins, no anchor book. <b>Customers:</b> global pharma/nutrition formulators, food-fortification programs, and animal-feed makers across 50+ countries — a B2B ingredient business where China dominates feed-grade supply and pricing. <b>Growth runway:</b> FY26 revenue <b>₹538cr, +26% YoY</b>, EBITDA <b>₹120cr, +44%</b> — but this is a <b>cyclical recovery</b>: 5-year revenue CAGR is just <b>7%</b> because D3 realizations crashed in FY23–24 before rebounding ~60% in FY25. The genuine new option is <b>plant-based (vegan) Vitamin D3</b> — patented (Sep 2025), now <b>FSSAI-approved (Jul 2026)</b>, targeting food fortification and the vegan-supplement market. <b>Reinvestment:</b> real — dividend payout only ~15% (₹3.75 on ~₹24 EPS), and the board approved <b>₹110cr capex at Dahej</b> (FY26–27) for plant-based D3, green-chemistry enzymes and D3 derivatives, funded by accruals + debt.",
+  street:"<b>Sell-side: no institutional coverage</b> — IndMoney shows zero analyst forecasts/targets for this ₹1,150cr smallcap, so there is no consensus to measure upside against. Quant/retail services are cool on it: <b>MarketsMojo downgraded it to 'Strong Sell' (01-Jul-2026)</b> on technical + fundamental grounds. CARE Ratings (Oct 2025) expects the FY25 profitability recovery to sustain with <b>net margin 8–10%</b> in the near-to-medium term. <b>Recent news:</b> FSSAI approval for VITADEE Green plant-based D3 (03–06 Jul, the +15% trigger), Indian patent for plant-based D3 (Sep 2025), ₹110cr Dahej capex approval, and the NSE direct-listing application (17-Jun-2026). <b>Read:</b> the pop is real optionality but unquantified revenue — nobody has published what plant-based D3 adds to earnings.",
+  prom:{q:"GOOD — founder-family, buying", c:"var(--bet)", t:"Promoted by the <b>Datla family</b> — Executive Vice-Chairman <b>Krishna Datla</b> (the family has run the business since DIL Ltd days) with professional management under him. Promoter holding is <b>64.1% and RISING</b> (from 62.1% in Jun-2024) — the owners have been <b>buying their own stock</b>, the opposite of an IPO cash-out. No PE overhang, no unlock calendar, no pledging reported on screener.in. Alignment is genuine; the constraint is scale and the cyclical industry they operate in, not intent."},
+  pillars:[
+   {lbl:"Engine · Growth + runway", pts:1, why:"Lynch: know what you own — a cyclical rebounding off a trough is not a fast grower, even when this year's print says +26%.",
+    desc:"FY26 revenue <b>+26%</b> and 3y CAGR 15% — but the <b>5y CAGR is 7%</b> because D3 prices crashed in FY23–24 and rebounded in FY25. That's a <b>commodity cycle, not a secular engine</b>. Plant-based D3 opens a real new TAM (vegan + India food fortification), but its revenue contribution is unquantified today."},
+   {lbl:"Engine · Reinvestment ability", pts:1, why:"Akre's 3rd leg: reinvestment only compounds if the redeployed capital actually earns a high return through the cycle.",
+    desc:"Payout is only <b>~15%</b> and the board approved <b>₹110cr capex</b> (vs ~₹400cr net worth) into patented plant-based D3 and enzymes — genuine redeployment. But <b>3-yr average ROE is 12.9%</b>: history says returns mean-revert in down-cycles, so the reinvested rupee earns high returns only at the top of the cycle."},
+   {lbl:"Moat & Longevity", pts:1, why:"Dorsey: a cost/scale niche is a moat only while pricing holds — commodity end-markets cap longevity.",
+    desc:"Top-tier global D3 position, 50-country reach, and now a <b>patent + first-mover FSSAI approval in plant-based D3</b> — real differentiation. Against that: <b>China controls feed-grade supply</b>, realizations are volatile, OPM slid <b>21%→16%</b> through FY26, and working-capital days doubled (48→96)."},
+   {lbl:"Alignment", pts:1.5, why:"Skin in the game: owners adding stock with no exit event is the alignment signal an OFS never gives you.",
+    desc:"Founder-family at <b>64.1% and increasing</b>, no OFS, no PE blocks, no lock-in overhang (nothing was locked — it's not an IPO). Docked half a point only because there's no fresh-capital event and this remains a family-run smallcap with limited institutional scrutiny."},
+   {lbl:"Price & Asymmetry", pts:1, why:"Agrawal: price comes last — but paying a news-day spike for unquantified optionality hands the asymmetry to the seller.",
+    desc:"P/E <b>17.3×</b> is undemanding vs specialty-ingredient peers — <b>if</b> FY26 margins hold, which is the cyclical bet. But entry today means buying a <b>+15% single-day pop at the 52-week high (₹401)</b> for an approval nobody has sized, with zero analyst coverage to anchor value and margins already fading through FY26."},
+  ],
+  qrows:[["Business",1.5],["Growth",1],["Profit & BS",1],["Structure†",1.5],["Valuation",1.5]],
+  flags:["<b>⚠ INVALID SIGNAL — the known listing-date bug.</b> FERMENTA's first DB candle (2026-04-20) is the backfill date shared by exactly <b>91 veteran symbols</b>. The screener read it as a fresh IPO; it is a <b>75-year-old company direct-listing on NSE</b>. No IPO thesis (listing pop, discovery re-rating, lock-in dynamics) applies. <b>The IPO strategy should NOT trade this signal.</b>","<b>Cyclical, not secular:</b> 5y revenue CAGR 7% / profit CAGR 8% — the FY25–26 surge is a price-cycle recovery. Two more soft quarters would expose the multiple.","<b>Margins already fading:</b> quarterly OPM 21% → 20% → 18% → 16% through FY26; Q3 PAT −44% YoY.","<b>Working capital stress:</b> receivable/inventory days doubled from 48.5 to 95.8 — cash conversion deteriorating into the capex phase.","<b>No street coverage</b> — no targets to anchor value; MarketsMojo quant grade is 'Strong Sell' (01-Jul-2026).","No runbook red-flag caps: no SEBI/litigation issue found, promoters are net buyers (not sellers), no lock-in expiry exists. † IPO-structure lens scored on shareholding quality since there is no IPO structure to grade."],
+  math:"Engine A 2 (1+1) + Moat B 1 + Align C 1.5 + Price D 1 = 5.5 raw  →  engine gate clears (A&gt;1); no PSU / pure-OFS / froth veto applies (it is not even an IPO)  →  5.5/10",
+  arg:"Two separate conclusions, and both matter. <b>First, the signal is a false positive:</b> Fermenta is not a recently listed stock — it is a decades-old BSE company whose NSE direct listing put its first candle in our DB on the 91-symbol backfill date. Every mechanism the IPO strategy monetises (post-listing discovery, lock-in supply, re-rating from issue price) is absent, so as an <b>IPO trade this is an automatic no</b> regardless of score. <b>Second, judged simply as a company,</b> it is decent but not a compounder: the world-class D3 franchise earns high returns only at the top of a commodity cycle (5y sales CAGR 7%, 3y ROE 12.9%), margins are already rolling over (OPM 21%→16% through FY26), and the exciting part — patented, FSSAI-approved plant-based D3 with a ₹110cr capex behind it — is genuine optionality that <b>no one has yet converted into a revenue number</b>. The things that genuinely impress are alignment (family owners at 64% and buying) and an undemanding 17× multiple. That mix — real business, real optionality, weak engine, event-spike entry — is exactly what a 5.5 looks like: <b>a fine company, not a wealth opportunity at today's price and through this strategy.</b>",
+  take:"<b>Skip the signal.</b> It is a data artifact, not an IPO — flag it in the screener rather than trade it. As a stock, Fermenta is a family-owned cyclical with a patented plant-based-D3 option that could matter; if the story interests you, the right venue is the <b>fundamental-research track</b>, watching for (1) first revenue disclosure from VITADEE Green and (2) margin stabilisation — not a momentum entry on a +15% news day at the 52-week high.",
+  teaches:"<b>Validate the signal before you validate the stock.</b> A screener is only as good as its data assumptions — here, 'first candle date = listing date' silently turned 91 veterans into fake IPOs, and FERMENTA's exciting +15% breakout made the error look like opportunity. When a signal fires, first ask <i>is the premise true?</i> — only then ask <i>is the company good?</i> Cheap-looking P/Es on cyclicals are the second lesson: 17× peak-recovery earnings is not 17× durable earnings."
+};
+
+const OVDOT = v => v==="CONVICTION"?"var(--bet)":(v==="OPPORTUNITY"||v==="SELECTIVE")?"var(--sel)":"var(--bye)";
+const OVCLS = v => v==="CONVICTION"?"v-BET":(v==="OPPORTUNITY"||v==="SELECTIVE")?"v-SELECTIVE":"v-BYE";
+const QVCLS = v => v==="BET"?"v-BET":v==="SELECTIVE"?"v-SELECTIVE":"v-BYE";
+const BARCOL = (p,mx)=> p/mx>=1?"var(--bet)":p/mx>=.5?"var(--sel)":"var(--bye)";
+
+const tabs=document.getElementById("tabs"), panes=document.getElementById("panes");
+
+/* ---- Framework / education tab ---- */
+const et=document.createElement("div");
+et.className="tab edu active";et.innerHTML="📘 How to read this";
+et.onclick=()=>select(0);
+tabs.appendChild(et);
+const ep=document.createElement("div");
+ep.className="pane active";
+ep.innerHTML=`
+  <p class="lead">A technical signal tells you <b>when</b> a young stock breaks out; the runbook tells you <b>whether it's safe</b>; this report answers the question that builds wealth: <b>is it a multi-year compounding <i>opportunity</i>, bought before the crowd?</b> Most IPOs underperform (Ritter: ~34% vs 62% over 3 years), so the bar is high. We lead with the <b>opportunity score (QGLP-A)</b> and show the runbook <b>quality score</b> alongside as a safety check. <b>This particular run adds a third check that failed first: signal validity</b> — FERMENTA is not an IPO at all.</p>
+  <div class="pillar-def"><h4><span>A · ENGINE</span>Does it actually compound? (the gate)</h4><p><b>A1 Growth + runway</b> — growing fast with a large, under-penetrated market? <b>A2 Reinvestment</b> — can it redeploy profits at a high return? <b>If Engine ≤ 1, the score caps at 4</b> — a profitable slow-grower or dividend payer is not an opportunity.</p></div>
+  <div class="pillar-def"><h4><span>B · MOAT</span>Will the high return persist? (longevity)</h4><p>A durable moat — brand, switching costs, network, cost edge — is why returns don't mean-revert. A leader in a contested or decaying market has its longevity capped.</p></div>
+  <div class="pillar-def"><h4><span>C · ALIGNMENT</span>Will the compounding accrue to me?</h4><p>Founder-owners with wealth on the line and <b>fresh capital into the business</b> &gt;&gt; professional managers &gt;&gt; pure-OFS cash-outs (PE or government). In an OFS, the seller knows more than you.</p></div>
+  <div class="pillar-def"><h4><span>D · PRICE</span>Is the upside still on the table?</h4><p>"Price comes last" — but if the stock has already re-rated to fair value/targets, the asymmetry is gone even if the business is fine. The opportunity lives at the <i>entry price</i>.</p></div>
+  <div class="veto"><b>Structural vetoes (cap, never add):</b> &nbsp; PSU/govt → cap 5 &nbsp;·&nbsp; pure-OFS → cap 6 &nbsp;·&nbsp; froth listing → cap 6 &nbsp;·&nbsp; no engine (A ≤ 1) → cap 4.</div>
+  <h2 class="section">Verdict bands</h2>
+  <table>
+    <tr><th>Band</th><th>Score</th><th>Meaning</th></tr>
+    <tr><td><span class="verdict-badge v-BET">CONVICTION</span></td><td class="s">8–10</td><td>A genuine compounder, aligned, upside left. Size up.</td></tr>
+    <tr><td><span class="verdict-badge v-SELECTIVE">OPPORTUNITY</span></td><td class="s">6–7.5</td><td>Real engine, one leg weak (price / proof / alignment). Build / half-size.</td></tr>
+    <tr><td><span class="verdict-badge v-BYE">NOT AN OPPORTUNITY</span></td><td class="s">4–5.5</td><td>Fine company maybe, but won't compound for you — or you've missed the entry.</td></tr>
+    <tr><td><span class="verdict-badge v-BYE">AVOID</span></td><td class="s">&lt;4</td><td>Steer clear.</td></tr>
+  </table>
+  <h2 class="section">The reading list</h2>
+  <div class="card" style="padding:8px 22px">
+    <div class="book"><div class="bk">Christopher Mayer — <i>100 Baggers</i></div><div class="bi">Sustained EPS growth × a long reinvestment runway, run by owner-operators.</div></div>
+    <div class="book"><div class="bk">Chuck Akre — three-legged stool</div><div class="bi">High compounding × honest owner-managers × a runway to reinvest free cash.</div></div>
+    <div class="book"><div class="bk">Raamdeo Agrawal — QGLP</div><div class="bi">Quality × Growth × Longevity × Price. "Price comes last."</div></div>
+    <div class="book"><div class="bk">Peter Lynch — <i>One Up on Wall Street</i></div><div class="bi">The money is in fast growers with a runway, not slow growers in disguise — and know which category you own: this one is a <b>cyclical</b>.</div></div>
+    <div class="book"><div class="bk">Saurabh Mukherjea — <i>Coffee Can Investing</i></div><div class="bi">Avoid PSUs; compounders held for years make multibaggers.</div></div>
+    <div class="book"><div class="bk">Jay Ritter — IPO long-run studies</div><div class="bi">IPOs underperform; worst in hot windows. The seller knows more than you.</div></div>
+  </div>`;
+panes.appendChild(ep);
+
+/* ---- stock tab ---- */
+const s=STOCK;
+const t=document.createElement("div");
+t.className="tab";
+t.innerHTML=`<span class="dot" style="background:${OVDOT(s.opp.verdict)}"></span>${s.sym}
+  <span class="score-pill" style="color:${OVDOT(s.opp.verdict)}">${s.opp.score}</span>`;
+t.onclick=()=>select(1);
+tabs.appendChild(t);
+
+const pillars=s.pillars.map(r=>`
+  <div class="row">
+    <div class="lbl"><span>${r.lbl}</span><span class="pts" style="color:${BARCOL(r.pts,2)}">${r.pts}/2</span></div>
+    <div class="bar"><i style="width:${r.pts/2*100}%;background:${BARCOL(r.pts,2)}"></i></div>
+    <div class="desc">${r.desc}</div>
+    <div class="why">Why it matters — ${r.why}</div>
+  </div>`).join("");
+const qmini=s.qrows.map(q=>`<div class="lm"><div class="t">${q[0]}</div><div class="p" style="color:${BARCOL(q[1],2)}">${q[1]}/2</div></div>`).join("");
+const mstrip=s.m.map(x=>`<div class="metric"><div class="k">${x[0]}</div><div class="v">${x[1]}</div></div>`).join("");
+const flags=`<div class="flags"><b>Caps &amp; red flags</b>${s.flags.map(f=>"• "+f).join("<br>")}</div>`;
+
+const p=document.createElement("div");
+p.className="pane";
+p.innerHTML=`
+  <div class="bugbox"><b class="title">⚠ Signal validity — INVALID (do not trade as an IPO)</b>
+    The IPO screener flagged FERMENTA because its first candle in <i>historical_day_candles</i> is <b>2026-04-20</b> — but that date is the known <b>91-symbol backfill batch</b>, not a listing date. Fermenta Biotech (est. 1951, BSE code 506414, formerly DIL Ltd) has traded for decades and merely applied for a <b>direct NSE listing on 17-Jun-2026</b>. There was no IPO: no issue price, no fresh capital, no OFS, no lock-ins. The analysis below scores the <i>company</i>; the <i>signal</i> is a data artifact.</div>
+  <div class="shead">
+    <div>
+      <h2>${s.sym}</h2>
+      <div class="name">${s.name}</div>
+      <div class="sig">First DB candle <b>${s.sig.list}</b> (backfill, NOT a listing) · last price ₹${s.sig.px} (<b>${s.sig.date}</b>)<br>
+        <b>LIVE athbreak signal</b> — +15.2% to a 52-week high (day high ₹401) on FSSAI approval of its plant-based Vitamin D3. Signal premise: <b style="color:var(--bye)">false</b>.</div>
+    </div>
+    <div class="bigscore">
+      <div class="lab">Opportunity score</div>
+      <div><span class="num" style="color:${OVDOT(s.opp.verdict)}">${s.opp.score}</span><span class="den">/10</span></div>
+      <div class="verdict-badge ${OVCLS(s.opp.verdict)}">${s.opp.verdict}</div>
+      <div class="qchip">Quality screen: <b>${s.qual.score}/10</b> · <span class="${QVCLS(s.qual.verdict)}" style="padding:1px 7px;border-radius:8px">${s.qual.verdict}</span></div>
+    </div>
+  </div>
+  <div class="mstrip">${mstrip}</div>
+  <div class="card"><h3>What it does</h3><p style="font-size:14px;line-height:1.65;color:#3a4453">${s.desc}</p></div>
+  <div class="card"><h3>Future prospects · why the "IPO" · customers</h3><p style="font-size:13.5px;line-height:1.7;color:#3a4453">${s.future}</p></div>
+  <div class="card"><h3>Street view &amp; recent news</h3><p style="font-size:13.5px;line-height:1.7;color:#3a4453">${s.street}</p></div>
+  <div class="prom"><h3>Promoters &amp; management <span class="q" style="background:${s.prom.c}22;color:${s.prom.c};border:1px solid ${s.prom.c}55">${s.prom.q}</span></h3><p>${s.prom.t}</p></div>
+  <div class="card"><h3>Opportunity scorecard — QGLP-A <span class="tagline">the 4 pillars · each with why it matters</span></h3>${pillars}</div>
+  <div class="card"><h3>Quality screen (runbook 5-lens) <span class="tagline">the safety check — is it a landmine?</span></h3><div class="lens-mini">${qmini}</div></div>
+  ${flags}
+  <div class="arg"><h3>⚖️ Why this score</h3><div class="math">${s.math}</div><p>${s.arg}</p></div>
+  <div class="takeaway"><b>Bottom line.</b> ${s.take}</div>
+  <div class="teach"><b>📚 What this teaches you.</b> ${s.teaches}</div>
+  <div class="note">* "First DB candle" ₹318 on 2026-04-20 is the data-backfill date, not a listing price — there is no issue price to measure from. FY26 (Apr-2025→Mar-2026): revenue ₹538cr (+26%), EBITDA ₹120cr (+44%), PAT ~₹71cr, EPS ~₹24, dividend ₹3.75 (~15% payout). Sources: screener.in, CARE Ratings (Oct-2025), company/FSSAI announcements (Jul-2026), IndMoney live data.</div>`;
+panes.appendChild(p);
+
+function select(n){
+  document.querySelectorAll(".tab").forEach((t,i)=>t.classList.toggle("active",i===n));
+  document.querySelectorAll(".pane").forEach((p,i)=>p.classList.toggle("active",i===n));
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IPO Opportunity Review — AMAGI · QGLP-A</title>
+<style>
+  :root{
+    --bg:#f6f8fb; --panel:#ffffff; --panel2:#f1f4f8; --line:#e2e8f0;
+    --txt:#1a2230; --mut:#64748b; --acc:#2563eb;
+    --bet:#15803d; --sel:#b45309; --bye:#dc2626;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;padding:0 0 60px}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+  header{background:linear-gradient(135deg,#ffffff,#eef3fb);border-bottom:1px solid var(--line);padding:26px 0 22px;margin-bottom:24px;box-shadow:0 1px 3px rgba(16,24,40,.04)}
+  header h1{font-size:23px;font-weight:700;letter-spacing:-.2px}
+  header .sub{color:var(--mut);margin-top:6px;font-size:13.5px}
+  header .chip{display:inline-block;background:var(--panel2);border:1px solid var(--line);border-radius:20px;padding:3px 11px;font-size:12px;color:var(--mut);margin-right:6px;margin-top:10px}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:22px}
+  .tab{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 13px;cursor:pointer;font-size:13.5px;font-weight:600;color:var(--mut);display:flex;align-items:center;gap:7px;transition:.12s}
+  .tab:hover{border-color:var(--acc);color:var(--txt)}
+  .tab.active{background:var(--panel2);color:var(--txt);border-color:var(--acc)}
+  .tab .dot{width:8px;height:8px;border-radius:50%}
+  .tab.edu{background:#e8f0fe;border-color:#bcd3fb;color:#1d4ed8}
+  .tab.edu.active{background:#d6e4fd}
+  .score-pill{font-size:11px;font-weight:700;padding:1px 7px;border-radius:10px;background:var(--panel2)}
+  .pane{display:none;animation:fade .2s}
+  .pane.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .shead{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  .shead h2{font-size:20px}
+  .shead .name{color:var(--mut);font-size:13.5px;margin-top:3px}
+  .shead .sig{color:var(--mut);font-size:12.5px;margin-top:10px;line-height:1.7}
+  .shead .sig b{color:var(--txt);font-weight:600}
+  .bigscore{text-align:center;flex-shrink:0;min-width:150px}
+  .bigscore .lab{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--mut);margin-bottom:2px}
+  .bigscore .num{font-size:42px;font-weight:800;line-height:1}
+  .bigscore .den{font-size:16px;color:var(--mut);font-weight:600}
+  .verdict-badge{display:inline-block;font-size:11.5px;font-weight:700;padding:4px 12px;border-radius:20px;margin-top:8px;letter-spacing:.3px}
+  .qchip{display:block;margin-top:9px;font-size:11px;color:var(--mut)}
+  .qchip b{font-weight:700}
+  .v-BET{background:rgba(22,128,61,.1);color:var(--bet);border:1px solid rgba(22,128,61,.35)}
+  .v-SELECTIVE{background:rgba(180,83,9,.1);color:var(--sel);border:1px solid rgba(180,83,9,.35)}
+  .v-BYE{background:rgba(220,38,38,.09);color:var(--bye);border:1px solid rgba(220,38,38,.32)}
+  .mstrip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+  .metric{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  .metric .k{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.4px}
+  .metric .v{font-size:18px;font-weight:700;margin-top:3px}
+  .pos{color:var(--bet)} .neg{color:var(--bye)}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 22px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  .card h3{font-size:13px;text-transform:uppercase;letter-spacing:.5px;color:var(--mut);margin-bottom:14px}
+  .card h3 .tagline{text-transform:none;letter-spacing:0;color:var(--acc);font-weight:600;font-size:12px;margin-left:8px}
+  .row{margin-bottom:15px}
+  .row:last-child{margin-bottom:0}
+  .row .lbl{display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:5px}
+  .row .lbl .pts{font-weight:700}
+  .bar{height:7px;background:var(--panel2);border-radius:4px;overflow:hidden}
+  .bar i{display:block;height:100%;border-radius:4px}
+  .row .desc{font-size:12.5px;color:var(--mut);margin-top:6px}
+  .row .why{font-size:12px;color:#1d4ed8;margin-top:5px;background:rgba(37,99,235,.06);border-left:2px solid var(--acc);border-radius:0 6px 6px 0;padding:5px 10px;font-style:italic}
+  .lens-mini{display:flex;flex-wrap:wrap;gap:8px}
+  .lens-mini .lm{flex:1;min-width:120px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+  .lens-mini .lm .t{font-size:11px;color:var(--mut)}
+  .lens-mini .lm .p{font-size:15px;font-weight:700;margin-top:2px}
+  .prom{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  .prom h3{font-size:13px;text-transform:uppercase;letter-spacing:.5px;color:var(--mut);margin-bottom:9px}
+  .prom p{font-size:13.5px;line-height:1.65;color:#3a4453}
+  .prom .q{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px;margin-left:8px;vertical-align:middle}
+  .flags{background:rgba(220,38,38,.05);border:1px solid rgba(220,38,38,.2);border-radius:10px;padding:13px 16px;font-size:13px;margin-bottom:16px}
+  .flags b{display:block;margin-bottom:5px;font-size:12px;text-transform:uppercase;letter-spacing:.4px;color:var(--mut)}
+  .arg{background:var(--panel2);border-left:3px solid var(--acc);border-radius:0 10px 10px 0;padding:16px 18px;margin-bottom:16px}
+  .arg h3{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--acc);margin-bottom:9px}
+  .arg .math{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--mut);background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin-bottom:11px}
+  .arg p{font-size:14px;line-height:1.68}
+  .takeaway{font-size:14px;line-height:1.65;background:var(--panel);border:1px solid var(--line);border-radius:0 8px 8px 0;border-left:3px solid var(--mut);padding:13px 16px;margin-bottom:12px}
+  .teach{font-size:13.5px;line-height:1.6;background:rgba(180,83,9,.07);border:1px solid rgba(180,83,9,.28);border-radius:0 8px 8px 0;border-left:3px solid var(--sel);padding:13px 16px}
+  .teach b{color:var(--sel)}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin:6px 0 22px}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
+  th{font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:var(--mut)}
+  td.s{font-weight:700;text-align:center}
+  .note{font-size:12.5px;color:var(--mut);background:var(--panel);border:1px dashed var(--line);border-radius:10px;padding:14px 16px;margin-top:18px;line-height:1.7}
+  h2.section{font-size:16px;margin:22px 0 12px}
+  .lead{font-size:14px;line-height:1.7;color:#3a4453;margin-bottom:16px}
+  .pillar-def{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin-bottom:11px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  .pillar-def h4{font-size:14px;margin-bottom:5px;color:var(--txt)}
+  .pillar-def h4 span{font-size:11px;font-weight:700;color:var(--acc);background:rgba(37,99,235,.09);border:1px solid rgba(37,99,235,.28);border-radius:8px;padding:1px 8px;margin-right:8px}
+  .pillar-def p{font-size:13px;color:var(--mut);line-height:1.6}
+  .book{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+  .book:last-child{border-bottom:0}
+  .book .bk{font-weight:600;color:var(--txt);min-width:230px}
+  .book .bi{color:var(--mut)}
+  .veto{font-size:13px;color:#3a4453;line-height:1.7;background:rgba(220,38,38,.05);border:1px solid rgba(220,38,38,.2);border-radius:10px;padding:13px 16px;margin-top:6px}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1>IPO Opportunity Review — AMAGI</h1>
+  <div class="sub">Opportunity-first (QGLP-A) · is it a multi-year compounding opportunity, not just a good company? · data through 2026-06-17</div>
+  <div>
+    <span class="chip">Amagi Media Labs Ltd · NSE: AMAGI</span>
+    <span class="chip">listed 2026-01-21 · age ~5m</span>
+    <span class="chip">LIVE athbreak signal · +14.6% to 52w high today</span>
+  </div>
+</div></header>
+
+<div class="wrap">
+  <div class="tabs" id="tabs"></div>
+  <div id="panes"></div>
+</div>
+
+<script>
+const STOCK = {
+  sym:"AMAGI", name:"Amagi Media Labs Ltd — cloud broadcasting / FAST-channel SaaS",
+  opp:{score:6.5, verdict:"OPPORTUNITY"}, qual:{score:7.0, verdict:"SELECTIVE"},
+  sig:{px:498.75, date:"2026-06-17", list:"2026-01-21", age:"5m"},
+  m:[["Issue px","₹361"],["Now","₹499"],["Mkt cap","₹9,415cr"],["20d turnover","₹18cr*"]],
+  desc:"A global <b>cloud-broadcasting / SaaS</b> company that lets media owners run TV-grade channels and stream/monetise video entirely in the cloud. Modular 'land-and-expand' platform — <b>Cloudport</b> (cloud playout), <b>server-side ad insertion</b>, <b>programmatic monetisation</b>, and <b>Amagi CONNECT</b> (a two-sided content-syndication marketplace for FAST/OTT channels). It is a key pick-and-shovel of the global shift from satellite TV to streaming and <b>FAST (free ad-supported streaming TV)</b>. Listed at a <b>−12% discount</b> to the ₹361 issue (₹318), then re-rated hard on its turn to profit — now ₹499, an all-time high.",
+  future:"<b>Why the IPO:</b> a <b>mixed</b> issue — <b>₹816cr fresh (46%) + ₹973cr OFS (54%)</b>. Fresh proceeds fund cloud/tech infrastructure (₹550cr) and acquisitions; the larger OFS half let early VCs (Accel, Norwest, Premji/PI, Trudy) take chips off the table. <b>Customers:</b> <b>481 customers across 40+ countries</b> — 400+ content providers, 350+ distributors, 75+ advertisers; marquee global media names. <b>Net Revenue Retention 125.9%</b> and the count of <b>$1M+ customers rose 28→35</b> — existing accounts compound on their own. <b>Runway:</b> the global migration of broadcast to the cloud + the FAST explosion is a <b>large, under-penetrated TAM</b>; revenue CAGR ~30% (FY23–26). <b>Reinvestment:</b> asset-light, <b>zero dividend</b> — every rupee is reinvested into R&D, cloud capacity and tuck-in M&A; the ₹816cr fresh raise extends that runway. The catch: it only just turned profitable, so the <i>return</i> on that reinvested capital is real-but-thin, not yet high.",
+  street:"<b>Sell-side:</b> small coverage — IndMoney shows <b>3 analysts, 100% Buy, mean target ₹470</b> (range ₹450–480). At ₹499 the stock is trading <b>ABOVE the consensus target</b> (implied 'upside' ≈ −6%). <b>Valuation:</b> ~<b>6.3× FY26 sales</b> (₹1,506cr rev) and ~<b>130× FY26 PAT</b> (₹72cr) — rich, though P/E is noisy at a profit-inflection. <b>Recent news (positive):</b> strong Q4 FY26 (rev ₹397cr +28.5%, PAT ₹34cr); FY26 full-year <b>rev ₹1,506cr (+29.5%), Adj EBITDA ₹156cr (6×), PAT +₹72cr (first profitable year)</b>; Cloudport upgrade (100+ concurrent feeds, 99.999% reliability). <b>Read:</b> the re-rating off the discount listing has already played out — today's <b>+14.6% breakout to an all-time high on 33× normal volume</b> is momentum, not a fresh value entry.",
+  prom:{q:"PE-CONTROLLED", c:"var(--sel)", t:"<b>Founder-operated but VC-controlled, with founders holding very little.</b> The promoters are the operating team — <b>Baskar Subramanian (MD & CEO), Srividhya Srinivasan (CTO) and Arunachalam Srinivasan Karapattu (President)</b> — credible builders of a genuine global product. But post-issue <b>promoter holding is only ~14.1%</b> (down from 15.8%); the cap table is dominated by <b>Accel, Norwest Venture Partners and Premji Invest (PI Opportunities)</b>, several of whom were <b>net sellers in the ₹973cr OFS</b>. So the people who built it have modest equity left, and large institutional blocks will look to exit over time — alignment is real on talent, weak on ownership."},
+  pillars:[
+   {lbl:"Engine · Growth + runway", pts:2, why:"Lynch: the big money is in fast growers with a long runway — a category leader in a structural shift compounds that runway.",
+    desc:"Revenue <b>+29.5% to ₹1,506cr (FY26)</b>, ~30% CAGR since FY23, <b>NRR 125.9%</b>, riding the global broadcast→cloud + FAST migration. A <b>genuine top-tier engine</b> — the opposite of a no-growth PSU."},
+   {lbl:"Engine · Reinvestment ability", pts:1, why:"Akre's 3rd leg: a reinvestment runway only counts if the returns on that capital are actually high.",
+    desc:"Asset-light, <b>zero payout</b>, reinvesting all cash + a ₹816cr fresh raise into cloud/R&D/M&A — the runway is real. But it <b>only just turned profitable</b> (PAT ~5% margin), so high ROIC is <b>promised, not proven</b>. Hence 1, not 2."},
+   {lbl:"Moat & Longevity", pts:1.5, why:"Dorsey: switching costs + a two-sided network are genuine moats — but only if hyperscalers can't simply replicate them.",
+    desc:"Mission-critical infra (<b>99.999% reliability</b>), high switching costs, <b>NRR 126%</b>, and the CONNECT marketplace adds network effects. Contested by <b>AWS Elemental, Harmonic, Brightcove</b> and the hyperscalers — a real but not-yet-wide moat."},
+   {lbl:"Alignment", pts:1, why:"Skin-in-the-game: founder-owners with fresh capital is gold; here it's a VC-built table with founders holding ~14% and PEs selling.",
+    desc:"Founders <b>operate</b> the business but hold only <b>~14%</b>; the issue was <b>54% OFS</b> (₹973cr) with Accel/Norwest/PI taking money out. Fresh ₹816cr did fund growth, so not a pure cash-out — but ownership alignment is thin and unlock overhang looms."},
+   {lbl:"Price & Asymmetry", pts:1, why:"In an ATH-breakout strategy the new high IS the entry — so price risk is about the valuation multiple, not the chart (every screened name is at an ATH by design).",
+    desc:"The <b>ATH breakout is the screener's entry, not a demerit</b>. On fundamentals the price is <b>full but not egregious</b> — ~<b>6.3× FY26 sales / ~130× earnings</b> for a profitable 30% grower with 126% NRR (in line with MEESHO's 6–7×). Above the thin 3-analyst ₹470 target, but momentum routinely overshoots targets. Full, not a bubble — hence 1, not 2."},
+  ],
+  qrows:[["Business",2],["Growth",2],["Profit & BS",1],["Structure",1],["Valuation",1]],
+  flags:["<b>The ATH is the strategy's entry, not a flag.</b> This screener only fires on an ATH breakout after a listing drop, so every name arrives at a high by design — the fundamental overlay scores business quality + valuation, never the chart.","<b>Full valuation</b> — ~6.3× sales / ~130× earnings, above the thin 3-analyst ₹470 target. Not a landmine, but less valuation cushion if the breakout fails; holds the price pillar at 1, not 2.","<b>OFS-heavy issue (54%) + low promoter holding (~14%)</b> — VC-built table; alignment pillar held to 1.","<b>Pre-IPO investor lock-in overhang.</b> Under standard SEBI rules, non-promoter pre-IPO (VC/PE) shares typically unlock <b>~6 months after listing ≈ late-July 2026</b> — a near-term supply event ~5 weeks out. <i>(Inferred from listing date; confirm against the RHP lock-in table.)</i>","<b>Thin, just-turned-positive profitability</b> (FY26 PAT ~5% margin) — high ROIC unproven; caps reinvestment at 1.","No PSU veto, no pure-OFS veto, no froth-listing veto (it listed at a <i>discount</i>); engine gate clears (A=3)."],
+  math:"Engine A 3 (2+1) + Moat B 1.5 + Align C 1 + Price D 1 = 6.5 raw  →  no structural veto (engine present, not PSU, not pure-OFS, not a froth listing)  →  6.5/10",
+  arg:"Scored correctly for an <b>ATH-breakout momentum strategy</b>: the new high is the <i>entry trigger</i>, so the fundamental overlay's job is to decide whether the breakout is <b>worth riding (good business)</b> or a <b>trap (weak business)</b> — not to re-time the chart. On that test Amagi is a clear ride: the engine is genuinely strong (A=3) — a global category leader in cloud broadcasting/FAST, growing ~30% with <b>126% net revenue retention</b>, and, unusually for a fresh listing, <b>already profitable</b> with operating leverage kicking in (EBITDA up 6×). Quality screen is a clean <b>7 (SELECTIVE)</b>. The score lands at <b>6.5 — OPPORTUNITY (conditional)</b>, not full CONVICTION, for two reasons unrelated to the breakout: <b>(1) alignment</b> — founders hold only ~14%, the issue was 54% OFS, and large VC blocks face a likely late-July unlock (C=1); and <b>(2) a full multiple</b> — ~6.3× sales / ~130× earnings leaves little valuation cushion if momentum stalls (D=1). Both are <i>sizing-and-timing</i> issues, not reasons to skip the signal.",
+  take:"A <b>genuinely good compounder on a valid breakout</b> — the screener did its job. Quality engine, 126% NRR, profitable and reinvesting. The two things holding it below CONVICTION are weak ownership alignment (54% OFS, ~14% promoter) and a likely <b>late-July VC unlock</b> that could cap the move. So treat it as <b>OPPORTUNITY-conditional: a half-size / starter position is reasonable on the signal</b>, kept small and managed around the unlock — not a full slot, and emphatically not a concentrated bet.",
+  teaches:"<b>Match the lens to the strategy.</b> A value-investor's 'never buy an all-time high' reflex is the <i>wrong</i> tool for an ATH-breakout momentum system — there, the new high is the edge, and the fundamental overlay should grade <b>business quality and valuation, not the chart</b>. Amagi is a quality engine on a valid breakout (6.5, OPPORTUNITY); the residual caution is about <i>alignment and a full price</i>, which you manage with <b>position size and unlock timing</b>, not by sitting out the signal."
+};
+
+const OVDOT = v => v==="CONVICTION"?"var(--bet)":(v==="OPPORTUNITY"||v==="SELECTIVE")?"var(--sel)":"var(--bye)";
+const OVCLS = v => v==="CONVICTION"?"v-BET":(v==="OPPORTUNITY"||v==="SELECTIVE")?"v-SELECTIVE":"v-BYE";
+const QVCLS = v => v==="BET"?"v-BET":v==="SELECTIVE"?"v-SELECTIVE":"v-BYE";
+const BARCOL = (p,mx)=> p/mx>=1?"var(--bet)":p/mx>=.5?"var(--sel)":"var(--bye)";
+
+const tabs=document.getElementById("tabs"), panes=document.getElementById("panes");
+
+/* ---- Framework / education tab ---- */
+const et=document.createElement("div");
+et.className="tab edu active";et.innerHTML="📘 How to read this";
+et.onclick=()=>select(0);
+tabs.appendChild(et);
+const ep=document.createElement("div");
+ep.className="pane active";
+ep.innerHTML=`
+  <p class="lead">A technical signal tells you <b>when</b> a young stock breaks out; the runbook tells you <b>whether it's safe</b>; this report answers the question that builds wealth: <b>is it a multi-year compounding <i>opportunity</i>, bought before the crowd?</b> Most IPOs underperform (Ritter: ~34% vs 62% over 3 years), so the bar is high. We lead with the <b>opportunity score (QGLP-A)</b> and show the runbook <b>quality score</b> alongside as a safety check.</p>
+  <div class="pillar-def"><h4><span>A · ENGINE</span>Does it actually compound? (the gate)</h4><p><b>A1 Growth + runway</b> — growing fast with a large, under-penetrated market? <b>A2 Reinvestment</b> — can it redeploy profits at a high return? <b>If Engine ≤ 1, the score caps at 4</b> — a profitable slow-grower or dividend payer is not an opportunity.</p></div>
+  <div class="pillar-def"><h4><span>B · MOAT</span>Will the high return persist? (longevity)</h4><p>A durable moat — brand, switching costs, network, cost edge — is why returns don't mean-revert. A leader in a contested or decaying market has its longevity capped.</p></div>
+  <div class="pillar-def"><h4><span>C · ALIGNMENT</span>Will the compounding accrue to me?</h4><p>Founder-owners with wealth on the line and <b>fresh capital into the business</b> &gt;&gt; professional managers &gt;&gt; pure-OFS cash-outs (PE or government). In an OFS, the seller knows more than you.</p></div>
+  <div class="pillar-def"><h4><span>D · PRICE</span>Is the upside still on the table?</h4><p>"Price comes last" — but if the stock has already re-rated to fair value/targets, the asymmetry is gone even if the business is fine. The opportunity lives at the <i>entry price</i>.</p></div>
+  <div class="veto"><b>Structural vetoes (cap, never add):</b> &nbsp; PSU/govt → cap 5 &nbsp;·&nbsp; pure-OFS → cap 6 &nbsp;·&nbsp; froth listing → cap 6 &nbsp;·&nbsp; no engine (A ≤ 1) → cap 4.</div>
+  <h2 class="section">Verdict bands</h2>
+  <table>
+    <tr><th>Band</th><th>Score</th><th>Meaning</th></tr>
+    <tr><td><span class="verdict-badge v-BET">CONVICTION</span></td><td class="s">8–10</td><td>A genuine compounder, aligned, upside left. Size up.</td></tr>
+    <tr><td><span class="verdict-badge v-SELECTIVE">OPPORTUNITY</span></td><td class="s">6–7.5</td><td>Real engine, one leg weak (price / proof / alignment). Build / half-size.</td></tr>
+    <tr><td><span class="verdict-badge v-BYE">NOT AN OPPORTUNITY</span></td><td class="s">4–5.5</td><td>Fine company maybe, but won't compound for you — or you've missed the entry.</td></tr>
+    <tr><td><span class="verdict-badge v-BYE">AVOID</span></td><td class="s">&lt;4</td><td>Steer clear.</td></tr>
+  </table>
+  <h2 class="section">The reading list</h2>
+  <div class="card" style="padding:8px 22px">
+    <div class="book"><div class="bk">Christopher Mayer — <i>100 Baggers</i></div><div class="bi">Sustained EPS growth × a long reinvestment runway, run by owner-operators.</div></div>
+    <div class="book"><div class="bk">Chuck Akre — three-legged stool</div><div class="bi">High compounding × honest owner-managers × a runway to reinvest free cash.</div></div>
+    <div class="book"><div class="bk">Raamdeo Agrawal — QGLP</div><div class="bi">Quality × Growth × Longevity × Price. "Price comes last."</div></div>
+    <div class="book"><div class="bk">Peter Lynch — <i>One Up on Wall Street</i></div><div class="bi">The money is in fast growers with a runway, not slow growers in disguise.</div></div>
+    <div class="book"><div class="bk">Saurabh Mukherjea — <i>Coffee Can Investing</i></div><div class="bi">Avoid PSUs; compounders held for years make multibaggers.</div></div>
+    <div class="book"><div class="bk">Jay Ritter — IPO long-run studies</div><div class="bi">IPOs underperform; worst in hot windows. The seller knows more than you.</div></div>
+  </div>`;
+panes.appendChild(ep);
+
+/* ---- stock tab ---- */
+const s=STOCK;
+const t=document.createElement("div");
+t.className="tab";
+t.innerHTML=`<span class="dot" style="background:${OVDOT(s.opp.verdict)}"></span>${s.sym}
+  <span class="score-pill" style="color:${OVDOT(s.opp.verdict)}">${s.opp.score}</span>`;
+t.onclick=()=>select(1);
+tabs.appendChild(t);
+
+const pillars=s.pillars.map(r=>`
+  <div class="row">
+    <div class="lbl"><span>${r.lbl}</span><span class="pts" style="color:${BARCOL(r.pts,2)}">${r.pts}/2</span></div>
+    <div class="bar"><i style="width:${r.pts/2*100}%;background:${BARCOL(r.pts,2)}"></i></div>
+    <div class="desc">${r.desc}</div>
+    <div class="why">Why it matters — ${r.why}</div>
+  </div>`).join("");
+const qmini=s.qrows.map(q=>`<div class="lm"><div class="t">${q[0]}</div><div class="p" style="color:${BARCOL(q[1],2)}">${q[1]}/2</div></div>`).join("");
+const mstrip=s.m.map(x=>`<div class="metric"><div class="k">${x[0]}</div><div class="v">${x[1]}</div></div>`).join("");
+const flags=`<div class="flags"><b>Caps &amp; red flags</b>${s.flags.map(f=>"• "+f).join("<br>")}</div>`;
+
+const p=document.createElement("div");
+p.className="pane";
+p.innerHTML=`
+  <div class="shead">
+    <div>
+      <h2>${s.sym}</h2>
+      <div class="name">${s.name}</div>
+      <div class="sig">Listed <b>${s.sig.list}</b> · age <b>${s.sig.age}</b> · last price ₹${s.sig.px} (<b>${s.sig.date}</b>)<br>
+        <b>LIVE athbreak signal</b> — +14.6% to an all-time high (₹522 upper circuit) on ~33× normal volume. Opportunity review of a live trigger.</div>
+    </div>
+    <div class="bigscore">
+      <div class="lab">Opportunity score</div>
+      <div><span class="num" style="color:${OVDOT(s.opp.verdict)}">${s.opp.score}</span><span class="den">/10</span></div>
+      <div class="verdict-badge ${OVCLS(s.opp.verdict)}">${s.opp.verdict}</div>
+      <div class="qchip">Quality screen: <b>${s.qual.score}/10</b> · <span class="${QVCLS(s.qual.verdict)}" style="padding:1px 7px;border-radius:8px">${s.qual.verdict}</span></div>
+    </div>
+  </div>
+  <div class="mstrip">${mstrip}</div>
+  <div class="card"><h3>What it does</h3><p style="font-size:14px;line-height:1.65;color:#3a4453">${s.desc}</p></div>
+  <div class="card"><h3>Future prospects · why the IPO · customers</h3><p style="font-size:13.5px;line-height:1.7;color:#3a4453">${s.future}</p></div>
+  <div class="card"><h3>Street view &amp; recent news</h3><p style="font-size:13.5px;line-height:1.7;color:#3a4453">${s.street}</p></div>
+  <div class="prom"><h3>Promoters &amp; management <span class="q" style="background:${s.prom.c}22;color:${s.prom.c};border:1px solid ${s.prom.c}55">${s.prom.q}</span></h3><p>${s.prom.t}</p></div>
+  <div class="card"><h3>Opportunity scorecard — QGLP-A <span class="tagline">the 4 pillars · each with why it matters</span></h3>${pillars}</div>
+  <div class="card"><h3>Quality screen (runbook 5-lens) <span class="tagline">the safety check — is it a landmine?</span></h3><div class="lens-mini">${qmini}</div></div>
+  ${flags}
+  <div class="arg"><h3>⚖️ Why this score</h3><div class="math">${s.math}</div><p>${s.arg}</p></div>
+  <div class="takeaway"><b>Bottom line.</b> ${s.take}</div>
+  <div class="teach"><b>📚 What this teaches you.</b> ${s.teaches}</div>
+  <div class="note">* 20d avg turnover ₹18cr is inflated by today's ₹231cr breakout-day spike; the prior-19-day average is only ~₹7cr/day — liquidity is thin outside event days, which matters for sizing and exits.</div>`;
+panes.appendChild(p);
+
+function select(n){
+  document.querySelectorAll(".tab").forEach((t,i)=>t.classList.toggle("active",i===n));
+  document.querySelectorAll(".pane").forEach((p,i)=>p.classList.toggle("active",i===n));
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+</script>
+</body>
+</html>

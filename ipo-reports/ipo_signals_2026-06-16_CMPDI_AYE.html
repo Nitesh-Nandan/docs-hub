@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IPO Opportunity Review — CMPDI &amp; AYE · QGLP-A</title>
+<style>
+  :root{
+    --bg:#f6f8fb; --panel:#ffffff; --panel2:#f1f4f8; --line:#e2e8f0;
+    --txt:#1a2230; --mut:#64748b; --acc:#2563eb;
+    --bet:#15803d; --sel:#b45309; --bye:#dc2626;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;padding:0 0 60px}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+  header{background:linear-gradient(135deg,#ffffff,#eef3fb);border-bottom:1px solid var(--line);padding:26px 0 22px;margin-bottom:24px;box-shadow:0 1px 3px rgba(16,24,40,.04)}
+  header h1{font-size:23px;font-weight:700;letter-spacing:-.2px}
+  header .sub{color:var(--mut);margin-top:6px;font-size:13.5px}
+  header .chip{display:inline-block;background:var(--panel2);border:1px solid var(--line);border-radius:20px;padding:3px 11px;font-size:12px;color:var(--mut);margin-right:6px;margin-top:10px}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:22px}
+  .tab{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 13px;cursor:pointer;font-size:13.5px;font-weight:600;color:var(--mut);display:flex;align-items:center;gap:7px;transition:.12s}
+  .tab:hover{border-color:var(--acc);color:var(--txt)}
+  .tab.active{background:var(--panel2);color:var(--txt);border-color:var(--acc)}
+  .tab .dot{width:8px;height:8px;border-radius:50%}
+  .tab.edu{background:#e8f0fe;border-color:#bcd3fb;color:#1d4ed8}
+  .tab.edu.active{background:#d6e4fd}
+  .tab.verdict{margin-left:auto;background:#e8f0fe;border-color:#bcd3fb;color:#1d4ed8}
+  .tab.verdict.active{background:#d6e4fd}
+  .score-pill{font-size:11px;font-weight:700;padding:1px 7px;border-radius:10px;background:var(--panel2)}
+  .pane{display:none;animation:fade .2s}
+  .pane.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .shead{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  .shead h2{font-size:20px}
+  .shead .name{color:var(--mut);font-size:13.5px;margin-top:3px}
+  .shead .sig{color:var(--mut);font-size:12.5px;margin-top:10px;line-height:1.7}
+  .shead .sig b{color:var(--txt);font-weight:600}
+  .bigscore{text-align:center;flex-shrink:0;min-width:150px}
+  .bigscore .lab{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--mut);margin-bottom:2px}
+  .bigscore .num{font-size:42px;font-weight:800;line-height:1}
+  .bigscore .den{font-size:16px;color:var(--mut);font-weight:600}
+  .verdict-badge{display:inline-block;font-size:11.5px;font-weight:700;padding:4px 12px;border-radius:20px;margin-top:8px;letter-spacing:.3px}
+  .qchip{display:block;margin-top:9px;font-size:11px;color:var(--mut)}
+  .qchip b{font-weight:700}
+  .v-BET{background:rgba(63,185,80,.16);color:var(--bet);border:1px solid rgba(63,185,80,.4)}
+  .v-SELECTIVE{background:rgba(210,153,34,.16);color:var(--sel);border:1px solid rgba(210,153,34,.4)}
+  .v-BYE{background:rgba(248,81,73,.16);color:var(--bye);border:1px solid rgba(248,81,73,.4)}
+  .mstrip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+  .metric{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  .metric .k{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.4px}
+  .metric .v{font-size:18px;font-weight:700;margin-top:3px}
+  .pos{color:var(--bet)} .neg{color:var(--bye)}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 22px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  .card h3{font-size:13px;text-transform:uppercase;letter-spacing:.5px;color:var(--mut);margin-bottom:14px}
+  .card h3 .tagline{text-transform:none;letter-spacing:0;color:var(--acc);font-weight:600;font-size:12px;margin-left:8px}
+  .row{margin-bottom:15px}
+  .row:last-child{margin-bottom:0}
+  .row .lbl{display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:5px}
+  .row .lbl .pts{font-weight:700}
+  .bar{height:7px;background:var(--panel2);border-radius:4px;overflow:hidden}
+  .bar i{display:block;height:100%;border-radius:4px}
+  .row .desc{font-size:12.5px;color:var(--mut);margin-top:6px}
+  .row .why{font-size:12px;color:#1d4ed8;margin-top:5px;background:rgba(37,99,235,.06);border-left:2px solid var(--acc);border-radius:0 6px 6px 0;padding:5px 10px;font-style:italic}
+  .lens-mini{display:flex;flex-wrap:wrap;gap:8px}
+  .lens-mini .lm{flex:1;min-width:120px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+  .lens-mini .lm .t{font-size:11px;color:var(--mut)}
+  .lens-mini .lm .p{font-size:15px;font-weight:700;margin-top:2px}
+  .prom{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  .prom h3{font-size:13px;text-transform:uppercase;letter-spacing:.5px;color:var(--mut);margin-bottom:9px}
+  .prom p{font-size:13.5px;line-height:1.65;color:#3a4453}
+  .prom .q{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px;margin-left:8px;vertical-align:middle}
+  .flags{background:rgba(248,81,73,.07);border:1px solid rgba(248,81,73,.25);border-radius:10px;padding:13px 16px;font-size:13px;margin-bottom:16px}
+  .flags.clean{background:rgba(63,185,80,.07);border-color:rgba(63,185,80,.25)}
+  .flags b{display:block;margin-bottom:5px;font-size:12px;text-transform:uppercase;letter-spacing:.4px;color:var(--mut)}
+  .arg{background:var(--panel2);border-left:3px solid var(--acc);border-radius:0 10px 10px 0;padding:16px 18px;margin-bottom:16px}
+  .arg h3{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--acc);margin-bottom:9px}
+  .arg .math{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--mut);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin-bottom:11px}
+  .arg p{font-size:14px;line-height:1.68}
+  .takeaway{font-size:14px;line-height:1.65;background:var(--panel);border:1px solid var(--line);border-radius:0 8px 8px 0;border-left:3px solid var(--mut);padding:13px 16px;margin-bottom:12px}
+  .teach{font-size:13.5px;line-height:1.6;background:rgba(210,153,34,.08);border:1px solid rgba(210,153,34,.3);border-radius:0 8px 8px 0;border-left:3px solid var(--sel);padding:13px 16px}
+  .teach b{color:var(--sel)}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin:6px 0 22px}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
+  th{font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:var(--mut)}
+  td.s{font-weight:700;text-align:center}
+  tr.rank1 td{background:rgba(210,153,34,.06)}
+  .pick{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-bottom:14px}
+  .pick h3{font-size:17px;display:flex;align-items:center;gap:10px;margin-bottom:4px}
+  .pick .alloc{font-size:12px;color:var(--mut);margin-bottom:10px}
+  .pick p{font-size:13.5px;color:#3a4453;line-height:1.65}
+  .note{font-size:12.5px;color:var(--mut);background:var(--panel);border:1px dashed var(--line);border-radius:10px;padding:14px 16px;margin-top:18px;line-height:1.7}
+  h2.section{font-size:16px;margin:22px 0 12px}
+  .lead{font-size:14px;line-height:1.7;color:#3a4453;margin-bottom:16px}
+  .pillar-def{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin-bottom:11px}
+  .pillar-def h4{font-size:14px;margin-bottom:5px;color:var(--txt)}
+  .pillar-def h4 span{font-size:11px;font-weight:700;color:var(--acc);background:rgba(37,99,235,.09);border:1px solid rgba(37,99,235,.28);border-radius:8px;padding:1px 8px;margin-right:8px}
+  .pillar-def p{font-size:13px;color:var(--mut);line-height:1.6}
+  .book{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+  .book:last-child{border-bottom:0}
+  .book .bk{font-weight:600;color:var(--txt);min-width:230px}
+  .book .bi{color:var(--mut)}
+  .veto{font-size:13px;color:#3a4453;line-height:1.7;background:rgba(248,81,73,.06);border:1px solid rgba(248,81,73,.22);border-radius:10px;padding:13px 16px;margin-top:6px}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1>IPO Opportunity Review — Opportunity-First (QGLP-A)</h1>
+  <div class="sub">Is it a multi-year wealth opportunity — not just a good company? · CMPDI &amp; AYE · data through 2026-06-16</div>
+  <div>
+    <span class="chip">2 signals</span>
+    <span class="chip">headline = opportunity score · quality score shown alongside</span>
+    <span class="chip">profit ≠ opportunity</span>
+    <span class="chip">built to teach, not just to score</span>
+  </div>
+</div></header>
+
+<div class="wrap">
+  <div class="tabs" id="tabs"></div>
+  <div id="panes"></div>
+</div>
+
+<script>
+const STOCKS = [
+ {sym:"CMPDI", name:"Central Mine Planning &amp; Design Institute",
+  opp:{score:4.0, verdict:"NOT AN OPPORTUNITY"}, qual:{score:6.5, verdict:"SELECTIVE"},
+  sig:{px:258.51, date:"2026-06-16", list:"2026-03-30", age:"2.5m"},
+  m:{issue:"₹172", now:"₹259", frm_list:"+68%", to_liq:"₹98cr"},
+  desc:"A <b>Coal India subsidiary (Mini-ratna), est. 1975</b>, providing end-to-end <b>mining consultancy</b> — coal/mineral exploration, mine planning &amp; design — with a <b>~61% share of India's mining-consultancy market</b>. Asset-light, near-monopoly, but tethered to coal-sector capex and its parent's ecosystem.",
+  future:"<b>Why the IPO:</b> it raised <i>no</i> money for the company — a <b>100% OFS government disinvestment</b> (Coal India 100%→85%, monetising value while keeping control; the PMO wants all CIL subs listed by 2030). <b>Customers:</b> heavily concentrated — top-10 ≈ <b>94% of revenue</b>, Coal India + subsidiaries ≈ <b>66%</b>. Bright spot: the <b>non-CIL book grew 2.9× (₹240→692cr, FY23→25)</b> — now Adani, state govts, Mozambique. <b>Reinvestment:</b> 33% ROE but a <b>~23% dividend payout</b>, and the work is people/contract-based — it cannot redeploy capital at 33%, so cash leaves rather than compounding. <b>Future plans:</b> genuine but early diversification — a rare-earth / critical-minerals block (Rajasthan), a 5-yr MECL pact (2026–31), and solar/environmental consultancy. EBITDA/PAT CAGR ~52%/50% (FY23–25) on a 23% topline.",
+  street:"<b>Sell-side:</b> IPO notes (Sushil, ValueResearch, FundsIndia) were broadly <b>'Subscribe — long term'</b> on the debt-free monopoly, ~40% margins and parentage; cautious takes flagged the OFS, PSU/coal dependency and rich-vs-peer price. INDmoney's listing note was a measured <b>'hold / accumulate on dips'</b>. No formal post-listing institutional targets yet. <b>Recent news:</b> beat exploration targets, renewed the MECL pact, backed a rare-earths block — the likely fuel behind the +68% run and the volume-backed ATH.",
+  prom:{q:"GOVT / PSU", c:"var(--sel)", t:"Promoter is the <b>President of India (Ministry of Coal) via Coal India Ltd</b>, ~85% post-IPO — a <b>100% OFS</b> divestment. The high retained stake reassures, but this is a <b>professionally-run PSU, not a founder-owner</b>: state-influenced economics, an explicit divestment agenda (more supply to come), and — critically — <b>Coal India is also the dominant customer</b>. The owner is on both sides of the table."},
+  pillars:[
+   {lbl:"Engine · Growth + runway", pts:1, why:"Lynch: the big money is in fast growers with a long runway, not slow growers.",
+    desc:"3y revenue CAGR 23% and PAT doubled, <b>but FY26 topline slowed to +10%</b> and the order book is bounded by Coal India's production plans — a <b>policy-capped TAM</b>, not an open runway."},
+   {lbl:"Engine · Reinvestment ability", pts:0, why:"Akre's 3rd leg / Mayer: a high ROE you can't reinvest is a bond, not a compounding machine.",
+    desc:"33% ROE but <b>~23% paid out as dividends</b>, and consultancy can't absorb capital at 33% — so the cash exits. <b>This is the heart of why it isn't an opportunity:</b> nothing compounds."},
+   {lbl:"Moat & Longevity", pts:1, why:"Dorsey: moats are why high returns persist; a decaying end-market shortens longevity.",
+    desc:"A ~61% consultancy monopoly (real moat) <b>but the end-market is coal</b> — a structurally declining, ESG-headwind sector. Durable share, shrinking pond."},
+   {lbl:"Alignment", pts:0, why:"Ritter: in an OFS the seller knows more than you. Mukherjea: PSUs serve the state, not shareholders.",
+    desc:"<b>100% OFS government divestment</b> — no fresh capital, more state selling mandated, and the parent is also ~66% of revenue. Textbook govt-vs-shareholder conflict."},
+   {lbl:"Price & Asymmetry", pts:1, why:"Agrawal: 'price comes last' — but if you're paying a premium for a non-compounder, there's no asymmetry.",
+    desc:"P/E ~28× vs peers 22.6× and already <b>+68% from listing</b> — a premium multiple on a business that won't grow into it."},
+  ],
+  qrows:[["Business",2],["Growth",1],["Profit & BS",2],["Structure",1],["Valuation",1]],
+  flags:["<b>No-engine gate:</b> Pillar A (Engine) = 1 → opportunity capped at 4 (a dividend stock, not a compounder).","<b>PSU veto:</b> government-controlled → opportunity capped at 5 (capital allocation + divestment overhang).","Parent (Coal India) is also ~66% of revenue — concentration / related-party dependency.","Coal / ESG structural headwind; FY26 PAT declined."],
+  math:"Engine A 1 + Moat B 1 + Align C 0 + Price D 1 = 3 raw  →  no-engine gate (A≤1 ⇒ cap 4) &amp; PSU veto (cap 5)  →  4.0/10",
+  arg:"On the <b>quality</b> lens this is a strong 6.5 — a debt-free, 33%-ROE monopoly is a genuinely fine business. But the <b>opportunity</b> lens asks a harder question: <i>will it compound my money?</i> And here it fails the most important test — <b>the engine.</b> A 33% ROE that is paid out as dividends (because a people-based consultancy can't reinvest capital at 33%) is a bond-like income stream, not a snowball. Layer on a <b>policy-capped TAM</b> (coal), a <b>pure-OFS government divestment</b> with no fresh capital and a permanent supply overhang, a <b>premium valuation</b>, and a parent that is also the main customer — and the no-engine gate plus the PSU veto pull a 'good company' down to a 4. <b>It's a high-quality non-compounder: own it for yield or a PSU re-rating trade if you want, but that is a different game from IPO opportunity-hunting.</b>",
+  take:"A well-run, debt-free monopoly — and <b>not a wealth opportunity</b>. The 33% ROE is a mirage for a compounder because it leaves as dividends rather than reinvesting, the TAM is coal-capped, and it's a government OFS bought at a premium. Pass as an opportunity; only consider as a dividend / re-rating instrument.",
+  teaches:"<b>Quality ≠ opportunity.</b> The single most expensive mistake an IPO hunter makes is confusing a profitable company with a compounding one. Ask: <i>can it reinvest its returns for years?</i> If the cash leaves as dividends and the market is capped, even a 33% ROE won't make you rich."},
+
+ {sym:"AYE", name:"Aye Finance",
+  opp:{score:5.0, verdict:"NOT AN OPPORTUNITY"}, qual:{score:5.5, verdict:"BYE-BYE"},
+  sig:{px:166.19, date:"2026-06-16", list:"2026-02-16", age:"4.0m"},
+  m:{issue:"₹129", now:"₹166", frm_list:"+29%", to_liq:"₹29cr"},
+  desc:"A technology-driven <b>MSME-lending NBFC</b> — working-capital and business loans to micro-enterprises, underwritten by cluster-based data models.",
+  future:"<b>Why the IPO:</b> a real capital raise — <b>~₹885cr fresh + ₹565cr OFS</b> (₹710cr of fresh equity) to <b>strengthen Tier-1 and fund lending growth</b>. <b>Customers:</b> ~587,000 active micro-enterprise borrowers across 18 states + 3 UTs; <b>repeat loans rose to 45% of disbursements (from 26%)</b> — improving stickiness lowers acquisition cost as the book matures. <b>Reinvestment / runway:</b> the underserved-MSME credit gap is <b>large and structural</b>; lenders compound their book, and returns are improving — RoTA 1.5%→3.1%, ROE 5.5%→12.1% (FY23→25), Q4FY26 ROE back to 16% post-raise.",
+  street:"<b>Sell-side:</b> <b>IIFL Capital initiated BUY, target ₹180</b> (FY28 1.4× P/B, 10× P/E), arguing a 30–50% discount to MSME peers and forecasting <b>~27% AUM / ~44% PAT CAGR (FY26–29)</b> on operating leverage. <b>The catch for us:</b> that call was struck at ₹129 (~40% upside); at today's ₹166 only <b>~8% upside remains</b> — the easy re-rating is done. The IPO drew a <b>muted 0.97× subscription</b>. <b>Recent news:</b> board cleared a $15m NCD raise and ESOP amendments; an 8% intraday wobble on 3-Jun preceded the volume-backed ATH.",
+  prom:{q:"PE-CONTROLLED", c:"var(--sel)", t:"<b>No classic promoter — a VC/PE-built lender</b> backed by <b>CapitalG (Alphabet), LGT Capital, British International Investment</b>. Marquee names lend credibility, but large blocks will look to exit (unlock overhang) and incentives are sponsor-return-driven, not founder-owner. Management is professional; the cap table is the risk."},
+  pillars:[
+   {lbl:"Engine · Growth + runway", pts:2, why:"Lynch: a fast grower in a large, under-penetrated market is where multibaggers live.",
+    desc:"The MSME-credit gap is <b>huge and structural</b>; AUM +27% YoY to ₹7,044cr with a long runway. <b>This is a real engine</b> — the thing CMPDI lacks."},
+   {lbl:"Engine · Reinvestment ability", pts:1, why:"Akre: compounding needs free cash redeployed at high returns.",
+    desc:"Lenders compound their book and the <b>₹710cr fresh issue funds growth</b> — but full-year ROE is still 9.3%, so it's reinvesting at a <b>modest</b> rate for now."},
+   {lbl:"Moat & Longevity", pts:1, why:"Dorsey: without a moat, high lending returns mean-revert as competitors copy you.",
+    desc:"Cluster-based data underwriting + <b>45% repeat customers</b> give some stickiness, but MSME lending is a <b>crowded, commoditising</b> field — moat is thin."},
+   {lbl:"Alignment", pts:1, why:"Skin-in-the-game: founder-owners beat PE sellers with a clock running on their exit.",
+    desc:"<b>PE/VC-built, not founder-owned</b>, with an unlock overhang — but, unlike a pure cash-out, the <b>fresh-heavy issue did put capital into the business.</b>"},
+   {lbl:"Price & Asymmetry", pts:0, why:"Agrawal: price comes last — but a good business after the re-rating is a bad investment.",
+    desc:"<b>Only ~8% left to IIFL's ₹180 target</b> and +29% since listing — you've arrived <b>after</b> the asymmetry. The cheap entry is gone."},
+  ],
+  qrows:[["Business",1],["Growth",1],["Profit & BS",1],["Structure",1],["Valuation",1]],
+  flags:["IPO subscribed only <b>0.97×</b> — the market's own verdict the price was full.","Full-year FY26 ROE <b>9.3%</b> — sub-par for a multi-year hold, despite a strong Q4.","PE/VC unlock overhang.","Asymmetry largely gone — ~8% to the Street target.","Positive: Q4FY26 PAT +111%, ROE 16%, AUM +27%, repeat loans 45%."],
+  math:"Engine A 3 + Moat B 1 + Align C 1 + Price D 0 = 5 raw  →  no veto; engine clears the gate  →  5.0/10",
+  arg:"The opposite profile to CMPDI — and the contrast is the lesson. AYE <b>has a genuine engine</b> (Pillar A = 3): a vast, under-penetrated MSME-credit runway, AUM +27%, fresh capital actually funding it, and improving stickiness (45% repeat). That's the raw material of a compounder. <b>But two legs are weak.</b> Alignment is PE-built rather than founder-owned with an unlock overhang; and — decisively — <b>the price has already re-rated:</b> at ₹166 you're ~8% from the Street's target, so the asymmetry that rewards opportunity-hunters is gone. A real engine bought after the run, with a single-digit full-year ROE still to prove out, nets to a 5.0 — better <i>reasoning</i> than CMPDI even at a similar score, but still a pass.",
+  take:"A real opportunity — arrived at too late and too cheaply-aligned. The MSME runway and improving returns are genuine, but an undersubscribed IPO, a 9.3% full-year ROE, a PE overhang, and only ~8% to target say wait. Track it for a pullback + one more clean quarter.",
+  teaches:"<b>Price is part of the opportunity, not an afterthought.</b> A great growth runway bought after the crowd has re-rated it is a mediocre investment. The asymmetry you need — large upside vs limited downside — lives at the entry price, so timing the entry matters as much as picking the engine."},
+];
+
+const OVDOT = v => v==="CONVICTION"?"var(--bet)":v==="OPPORTUNITY"?"var(--sel)":"var(--bye)";
+const OVCLS = v => v==="CONVICTION"?"v-BET":v==="OPPORTUNITY"?"v-SELECTIVE":"v-BYE";
+const QVCLS = v => v==="BET"?"v-BET":v==="SELECTIVE"?"v-SELECTIVE":"v-BYE";
+const BARCOL = (p,mx)=> p/mx>=1?"var(--bet)":p/mx>=.5?"var(--sel)":"var(--bye)";
+
+const tabs=document.getElementById("tabs"), panes=document.getElementById("panes");
+
+/* ---- Framework / education tab (first) ---- */
+const et=document.createElement("div");
+et.className="tab edu active";et.innerHTML="📘 How to read this";
+et.onclick=()=>select(0);
+tabs.appendChild(et);
+
+const ep=document.createElement("div");
+ep.className="pane active";
+ep.innerHTML=`
+  <p class="lead">A technical signal tells you <b>when</b> a young stock breaks out. The runbook tells you <b>whether it's safe</b> (not a fraud or value trap). This report answers the question that actually builds wealth: <b>is it a multi-year compounding <i>opportunity</i>, bought before the crowd?</b> Most IPOs are not — Jay Ritter's research shows IPOs underperform peers ~34% vs 62% over three years. So the bar is high, and we lead with the <b>opportunity score (QGLP-A)</b>, showing the runbook <b>quality score</b> alongside as a safety check.</p>
+
+  <h2 class="section">The 4 pillars — score the opportunity 0–10</h2>
+  <div class="pillar-def"><h4><span>A · ENGINE</span>Does it actually compound? (the gate)</h4><p>Two sub-questions: <b>A1 Growth + runway</b> — is it growing fast with a large, under-penetrated market to keep growing? <b>A2 Reinvestment</b> — can it redeploy profits at a high return (low payout, capital base compounding)? <b>If the Engine ≤ 1, the whole score is capped at 4</b> — a profitable slow-grower or dividend payer is not an opportunity, however high its ROE.</p></div>
+  <div class="pillar-def"><h4><span>B · MOAT</span>Will the high return persist? (longevity)</h4><p>A durable moat — brand, switching costs, network, cost edge — is <i>why</i> returns don't mean-revert. A monopoly in a structurally decaying market (e.g. coal) has its longevity capped.</p></div>
+  <div class="pillar-def"><h4><span>C · ALIGNMENT</span>Will the compounding accrue to me?</h4><p>Founder-owners with wealth on the line and <b>fresh capital going into the business</b> &gt;&gt; professional managers &gt;&gt; <b>pure-OFS cash-outs (PE or government)</b>. In an OFS, the seller knows more than you.</p></div>
+  <div class="pillar-def"><h4><span>D · PRICE</span>Is the upside still on the table?</h4><p>"Price comes last" — but if the stock has already re-rated to fair value or analyst targets, the asymmetry is gone even if the business is fine. The opportunity lives at the <i>entry price</i>.</p></div>
+
+  <div class="veto"><b>Structural vetoes (cap the score, never add):</b> &nbsp; Government/PSU control → cap 5 &nbsp;·&nbsp; Pure-OFS (no fresh capital) → cap 6 &nbsp;·&nbsp; Hot-market froth listing → cap 6 &nbsp;·&nbsp; No engine (A ≤ 1) → cap 4.</div>
+
+  <h2 class="section">Verdict bands</h2>
+  <table>
+    <tr><th>Band</th><th>Score</th><th>Meaning</th></tr>
+    <tr><td><span class="verdict-badge v-BET">CONVICTION</span></td><td class="s">8–10</td><td>A genuine compounder, aligned, upside left. Size up.</td></tr>
+    <tr><td><span class="verdict-badge v-SELECTIVE">OPPORTUNITY</span></td><td class="s">6–7.5</td><td>Real engine, one leg weak (price / alignment / proof). Half-size or wait.</td></tr>
+    <tr><td><span class="verdict-badge v-BYE">NOT AN OPPORTUNITY</span></td><td class="s">4–5.5</td><td>May be a fine company, but won't compound for you — or you've missed the entry. Pass.</td></tr>
+    <tr><td><span class="verdict-badge v-BYE">AVOID</span></td><td class="s">&lt;4</td><td>Steer clear.</td></tr>
+  </table>
+
+  <h2 class="section">Where this comes from — the reading list</h2>
+  <div class="card" style="padding:8px 22px">
+    <div class="book"><div class="bk">Christopher Mayer — <i>100 Baggers</i></div><div class="bi">"Twin engines": sustained EPS growth × a long reinvestment runway, run by owner-operators. You don't get 100× from a dividend payer.</div></div>
+    <div class="book"><div class="bk">Chuck Akre — three-legged stool</div><div class="bi">Compounding at a high rate × honest owner-managers × a runway to reinvest free cash. Leg 3 is the one everyone forgets.</div></div>
+    <div class="book"><div class="bk">Raamdeo Agrawal — QGLP</div><div class="bi">Quality × Growth × Longevity × Price. "Price comes last" — longevity turns growth into wealth.</div></div>
+    <div class="book"><div class="bk">Peter Lynch — <i>One Up on Wall Street</i></div><div class="bi">Categorise first; the money is in fast growers with a runway, not "slow growers" wearing a quality mask.</div></div>
+    <div class="book"><div class="bk">Saurabh Mukherjea — <i>Coffee Can Investing</i></div><div class="bi">Avoid PSUs: govt-vs-shareholder conflict, capex below cost of capital, no value-creation engine. Cheapness doesn't compensate.</div></div>
+    <div class="book"><div class="bk">Jay Ritter — IPO long-run studies</div><div class="bi">IPOs underperform peers over 3 years; worst in hot "windows of opportunity." The seller knows more than you.</div></div>
+  </div>
+  <div class="note">Read the two stock tabs as a matched pair: <b>CMPDI</b> = high quality, <b>no engine</b> (a profitable non-compounder); <b>AYE</b> = a <b>real engine</b>, bought after the re-rating. Same ballpark score, opposite reasons — that contrast is the whole lesson.</div>`;
+panes.appendChild(ep);
+
+/* ---- per-stock tabs ---- */
+STOCKS.forEach((s,i)=>{
+  const idx=i+1;
+  const t=document.createElement("div");
+  t.className="tab";
+  t.innerHTML=`<span class="dot" style="background:${OVDOT(s.opp.verdict)}"></span>${s.sym}
+    <span class="score-pill" style="color:${OVDOT(s.opp.verdict)}">${s.opp.score}</span>`;
+  t.onclick=()=>select(idx);
+  tabs.appendChild(t);
+
+  const pillars=s.pillars.map(r=>`
+    <div class="row">
+      <div class="lbl"><span>${r.lbl}</span><span class="pts" style="color:${BARCOL(r.pts,2)}">${r.pts}/2</span></div>
+      <div class="bar"><i style="width:${r.pts/2*100}%;background:${BARCOL(r.pts,2)}"></i></div>
+      <div class="desc">${r.desc}</div>
+      <div class="why">Why it matters — ${r.why}</div>
+    </div>`).join("");
+  const qmini=s.qrows.map(q=>`<div class="lm"><div class="t">${q[0]}</div><div class="p" style="color:${BARCOL(q[1],2)}">${q[1]}/2</div></div>`).join("");
+  const flags=`<div class="flags${s.flagsClean?" clean":""}"><b>${s.flagsClean?"Caps / flags — clean":"Caps &amp; red flags"}</b>${s.flags.map(f=>"• "+f).join("<br>")}</div>`;
+
+  const p=document.createElement("div");
+  p.className="pane";
+  p.innerHTML=`
+    <div class="shead">
+      <div>
+        <h2>${s.sym}</h2>
+        <div class="name">${s.name}</div>
+        <div class="sig">Signal: <b>athbreak</b> at ₹${s.sig.px} on <b>${s.sig.date}</b><br>
+          Listed <b>${s.sig.list}</b> · age at signal <b>${s.sig.age}</b></div>
+      </div>
+      <div class="bigscore">
+        <div class="lab">Opportunity score</div>
+        <div><span class="num" style="color:${OVDOT(s.opp.verdict)}">${s.opp.score}</span><span class="den">/10</span></div>
+        <div class="verdict-badge ${OVCLS(s.opp.verdict)}">${s.opp.verdict}</div>
+        <div class="qchip">Quality screen: <b>${s.qual.score}/10</b> · <span class="${QVCLS(s.qual.verdict)}" style="padding:1px 7px;border-radius:8px">${s.qual.verdict}</span></div>
+      </div>
+    </div>
+    <div class="mstrip">
+      <div class="metric"><div class="k">Issue px</div><div class="v">${s.m.issue}</div></div>
+      <div class="metric"><div class="k">Now</div><div class="v">${s.m.now}</div></div>
+      <div class="metric"><div class="k">From listing</div><div class="v ${s.m.frm_list.startsWith('-')?'neg':'pos'}">${s.m.frm_list}</div></div>
+      <div class="metric"><div class="k">20d turnover</div><div class="v">${s.m.to_liq}</div></div>
+    </div>
+    <div class="card"><h3>What it does</h3><p style="font-size:14px;line-height:1.65;color:#3a4453">${s.desc}</p></div>
+    <div class="card"><h3>Future prospects · why the IPO · customers</h3><p style="font-size:13.5px;line-height:1.7;color:#3a4453">${s.future}</p></div>
+    <div class="card"><h3>Street view &amp; recent news</h3><p style="font-size:13.5px;line-height:1.7;color:#3a4453">${s.street}</p></div>
+    <div class="prom"><h3>Promoters &amp; management <span class="q" style="background:${s.prom.c}22;color:${s.prom.c};border:1px solid ${s.prom.c}55">${s.prom.q}</span></h3><p>${s.prom.t}</p></div>
+    <div class="card"><h3>Opportunity scorecard — QGLP-A <span class="tagline">the 4 pillars · each with why it matters</span></h3>${pillars}</div>
+    <div class="card"><h3>Quality screen (runbook 5-lens) <span class="tagline">the safety check — is it a landmine?</span></h3><div class="lens-mini">${qmini}</div></div>
+    ${flags}
+    <div class="arg"><h3>⚖️ Why this score</h3><div class="math">${s.math}</div><p>${s.arg}</p></div>
+    <div class="takeaway"><b>Bottom line.</b> ${s.take}</div>
+    <div class="teach"><b>📚 What this teaches you.</b> ${s.teaches}</div>`;
+  panes.appendChild(p);
+});
+
+/* ---- Where to invest tab ---- */
+const vt=document.createElement("div");
+vt.className="tab verdict";vt.innerHTML="🎯 Where to Invest";
+vt.onclick=()=>select(STOCKS.length+1);
+tabs.appendChild(vt);
+
+const ranked=[...STOCKS].sort((a,b)=>b.opp.score-a.opp.score);
+const trows=ranked.map((s,i)=>`
+  <tr class="${i===0?'rank1':''}">
+    <td>${i+1}</td><td><b>${s.sym}</b></td>
+    <td class="s" style="color:${OVDOT(s.opp.verdict)}">${s.opp.score}</td>
+    <td><span class="verdict-badge ${OVCLS(s.opp.verdict)}">${s.opp.verdict}</span></td>
+    <td class="s" style="color:var(--mut)">${s.qual.score}</td>
+  </tr>`).join("");
+
+const vp=document.createElement("div");
+vp.className="pane";
+vp.innerHTML=`
+  <h2 class="section">The ranking — by opportunity, not by quality</h2>
+  <table>
+    <tr><th>#</th><th>Symbol</th><th>Opp score</th><th>Verdict</th><th>Quality</th></tr>
+    ${trows}
+  </table>
+
+  <div class="pick">
+    <h3><span class="dot" style="width:10px;height:10px;border-radius:50%;background:var(--bye)"></span> Neither is a buy today — and the reasons differ</h3>
+    <div class="alloc">No capital deployed · both go to the watchlist for different triggers</div>
+    <p><b>AYE (5.0)</b> is the better <i>reasoned</i> pass: it has a genuine compounding engine (huge MSME runway, fresh capital, improving returns), so it's a real opportunity you've simply <b>arrived at too late</b> — wait for a pullback and another clean quarter. <b>CMPDI (4.0)</b> scores similarly but is a <b>structurally</b> different animal: a high-quality (6.5 on the safety screen) monopoly that nonetheless <b>cannot compound</b> — 33% ROE paid out as dividends, a coal-capped market, and a government OFS. It's a dividend / re-rating instrument, not a wealth opportunity.</p>
+  </div>
+
+  <div class="note">
+    <b>The point of this report:</b> under a naive additive score CMPDI (6.5 quality) looks clearly better than AYE (5.5). The opportunity lens <b>compresses and flips the reasoning</b> — because wealth comes from <i>compounding</i>, not from a high static ROE. CMPDI is penalised precisely for being a profitable non-compounder; AYE is credited for having a real engine even though it's mispriced today. <b>Lead with the engine, demand alignment, insist on asymmetry at the entry price — and remember most IPOs underperform, so a "pass" is the most common correct answer.</b>
+  </div>`;
+panes.appendChild(vp);
+
+function select(n){
+  document.querySelectorAll(".tab").forEach((t,i)=>t.classList.toggle("active",i===n));
+  document.querySelectorAll(".pane").forEach((p,i)=>p.classList.toggle("active",i===n));
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+</script>
+</body>
+</html>

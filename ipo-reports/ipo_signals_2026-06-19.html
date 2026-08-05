@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IPO Opportunity Review — TIMEX &amp; POWERICA · QGLP-A</title>
+<style>
+  :root{
+    --bg:#f6f8fb; --panel:#ffffff; --panel2:#f1f4f8; --line:#e2e8f0;
+    --txt:#1a2230; --mut:#64748b; --acc:#2563eb;
+    --bet:#15803d; --sel:#b45309; --bye:#dc2626;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;padding:0 0 60px}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+  header{background:linear-gradient(135deg,#ffffff,#eef3fb);border-bottom:1px solid var(--line);padding:26px 0 22px;margin-bottom:24px;box-shadow:0 1px 3px rgba(16,24,40,.04)}
+  header h1{font-size:23px;font-weight:700;letter-spacing:-.2px}
+  header .sub{color:var(--mut);margin-top:6px;font-size:13.5px}
+  header .chip{display:inline-block;background:var(--panel2);border:1px solid var(--line);border-radius:20px;padding:3px 11px;font-size:12px;color:var(--mut);margin-right:6px;margin-top:10px}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:22px}
+  .tab{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 13px;cursor:pointer;font-size:13.5px;font-weight:600;color:var(--mut);display:flex;align-items:center;gap:7px;transition:.12s}
+  .tab:hover{border-color:var(--acc);color:var(--txt)}
+  .tab.active{background:var(--panel2);color:var(--txt);border-color:var(--acc)}
+  .tab .dot{width:8px;height:8px;border-radius:50%}
+  .tab.edu{background:#e8f0fe;border-color:#bcd3fb;color:#1d4ed8}
+  .tab.edu.active{background:#d6e4fd}
+  .tab.verdict{margin-left:auto;background:#e8f0fe;border-color:#bcd3fb;color:#1d4ed8}
+  .tab.verdict.active{background:#d6e4fd}
+  .score-pill{font-size:11px;font-weight:700;padding:1px 7px;border-radius:10px;background:var(--panel2)}
+  .pane{display:none;animation:fade .2s}
+  .pane.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .shead{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  .shead h2{font-size:20px}
+  .shead .name{color:var(--mut);font-size:13.5px;margin-top:3px}
+  .shead .sig{color:var(--mut);font-size:12.5px;margin-top:10px;line-height:1.7}
+  .shead .sig b{color:var(--txt);font-weight:600}
+  .bigscore{text-align:center;flex-shrink:0;min-width:150px}
+  .bigscore .lab{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--mut);margin-bottom:2px}
+  .bigscore .num{font-size:42px;font-weight:800;line-height:1}
+  .bigscore .den{font-size:16px;color:var(--mut);font-weight:600}
+  .verdict-badge{display:inline-block;font-size:11.5px;font-weight:700;padding:4px 12px;border-radius:20px;margin-top:8px;letter-spacing:.3px}
+  .qchip{display:block;margin-top:9px;font-size:11px;color:var(--mut)}
+  .qchip b{font-weight:700}
+  .v-BET{background:rgba(63,185,80,.16);color:var(--bet);border:1px solid rgba(63,185,80,.4)}
+  .v-SELECTIVE{background:rgba(210,153,34,.16);color:var(--sel);border:1px solid rgba(210,153,34,.4)}
+  .v-BYE{background:rgba(248,81,73,.16);color:var(--bye);border:1px solid rgba(248,81,73,.4)}
+  .mstrip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+  .metric{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  .metric .k{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.4px}
+  .metric .v{font-size:18px;font-weight:700;margin-top:3px}
+  .pos{color:var(--bet)} .neg{color:var(--bye)}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 22px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  .card h3{font-size:13px;text-transform:uppercase;letter-spacing:.5px;color:var(--mut);margin-bottom:14px}
+  .card h3 .tagline{text-transform:none;letter-spacing:0;color:var(--acc);font-weight:600;font-size:12px;margin-left:8px}
+  .row{margin-bottom:15px}
+  .row:last-child{margin-bottom:0}
+  .row .lbl{display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:5px}
+  .row .lbl .pts{font-weight:700}
+  .bar{height:7px;background:var(--panel2);border-radius:4px;overflow:hidden}
+  .bar i{display:block;height:100%;border-radius:4px}
+  .row .desc{font-size:12.5px;color:var(--mut);margin-top:6px}
+  .row .why{font-size:12px;color:#1d4ed8;margin-top:5px;background:rgba(37,99,235,.06);border-left:2px solid var(--acc);border-radius:0 6px 6px 0;padding:5px 10px;font-style:italic}
+  .lens-mini{display:flex;flex-wrap:wrap;gap:8px}
+  .lens-mini .lm{flex:1;min-width:120px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+  .lens-mini .lm .t{font-size:11px;color:var(--mut)}
+  .lens-mini .lm .p{font-size:15px;font-weight:700;margin-top:2px}
+  .prom{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  .prom h3{font-size:13px;text-transform:uppercase;letter-spacing:.5px;color:var(--mut);margin-bottom:9px}
+  .prom p{font-size:13.5px;line-height:1.65;color:#3a4453}
+  .prom .q{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px;margin-left:8px;vertical-align:middle}
+  .flags{background:rgba(248,81,73,.07);border:1px solid rgba(248,81,73,.25);border-radius:10px;padding:13px 16px;font-size:13px;margin-bottom:16px}
+  .flags.clean{background:rgba(63,185,80,.07);border-color:rgba(63,185,80,.25)}
+  .flags b{display:block;margin-bottom:5px;font-size:12px;text-transform:uppercase;letter-spacing:.4px;color:var(--mut)}
+  .arg{background:var(--panel2);border-left:3px solid var(--acc);border-radius:0 10px 10px 0;padding:16px 18px;margin-bottom:16px}
+  .arg h3{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--acc);margin-bottom:9px}
+  .arg .math{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--mut);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin-bottom:11px}
+  .arg p{font-size:14px;line-height:1.68}
+  .takeaway{font-size:14px;line-height:1.65;background:var(--panel);border:1px solid var(--line);border-radius:0 8px 8px 0;border-left:3px solid var(--mut);padding:13px 16px;margin-bottom:12px}
+  .teach{font-size:13.5px;line-height:1.6;background:rgba(210,153,34,.08);border:1px solid rgba(210,153,34,.3);border-radius:0 8px 8px 0;border-left:3px solid var(--sel);padding:13px 16px}
+  .teach b{color:var(--sel)}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin:6px 0 22px}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
+  th{font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:var(--mut)}
+  td.s{font-weight:700;text-align:center}
+  tr.rank1 td{background:rgba(210,153,34,.06)}
+  .pick{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-bottom:14px}
+  .pick h3{font-size:17px;display:flex;align-items:center;gap:10px;margin-bottom:4px}
+  .pick .alloc{font-size:12px;color:var(--mut);margin-bottom:10px}
+  .pick p{font-size:13.5px;color:#3a4453;line-height:1.65}
+  .note{font-size:12.5px;color:var(--mut);background:var(--panel);border:1px dashed var(--line);border-radius:10px;padding:14px 16px;margin-top:18px;line-height:1.7}
+  h2.section{font-size:16px;margin:22px 0 12px}
+  .lead{font-size:14px;line-height:1.7;color:#3a4453;margin-bottom:16px}
+  .pillar-def{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin-bottom:11px}
+  .pillar-def h4{font-size:14px;margin-bottom:5px;color:var(--txt)}
+  .pillar-def h4 span{font-size:11px;font-weight:700;color:var(--acc);background:rgba(37,99,235,.09);border:1px solid rgba(37,99,235,.28);border-radius:8px;padding:1px 8px;margin-right:8px}
+  .pillar-def p{font-size:13px;color:var(--mut);line-height:1.6}
+  .book{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+  .book:last-child{border-bottom:0}
+  .book .bk{font-weight:600;color:var(--txt);min-width:230px}
+  .book .bi{color:var(--mut)}
+  .veto{font-size:13px;color:#3a4453;line-height:1.7;background:rgba(248,81,73,.06);border:1px solid rgba(248,81,73,.22);border-radius:10px;padding:13px 16px;margin-top:6px}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1>IPO Opportunity Review — Opportunity-First (QGLP-A)</h1>
+  <div class="sub">Is it a multi-year wealth opportunity — not just a good company? · TIMEX &amp; POWERICA · data through 2026-06-19</div>
+  <div>
+    <span class="chip">2 names</span>
+    <span class="chip">headline = opportunity score · quality score shown alongside</span>
+    <span class="chip">profit ≠ opportunity</span>
+    <span class="chip">one is not even a real IPO</span>
+  </div>
+</div></header>
+
+<div class="wrap">
+  <div class="tabs" id="tabs"></div>
+  <div id="panes"></div>
+</div>
+
+<script>
+const STOCKS = [
+ {sym:"TIMEX", name:"Timex Group India",
+  opp:{score:6.0, verdict:"OPPORTUNITY"}, qual:{score:6.0, verdict:"SELECTIVE"},
+  sig:{px:518.7, date:"2026-06-19", list:"2026-04-20 (NSE)", age:"~2m on NSE · BSE-listed since 1990s"},
+  m:{issue:"₹322†", now:"₹519", frm_list:"+61%", to_liq:"₹46cr"},
+  desc:"Timex Group India (ex-<b>Timex Watches Ltd</b>, incorporated 1988) makes, imports and distributes <b>analog &amp; smart watches and accessories</b> across a <b>licensed luxury-brand portfolio</b> — Timex, Guess, Gc, Versace, Salvatore Ferragamo, Nautica, Ted Baker, Furla, Adidas Originals, UCB, Helix — plus its own Timex Fit smartwatches and Guess jewellery. <b>It is NOT a fresh IPO</b>: a 38-year-old MNC subsidiary long listed on BSE, it only appears 'new' because of its recent NSE listing and a Dec-2025 promoter OFS to meet minimum public shareholding. <span style='color:var(--mut)'>(† ₹322 = first NSE close on 20-Apr-2026, not an issue price.)</span>",
+  future:"<b>Why it 'listed' now:</b> <i>not</i> a capital raise — the Netherlands parent (Timex Group Luxury Watches B.V.) sold stock via OFS for MPS compliance / partial monetisation; <b>no fresh money entered the business.</b> <b>Customers:</b> B2C retail across modern/large-format/e-commerce; the brand-licence partners (Guess, Versace, Ferragamo …) are simultaneously suppliers and royalty counterparties. <b>Runway/TAM:</b> India's premium-accessory &amp; watch market is under-penetrated and premiumising; management guides <b>30–40% revenue CAGR</b>, luxury at 25–30%. <b>Reinvestment:</b> an asset-light distribution/licensing model → a very high ~90% ROE but <b>little capital to absorb</b>, while <b>royalties flow OUT</b> to brand owners and capital allocation sits with the MNC parent. <b>Future plans:</b> scale smartwatches (Timex Fit 2.0), Guess jewellery, premium analog, storytelling-led premium retail.",
+  street:"<b>FY26 was explosive:</b> revenue <b>+48% to ₹800cr</b>, PBT <b>+151% to ₹107cr</b>, and <b>Q4 PAT +196% YoY to ₹27.3cr</b> on revenue +74%. ROE ~90%, ROCE ~28.5%, low debt. <b>But the multiple is steep</b> — ~58–59x TTM, close to Titan's, for a far smaller licensee; MoneyWorks4Me / MarketsMojo flag a sharp ~70x forward. <b>No major institutional coverage</b> yet (small-cap, thin float). <b>Recent news:</b> the +196% Q4 print (27 May 2026) fuelled the +61% run to a fresh ATH on heavy volume.",
+  prom:{q:"MNC-PARENT", c:"var(--sel)", t:"Promoter is the <b>Netherlands MNC parent — Timex Group Luxury Watches B.V.</b> (ultimate holder BP Horological Group LLC, US), ~<b>51%</b> post-OFS (down from ~75%). A credible global watch group — <b>but a foreign parent that extracts value via brand royalties and IT-support fees, allocates capital from abroad, and just cashed out via OFS rather than investing in.</b> Minority holders ride alongside; they don't drive the bus."},
+  pillars:[
+   {lbl:"Engine · Growth + runway", pts:2, why:"Lynch: the big money is in fast growers with a long runway.",
+    desc:"Revenue +48% to ₹800cr, Q4 PAT +196%, management guiding <b>30–40% CAGR</b> into an under-penetrated premium-accessory market. <b>A genuine fast grower</b> — the strongest single fact here, and the thing Powerica lacks."},
+   {lbl:"Engine · Reinvestment ability", pts:1, why:"Akre's 3rd leg: a high ROE you can't redeploy is a bond, not a snowball.",
+    desc:"~90% ROE, but <b>asset-light</b> → little capital to absorb, and <b>royalties leak to brand owners</b> while the MNC parent allocates capital. High return, short reinvestment runway."},
+   {lbl:"Moat & Longevity", pts:1, why:"Dorsey: a borrowed moat isn't yours — returns mean-revert without one.",
+    desc:"<b>The marquee brands are licensed, not owned</b> (the moat belongs to Guess/Versace); Titan dominates Indian watches and smartwatches are commoditised. Distribution + the Timex name give a thin, not durable, edge."},
+   {lbl:"Alignment", pts:1, why:"Ritter: in an OFS the seller knows more than you; royalty leakage diverts the upside.",
+    desc:"The parent retains ~51% (real control-skin) <b>but the recent deal was a pure-OFS cash-out</b> with no fresh capital, and value leaks out as royalty + support fees. Aligned in <i>control</i>, not in <i>upside-sharing</i>."},
+   {lbl:"Price & Asymmetry", pts:1, why:"Agrawal: price comes last — but a premium on a fresh ATH leaves no margin for error.",
+    desc:"~58x TTM at a <b>fresh ATH after +61%</b> — priced for the hyper-growth to continue; one soft quarter and the multiple compresses hard."},
+  ],
+  qrows:[["Business",1],["Growth",2],["Profit & BS",2],["Structure",0],["Valuation",1]],
+  flags:["<b>Not a fresh IPO:</b> a 38-yr-old company (ex-Timex Watches Ltd, inc. 1988), long on BSE — it appears 'new' only via its recent NSE listing + a Dec-2025 promoter OFS for minimum-public-shareholding compliance.","<b>Pure-OFS / no fresh capital:</b> the transaction cashed out the Netherlands parent — nothing went into the business → opportunity capped at 6.","<b>Promoter selling (runbook cap-4 trigger):</b> treated as MPS-compliance, not distress (parent kept ~51%), so noted rather than hard-capped.","<b>Rich price:</b> ~58x TTM at a fresh ATH after +61% — asymmetry compressed.","Positive: explosive FY26 — rev +48% to ₹800cr, PAT +151%, Q4 PAT +196%, ROE ~90%, ROCE ~28.5%, low debt."],
+  math:"Engine A 3 (Growth 2 + Reinvest 1) + Moat B 1 + Align C 1 + Price D 1 = 6 raw  →  pure-OFS veto (no fresh capital ⇒ cap 6)  →  6.0/10",
+  arg:"On the <b>quality</b> screen this is a clean ~6 — explosive FY26 growth, ~90% ROE, low debt. And on <b>opportunity</b> it has the one thing Powerica lacks: <b>a real growth engine</b> (Pillar A = 3). But three things hold it to 'conditional'. First, <b>it isn't a fresh IPO</b> — the 'listing' was a Netherlands parent's OFS cash-out, so no capital entered the business (pure-OFS veto → cap 6). Second, the <b>moat is borrowed</b>: the marquee brands are licensed, not owned, and royalties leak out. Third, you're paying <b>~58x at a fresh ATH</b> — the easy re-rating has happened. A genuine fast-grower, but bought rich from a value-extracting owner: <b>wait for a pullback, size small.</b>",
+  take:"A genuine hyper-grower — and the better <i>opportunity</i> of the two on the engine — but capped by a value-extracting MNC parent (pure-OFS, royalty leak, borrowed brands) and ~58x at a fresh ATH. Watchlist; revisit on a meaningful pullback, half-size at most.",
+  teaches:"<b>A great engine can still be a poor opportunity if the owner extracts the value and the price has already run.</b> Borrowed moats (licensed brands) and foreign-parent royalty/IT-fee leakage mean the compounding may not accrue to <i>you</i> — and 58x at an ATH leaves no room for error."},
+
+ {sym:"POWERICA", name:"Powerica Ltd",
+  opp:{score:5.0, verdict:"NOT AN OPPORTUNITY"}, qual:{score:7.0, verdict:"SELECTIVE"},
+  sig:{px:590.85, date:"2026-06-19", list:"2026-04-02", age:"2.5m"},
+  m:{issue:"₹395", now:"₹591", frm_list:"+50%", to_liq:"₹24cr"},
+  desc:"Powerica (since 1984) is an <b>integrated power-solutions company</b>: ~<b>85% of revenue</b> from assembling, selling and servicing <b>Cummins-branded diesel-generator (DG) sets</b>, plus a <b>Wind IPP</b> arm — <b>330.85 MW</b> across 12 projects on <b>25-year fixed-tariff PPAs</b> (~18 yrs of life left) with associated EPC work. A <b>genuine fresh IPO</b>, listed 2-Apr-2026.",
+  future:"<b>Why the IPO:</b> a real raise — <b>₹700cr fresh + ₹400cr OFS</b>; <b>₹525cr of the fresh goes to debt repayment</b>, the rest to manufacturing/wind capex &amp; subsidiaries → <b>balance-sheet repair + capital into the business.</b> <b>Customers:</b> B2B — infrastructure, telecom, data-centres and manufacturing needing backup power; wind output sold to government off-takers on locked tariffs. <b>Runway/TAM:</b> backup-power demand (data-centre / infra capex) is a tailwind and wind capacity can be expanded — <b>but realised growth is modest:</b> FY26 revenue was ~flat at ₹2,711cr (FY25 ~₹2,700cr). <b>Reinvestment:</b> ROCE ~27%, but the DG core is cyclical assembly (~13% EBITDA vs Cummins India's 19–23%) and wind is a capital-heavy annuity (~mid-teens IRR); much of the fresh issue repairs the balance sheet rather than compounding.",
+  street:"<b>FY26:</b> revenue ₹2,711cr (≈flat YoY), <b>PAT ₹167cr</b>; Q4 PAT ₹45cr on revenue ₹801cr. ROCE ~27%, EBITDA ~13%. <b>Valuation:</b> P/E re-rated to ~26x (from ~33x) per MarketsMojo, though on trailing PAT vs the ₹6,980cr market-cap it's nearer ~40x; <b>Mojo grade is 'Sell' on valuation</b> as of 1-Jun. No major institutional targets post-listing yet. <b>Recent news:</b> a strong Q4 (29 May) drove the +50% run from the ₹395 issue to a near-ATH ₹591.",
+  prom:{q:"FOUNDER-OWNED", c:"var(--bet)", t:"<b>Founder/family-owned</b> (promoters since 1984), retaining a majority stake. The IPO was <b>fresh-heavy (₹700cr in vs ₹400cr OFS)</b>, with proceeds repairing the balance sheet and funding capex — <b>real skin in the game and capital going INTO the business,</b> the strongest alignment of the pair. The catch is the <i>business</i>, not the owner."},
+  pillars:[
+   {lbl:"Engine · Growth + runway", pts:1, why:"Lynch: categorise honestly — a flat-topline cyclical is not a fast grower.",
+    desc:"<b>FY26 topline essentially flat</b> (₹2,711 vs ₹2,700cr) — a <b>cyclical genset</b> business. Backup-power / data-centre demand is a real tailwind and wind can expand, so the runway exists, but realised growth is modest."},
+   {lbl:"Engine · Reinvestment ability", pts:1, why:"Akre: compounding needs free cash redeployed at a high incremental return.",
+    desc:"ROCE ~27% and wind MW can be added, but <b>₹525cr of the fresh issue repairs the balance sheet</b> rather than compounding, and wind is capital-heavy annuity (~mid-teens IRR). It reinvests — at modest incremental rates."},
+   {lbl:"Moat & Longevity", pts:1, why:"Dorsey: a licensed franchise + a decaying end-market is a capped moat.",
+    desc:"A multi-decade <b>Cummins franchise</b> + <b>25-yr locked wind tariffs</b> give some durability — but the brand is licensed, and 85% of revenue (diesel) faces a <b>CPCB-IV+ / ESG transition</b> headwind."},
+   {lbl:"Alignment", pts:2, why:"Skin-in-the-game: founder-owners with fresh capital beat OFS cash-outs.",
+    desc:"<b>Founder-owned, fresh-heavy issue (₹700cr in)</b> funding deleveraging + capex — real ownership and capital into the business. <b>The best-aligned name of the pair.</b>"},
+   {lbl:"Price & Asymmetry", pts:1, why:"Agrawal: the asymmetry lives at the entry price, and the pop is gone.",
+    desc:"+50% from the ₹395 issue to a near-ATH ₹591; P/E ~26–40x and a 'Sell' valuation flag — the easy post-listing pop is already behind it."},
+  ],
+  qrows:[["Business",1],["Growth",1],["Profit & BS",2],["Structure",2],["Valuation",1]],
+  flags:["<b>No-engine concern:</b> FY26 topline essentially flat (₹2,700→₹2,711cr) — a cyclical genset business, not a fast grower.","<b>Diesel / ESG headwind:</b> ~85% of revenue is DG sets facing CPCB-IV+ / decarbonisation transition risk; the Cummins brand is licensed, not owned.","<b>Bought at ATH:</b> +50% from the ₹395 issue, near the 52-wk high; MarketsMojo flags valuation (~26–40x), grade 'Sell'.","Positive: founder-owned, ₹700cr fresh issue (₹525cr to debt repayment) — real deleveraging + capital into the business; wind = 330MW on 25-yr locked tariffs (~18yrs left); ROCE ~27%."],
+  math:"Engine A 2 (Growth 1 + Reinvest 1) + Moat B 1 + Align C 2 + Price D 1 = 5 raw  →  engine clears the gate (A&gt;1); no PSU/OFS veto  →  5.0/10",
+  arg:"Powerica is the <b>safer, better-aligned</b> name — quality 7, founder-owned, and a fresh-heavy IPO that actually repaired the balance sheet. Yet on the <b>opportunity</b> lens it falls short, because the question isn't 'is it a good company?' but 'will it <i>compound</i>?' <b>FY26 revenue was flat</b>; the core is a <b>cyclical, licensed-brand genset assembler</b> (~13% margins vs Cummins' 19–23%) facing an ESG transition, bolted to a capital-heavy wind annuity. That's a fine, deleveraging, mid-teens-return cyclical — <b>not a fast grower with a long reinvestment runway</b> — and you're buying it at a near-ATH +50% from issue. The engine (A = 2) just clears the gate but doesn't drive a high score.",
+  take:"The safer, better-aligned, higher-quality business — but <b>not a wealth opportunity</b>, because it doesn't compound: a flat FY26 topline, a cyclical diesel core under ESG pressure, and a capital-heavy wind annuity, all bought at a near-ATH. Own it for the deleveraging + annuity story if that's your game; pass as an IPO compounder.",
+  teaches:"<b>The safest, best-governed stock is not automatically the best opportunity.</b> Wealth comes from a high return reinvested for years — not from a flat-growth cyclical, however well-run and well-aligned. Lead with the engine: no engine, no compounding."},
+];
+
+const OVDOT = v => v==="CONVICTION"?"var(--bet)":v==="OPPORTUNITY"?"var(--sel)":"var(--bye)";
+const OVCLS = v => v==="CONVICTION"?"v-BET":v==="OPPORTUNITY"?"v-SELECTIVE":"v-BYE";
+const QVCLS = v => v==="BET"?"v-BET":v==="SELECTIVE"?"v-SELECTIVE":"v-BYE";
+const BARCOL = (p,mx)=> p/mx>=1?"var(--bet)":p/mx>=.5?"var(--sel)":"var(--bye)";
+
+const tabs=document.getElementById("tabs"), panes=document.getElementById("panes");
+
+/* ---- Framework / education tab (first) ---- */
+const et=document.createElement("div");
+et.className="tab edu active";et.innerHTML="📘 How to read this";
+et.onclick=()=>select(0);
+tabs.appendChild(et);
+
+const ep=document.createElement("div");
+ep.className="pane active";
+ep.innerHTML=`
+  <p class="lead">A technical signal tells you <b>when</b> a young stock breaks out. The runbook tells you <b>whether it's safe</b> (not a fraud or value trap). This report answers the question that actually builds wealth: <b>is it a multi-year compounding <i>opportunity</i>, bought before the crowd?</b> Most IPOs are not — Jay Ritter's research shows IPOs underperform peers ~34% vs 62% over three years. So the bar is high, and we lead with the <b>opportunity score (QGLP-A)</b>, showing the runbook <b>quality score</b> alongside as a safety check.</p>
+
+  <h2 class="section">The 4 pillars — score the opportunity 0–10</h2>
+  <div class="pillar-def"><h4><span>A · ENGINE</span>Does it actually compound? (the gate)</h4><p>Two sub-questions: <b>A1 Growth + runway</b> — is it growing fast with a large, under-penetrated market to keep growing? <b>A2 Reinvestment</b> — can it redeploy profits at a high return (low payout, capital base compounding)? <b>If the Engine ≤ 1, the whole score is capped at 4</b> — a profitable slow-grower or dividend payer is not an opportunity, however high its ROE.</p></div>
+  <div class="pillar-def"><h4><span>B · MOAT</span>Will the high return persist? (longevity)</h4><p>A durable moat — brand, switching costs, network, cost edge — is <i>why</i> returns don't mean-revert. A <b>borrowed</b> moat (licensed brand) or a monopoly in a decaying market has its longevity capped.</p></div>
+  <div class="pillar-def"><h4><span>C · ALIGNMENT</span>Will the compounding accrue to me?</h4><p>Founder-owners with wealth on the line and <b>fresh capital going into the business</b> &gt;&gt; professional managers &gt;&gt; <b>pure-OFS cash-outs</b> (PE, government, or an MNC parent). In an OFS, the seller knows more than you; royalty/fee leakage to a parent also diverts the upside.</p></div>
+  <div class="pillar-def"><h4><span>D · PRICE</span>Is the upside still on the table?</h4><p>"Price comes last" — but if the stock has already re-rated to fair value or analyst targets, the asymmetry is gone even if the business is fine. The opportunity lives at the <i>entry price</i>.</p></div>
+
+  <div class="veto"><b>Structural vetoes (cap the score, never add):</b> &nbsp; Government/PSU control → cap 5 &nbsp;·&nbsp; Pure-OFS (no fresh capital) → cap 6 &nbsp;·&nbsp; Hot-market froth listing → cap 6 &nbsp;·&nbsp; No engine (A ≤ 1) → cap 4.</div>
+
+  <h2 class="section">Verdict bands</h2>
+  <table>
+    <tr><th>Band</th><th>Score</th><th>Meaning</th></tr>
+    <tr><td><span class="verdict-badge v-BET">CONVICTION</span></td><td class="s">8–10</td><td>A genuine compounder, aligned, upside left. Size up.</td></tr>
+    <tr><td><span class="verdict-badge v-SELECTIVE">OPPORTUNITY</span></td><td class="s">6–7.5</td><td>Real engine, one leg weak (price / alignment / proof). Half-size or wait.</td></tr>
+    <tr><td><span class="verdict-badge v-BYE">NOT AN OPPORTUNITY</span></td><td class="s">4–5.5</td><td>May be a fine company, but won't compound for you — or you've missed the entry. Pass.</td></tr>
+    <tr><td><span class="verdict-badge v-BYE">AVOID</span></td><td class="s">&lt;4</td><td>Steer clear.</td></tr>
+  </table>
+
+  <h2 class="section">Where this comes from — the reading list</h2>
+  <div class="card" style="padding:8px 22px">
+    <div class="book"><div class="bk">Christopher Mayer — <i>100 Baggers</i></div><div class="bi">"Twin engines": sustained EPS growth × a long reinvestment runway, run by owner-operators. You don't get 100× from a dividend payer.</div></div>
+    <div class="book"><div class="bk">Chuck Akre — three-legged stool</div><div class="bi">Compounding at a high rate × honest owner-managers × a runway to reinvest free cash. Leg 3 is the one everyone forgets.</div></div>
+    <div class="book"><div class="bk">Raamdeo Agrawal — QGLP</div><div class="bi">Quality × Growth × Longevity × Price. "Price comes last" — longevity turns growth into wealth.</div></div>
+    <div class="book"><div class="bk">Peter Lynch — <i>One Up on Wall Street</i></div><div class="bi">Categorise first; the money is in fast growers with a runway, not "slow growers" wearing a quality mask.</div></div>
+    <div class="book"><div class="bk">Saurabh Mukherjea — <i>Coffee Can Investing</i></div><div class="bi">Compounders held for years make multibaggers; cheapness without an engine doesn't compensate.</div></div>
+    <div class="book"><div class="bk">Jay Ritter — IPO long-run studies</div><div class="bi">IPOs underperform peers over 3 years; worst in hot "windows of opportunity." The seller knows more than you.</div></div>
+  </div>
+  <div class="note">Read the two tabs as a matched pair: <b>TIMEX</b> = a real growth engine, but a value-extracting MNC parent (pure-OFS, royalty leak, borrowed brands) bought rich at ~58x; <b>POWERICA</b> = safer &amp; better-aligned (founder, fresh capital, quality 7) but <b>no compounding engine</b> (flat-topline cyclical). The <i>higher-quality</i> name scores <i>lower</i> on opportunity — that flip is the whole lesson. <b>And note:</b> TIMEX isn't even a fresh IPO — it's an old MNC sub that just arrived on NSE — a reminder to always check what the "listing" actually is.</div>`;
+panes.appendChild(ep);
+
+/* ---- per-stock tabs ---- */
+STOCKS.forEach((s,i)=>{
+  const idx=i+1;
+  const t=document.createElement("div");
+  t.className="tab";
+  t.innerHTML=`<span class="dot" style="background:${OVDOT(s.opp.verdict)}"></span>${s.sym}
+    <span class="score-pill" style="color:${OVDOT(s.opp.verdict)}">${s.opp.score}</span>`;
+  t.onclick=()=>select(idx);
+  tabs.appendChild(t);
+
+  const pillars=s.pillars.map(r=>`
+    <div class="row">
+      <div class="lbl"><span>${r.lbl}</span><span class="pts" style="color:${BARCOL(r.pts,2)}">${r.pts}/2</span></div>
+      <div class="bar"><i style="width:${r.pts/2*100}%;background:${BARCOL(r.pts,2)}"></i></div>
+      <div class="desc">${r.desc}</div>
+      <div class="why">Why it matters — ${r.why}</div>
+    </div>`).join("");
+  const qmini=s.qrows.map(q=>`<div class="lm"><div class="t">${q[0]}</div><div class="p" style="color:${BARCOL(q[1],2)}">${q[1]}/2</div></div>`).join("");
+  const flags=`<div class="flags${s.flagsClean?" clean":""}"><b>${s.flagsClean?"Caps / flags — clean":"Caps &amp; red flags"}</b>${s.flags.map(f=>"• "+f).join("<br>")}</div>`;
+
+  const p=document.createElement("div");
+  p.className="pane";
+  p.innerHTML=`
+    <div class="shead">
+      <div>
+        <h2>${s.sym}</h2>
+        <div class="name">${s.name}</div>
+        <div class="sig">Signal: <b>athbreak</b> at ₹${s.sig.px} on <b>${s.sig.date}</b><br>
+          Listed <b>${s.sig.list}</b> · age at signal <b>${s.sig.age}</b></div>
+      </div>
+      <div class="bigscore">
+        <div class="lab">Opportunity score</div>
+        <div><span class="num" style="color:${OVDOT(s.opp.verdict)}">${s.opp.score}</span><span class="den">/10</span></div>
+        <div class="verdict-badge ${OVCLS(s.opp.verdict)}">${s.opp.verdict}</div>
+        <div class="qchip">Quality screen: <b>${s.qual.score}/10</b> · <span class="${QVCLS(s.qual.verdict)}" style="padding:1px 7px;border-radius:8px">${s.qual.verdict}</span></div>
+      </div>
+    </div>
+    <div class="mstrip">
+      <div class="metric"><div class="k">Issue / 1st px</div><div class="v">${s.m.issue}</div></div>
+      <div class="metric"><div class="k">Now</div><div class="v">${s.m.now}</div></div>
+      <div class="metric"><div class="k">From listing</div><div class="v ${s.m.frm_list.startsWith('-')?'neg':'pos'}">${s.m.frm_list}</div></div>
+      <div class="metric"><div class="k">20d turnover</div><div class="v">${s.m.to_liq}</div></div>
+    </div>
+    <div class="card"><h3>What it does</h3><p style="font-size:14px;line-height:1.65;color:#3a4453">${s.desc}</p></div>
+    <div class="card"><h3>Future prospects · why the IPO · customers</h3><p style="font-size:13.5px;line-height:1.7;color:#3a4453">${s.future}</p></div>
+    <div class="card"><h3>Street view &amp; recent news</h3><p style="font-size:13.5px;line-height:1.7;color:#3a4453">${s.street}</p></div>
+    <div class="prom"><h3>Promoters &amp; management <span class="q" style="background:${s.prom.c}22;color:${s.prom.c};border:1px solid ${s.prom.c}55">${s.prom.q}</span></h3><p>${s.prom.t}</p></div>
+    <div class="card"><h3>Opportunity scorecard — QGLP-A <span class="tagline">the 4 pillars · each with why it matters</span></h3>${pillars}</div>
+    <div class="card"><h3>Quality screen (runbook 5-lens) <span class="tagline">the safety check — is it a landmine?</span></h3><div class="lens-mini">${qmini}</div></div>
+    ${flags}
+    <div class="arg"><h3>⚖️ Why this score</h3><div class="math">${s.math}</div><p>${s.arg}</p></div>
+    <div class="takeaway"><b>Bottom line.</b> ${s.take}</div>
+    <div class="teach"><b>📚 What this teaches you.</b> ${s.teaches}</div>`;
+  panes.appendChild(p);
+});
+
+/* ---- Where to invest tab ---- */
+const vt=document.createElement("div");
+vt.className="tab verdict";vt.innerHTML="🎯 Where to Invest";
+vt.onclick=()=>select(STOCKS.length+1);
+tabs.appendChild(vt);
+
+const ranked=[...STOCKS].sort((a,b)=>b.opp.score-a.opp.score);
+const trows=ranked.map((s,i)=>`
+  <tr class="${i===0?'rank1':''}">
+    <td>${i+1}</td><td><b>${s.sym}</b></td>
+    <td class="s" style="color:${OVDOT(s.opp.verdict)}">${s.opp.score}</td>
+    <td><span class="verdict-badge ${OVCLS(s.opp.verdict)}">${s.opp.verdict}</span></td>
+    <td class="s" style="color:var(--mut)">${s.qual.score}</td>
+  </tr>`).join("");
+
+const vp=document.createElement("div");
+vp.className="pane";
+vp.innerHTML=`
+  <h2 class="section">The ranking — by opportunity, not by quality</h2>
+  <table>
+    <tr><th>#</th><th>Symbol</th><th>Opp score</th><th>Verdict</th><th>Quality</th></tr>
+    ${trows}
+  </table>
+
+  <div class="pick">
+    <h3><span class="dot" style="width:10px;height:10px;border-radius:50%;background:var(--bye)"></span> Neither is a buy today — and the higher-quality name is the lower opportunity</h3>
+    <div class="alloc">No capital deployed · both to watchlist for different triggers</div>
+    <p><b>TIMEX (6.0)</b> is the better <i>opportunity</i> only because it has the real growth engine (rev +48%, Q4 PAT +196%, premiumisation runway) — but it's a value-leaking MNC <b>pure-OFS</b> (not even a fresh IPO) bought at ~58x at a fresh ATH, so the trigger is a <b>pullback</b>, and even then half-size. <b>POWERICA (5.0)</b> is the higher-<i>quality</i>, better-<i>aligned</i> business (founder-owned, fresh capital, ROCE ~27%, quality 7) — but it has <b>no compounding engine</b> (flat FY26 topline, cyclical diesel + capital-heavy wind), so it's a fine deleveraging cyclical, not a wealth compounder. The trigger there is <b>evidence of real, sustained growth</b>, not just a cheaper price.</p>
+  </div>
+
+  <div class="note">
+    <b>The lesson of this pair:</b> the safer, better-governed company (Powerica, quality 7) ranks <i>below</i> the riskier one (Timex, quality 6) on the opportunity lens — because opportunity is led by the <b>engine</b>, and Timex has growth while Powerica is a flat-topline cyclical. But Timex's engine is owned by a foreign parent that cashes out and charges royalties, priced at 58x — so "better opportunity" still means "wait." <b>Lead with the engine, demand alignment, insist on asymmetry at the entry price — and remember most IPOs (and pseudo-IPOs) are a pass.</b>
+  </div>`;
+panes.appendChild(vp);
+
+function select(n){
+  document.querySelectorAll(".tab").forEach((t,i)=>t.classList.toggle("active",i===n));
+  document.querySelectorAll(".pane").forEach((p,i)=>p.classList.toggle("active",i===n));
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+</script>
+</body>
+</html>

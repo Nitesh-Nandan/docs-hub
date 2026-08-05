@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IPO_ATHBREAK — Signal Review · 2026-06-16</title>
+<style>
+  :root{
+    --bg:#0e1116; --panel:#171b22; --panel2:#1e232c; --line:#2a313c;
+    --txt:#e6edf3; --mut:#8b949e; --acc:#58a6ff;
+    --bet:#3fb950; --sel:#d29922; --bye:#f85149;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;padding:0 0 60px}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+  header{background:linear-gradient(135deg,#161b22,#0d1117);border-bottom:1px solid var(--line);padding:26px 0 22px;margin-bottom:24px}
+  header h1{font-size:23px;font-weight:700;letter-spacing:-.2px}
+  header .sub{color:var(--mut);margin-top:6px;font-size:13.5px}
+  header .chip{display:inline-block;background:var(--panel2);border:1px solid var(--line);border-radius:20px;padding:3px 11px;font-size:12px;color:var(--mut);margin-right:6px;margin-top:10px}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:22px}
+  .tab{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 13px;cursor:pointer;font-size:13.5px;font-weight:600;color:var(--mut);display:flex;align-items:center;gap:7px;transition:.12s}
+  .tab:hover{border-color:var(--acc);color:var(--txt)}
+  .tab.active{background:var(--panel2);color:var(--txt);border-color:var(--acc)}
+  .tab .dot{width:8px;height:8px;border-radius:50%}
+  .tab.verdict{margin-left:auto;background:#1b2330;border-color:#2d4a6b;color:#9ecbff}
+  .tab.verdict.active{background:#22344a}
+  .score-pill{font-size:11px;font-weight:700;padding:1px 7px;border-radius:10px;background:var(--panel2)}
+  .pane{display:none;animation:fade .2s}
+  .pane.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .shead{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-bottom:16px}
+  .shead h2{font-size:20px}
+  .shead .name{color:var(--mut);font-size:13.5px;margin-top:3px}
+  .shead .sig{color:var(--mut);font-size:12.5px;margin-top:10px;line-height:1.7}
+  .shead .sig b{color:var(--txt);font-weight:600}
+  .bigscore{text-align:center;flex-shrink:0;min-width:120px}
+  .bigscore .num{font-size:42px;font-weight:800;line-height:1}
+  .bigscore .den{font-size:16px;color:var(--mut);font-weight:600}
+  .verdict-badge{display:inline-block;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;margin-top:8px;letter-spacing:.3px}
+  .v-BET{background:rgba(63,185,80,.16);color:var(--bet);border:1px solid rgba(63,185,80,.4)}
+  .v-SELECTIVE{background:rgba(210,153,34,.16);color:var(--sel);border:1px solid rgba(210,153,34,.4)}
+  .v-BYE{background:rgba(248,81,73,.16);color:var(--bye);border:1px solid rgba(248,81,73,.4)}
+  .mstrip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+  .metric{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+  .metric .k{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.4px}
+  .metric .v{font-size:18px;font-weight:700;margin-top:3px}
+  .pos{color:var(--bet)} .neg{color:var(--bye)}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 22px;margin-bottom:16px}
+  .card h3{font-size:13px;text-transform:uppercase;letter-spacing:.5px;color:var(--mut);margin-bottom:14px}
+  .row{margin-bottom:13px}
+  .row:last-child{margin-bottom:0}
+  .row .lbl{display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:5px}
+  .row .lbl .pts{font-weight:700}
+  .bar{height:7px;background:var(--panel2);border-radius:4px;overflow:hidden}
+  .bar i{display:block;height:100%;border-radius:4px}
+  .row .desc{font-size:12.5px;color:var(--mut);margin-top:5px}
+  .prom{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin-bottom:16px}
+  .prom h3{font-size:13px;text-transform:uppercase;letter-spacing:.5px;color:var(--mut);margin-bottom:9px}
+  .prom p{font-size:13.5px;line-height:1.65;color:#c9d1d9}
+  .prom .q{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px;margin-left:8px;vertical-align:middle}
+  .flags{background:rgba(248,81,73,.07);border:1px solid rgba(248,81,73,.25);border-radius:10px;padding:13px 16px;font-size:13px;margin-bottom:16px}
+  .flags.clean{background:rgba(63,185,80,.07);border-color:rgba(63,185,80,.25)}
+  .flags b{display:block;margin-bottom:5px;font-size:12px;text-transform:uppercase;letter-spacing:.4px;color:var(--mut)}
+  .arg{background:var(--panel2);border-left:3px solid var(--acc);border-radius:0 10px 10px 0;padding:16px 18px;margin-bottom:16px}
+  .arg h3{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--acc);margin-bottom:9px}
+  .arg .math{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--mut);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin-bottom:11px}
+  .arg p{font-size:14px;line-height:1.68}
+  .takeaway{font-size:14px;line-height:1.65;background:var(--panel);border:1px solid var(--line);border-radius:0 8px 8px 0;border-left:3px solid var(--mut);padding:13px 16px}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin:6px 0 22px}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
+  th{font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:var(--mut)}
+  td.s{font-weight:700;text-align:center}
+  tr.rank1 td{background:rgba(63,185,80,.06)}
+  .pick{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-bottom:14px}
+  .pick.top{border-color:rgba(63,185,80,.45)}
+  .pick h3{font-size:17px;display:flex;align-items:center;gap:10px;margin-bottom:4px}
+  .pick .alloc{font-size:12px;color:var(--mut);margin-bottom:10px}
+  .pick p{font-size:13.5px;color:#c9d1d9;line-height:1.65}
+  .note{font-size:12.5px;color:var(--mut);background:var(--panel);border:1px dashed var(--line);border-radius:10px;padding:14px 16px;margin-top:18px;line-height:1.7}
+  h2.section{font-size:16px;margin:22px 0 12px}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1>IPO_ATHBREAK — Signal Review</h1>
+  <div class="sub">Fundamental scoring + argument for every live ATH-breakout signal · data through 2026-06-15 · generated 2026-06-16</div>
+  <div>
+    <span class="chip">8 signals</span>
+    <span class="chip">SPEC v1 · age 2–6m · ≥1.5× vol</span>
+    <span class="chip">score = whether · signal = when</span>
+    <span class="chip">each score is argued, not asserted</span>
+  </div>
+</div></header>
+
+<div class="wrap">
+  <div class="tabs" id="tabs"></div>
+  <div id="panes"></div>
+</div>
+
+<script>
+const STOCKS = [
+ {sym:"ICICIAMC", name:"ICICI Prudential Asset Management", score:8.0, verdict:"BET",
+  sig:{px:3539, date:"2026-05-29", list:"2025-12-19", age:"5.0m"},
+  m:{issue:"₹2,165", day1:"₹2,586", now:"₹3,269", frm_list:"+26%", to_liq:"₹130cr"},
+  desc:"India's <b>second-largest mutual-fund house</b> by AUM (₹10.87 lakh crore, 140+ schemes). An asset-light, brand-driven franchise riding the structural financialization of Indian household savings.",
+  prom:{q:"EXCELLENT", c:"var(--bet)", t:"A blue-chip JV: <b>ICICI Bank (51%) + Prudential plc (49%)</b> — two of the most credible names in Indian finance. <b>Nimesh Shah</b> has been MD & CEO since 2007 (18-yr tenure) and is the sitting <b>AMFI chairman</b>; CIO <b>S Naren</b> is among India's most respected value investors. On listing, management publicly committed that going public 'won't alter our investment philosophy.' Promoter/management quality is best-in-class."},
+  rows:[
+   [2,"Business quality","Premier franchise: scale moat, brand, distribution reach, structural SIP tailwind."],
+   [2,"Growth","Revenue +32%, PAT +29% (FY25 ₹2,651cr); H1FY26 net ₹1,618cr — momentum intact."],
+   [2,"Profitability & BS","ROE/RoNW ~83%, asset-light, zero debt, gusher of operating cash."],
+   [1,"IPO structure","Pure OFS (Prudential plc trimmed) — no fresh capital — but ICICI Bank promoter stake stays high."],
+   [1,"Valuation","P/B ~30×, P/E rich — but justified by 80%+ ROE and earnings quality."],
+  ],
+  flags:["No material red flags. Pure-OFS structure noted (no money into the business), but franchise quality offsets it."],
+  flagsClean:true,
+  math:"Business 2 + Growth 2 + Profit 2 + Structure 1 + Valuation 1 = 8/10",
+  arg:"This is the only name that earns full marks on the three lenses that compound wealth — business, growth, profitability. An ~83% ROE, zero-debt, asset-light franchise with 18-year stable leadership is exactly what a multi-year hold should look like. The two 1s (not 2s) are honest: the issue was pure OFS so no money went into the business, and the valuation is genuinely rich (P/B ~30×). Neither is disqualifying for a franchise that earns 80% on equity. Nothing caps it. 8/10 = BET.",
+  take:"The highest-quality name on the board and the one true core-portfolio candidate. A compounder you can size into and hold for years — exactly the IPO the strategy exists to surface."},
+
+ {sym:"SEDEMAC", name:"Sedemac Mechatronics", score:7.5, verdict:"SELECTIVE",
+  sig:{px:2625, date:"2026-06-09", list:"2026-03-11", age:"2.8m"},
+  m:{issue:"₹1,352", day1:"₹1,451", now:"₹2,735", frm_list:"+88%", to_liq:"₹53cr"},
+  desc:"A deep-tech maker of <b>engine control units and powertrain electronics</b> (ECUs, BLDC controllers) — indigenising components India mostly imports. High R&D moat, strong indigenisation tailwind.",
+  prom:{q:"EXCELLENT", c:"var(--bet)", t:"<b>Founder-led deep-tech with elite pedigree.</b> Incubated at <b>IIT Bombay in 2007</b> by Prof. <b>Shashikanth Suryanarayanan</b> (BTech IIT-Madras, PhD UC Berkeley, ex-GE Global Research, IIT-B professor since 2004; an <b>MIT Tech Review 'Innovator Under 35'</b>) with his students. A genuine technologist-promoter, not a financial sponsor. <b>Caveat:</b> the anchor lock-in is the 90-day category — the second tranche unlocks right around now (~June 2026), a near-term supply overhang to respect."},
+  rows:[
+   [2,"Business quality","Niche tech leadership, high entry barrier, made-in-India powertrain electronics tailwind."],
+   [2,"Growth","FY26 PAT ₹104cr (+120%), sales ₹1,058cr (+61%); Q4 PAT +273%. Exceptional."],
+   [2,"Profitability & BS","~10% net margin at this scale with triple-digit profit growth; capital-light."],
+   [0,"IPO structure","<b>Entirely OFS</b> — no fresh capital; promoters/PE sold the whole issue."],
+   [1,"Valuation","Up +88% since listing — multiple has expanded fast; PEG still reasonable on 120% growth."],
+  ],
+  flags:["Pure-OFS issue.","Anchor lock-in 90-day tranche unlocking ~now — expect supply.","Price already nearly doubled post-listing — entry timing matters; stagger."],
+  math:"Business 2 + Growth 2 + Profit 2 + Structure 0 + Valuation 1 = 7  →  +0.5 for elite founder/tech pedigree = 7.5/10",
+  arg:"<b>Why 7.5, specifically:</b> the five lenses sum to 7 (a perfect 6/6 on business + growth + profitability, zeroed on structure because the issue was 100% OFS, and a 1 on valuation after the +88% run). I add half a point for the rare quality of the promoter — an IIT-B professor / Berkeley PhD / MIT-TR35 technologist building a real engineering moat, which the integer lenses under-capture. It stays SELECTIVE, not BET, because three things block conviction sizing today: no fresh capital went into the business, the anchor lock-in is unlocking right now, and the price has already doubled — so the asymmetry that existed at listing is gone.",
+  take:"Elite business, growth and founder — held below BET only by the all-OFS issue, a live lock-in unlock, and a price that has already run hard. A strong half-size satellite: accumulate on pullbacks, don't chase the breakout."},
+
+ {sym:"SUDEEPPHRM", name:"Sudeep Pharma", score:6.0, verdict:"SELECTIVE",
+  sig:{px:780, date:"2026-06-01", list:"2025-11-28", age:"5.8m"},
+  m:{issue:"₹593", day1:"₹774", now:"₹823", frm_list:"+6%", to_liq:"₹31cr"},
+  desc:"A 35-year-old maker of <b>pharmaceutical excipients, food-grade minerals and specialty nutrition ingredients</b>, exporting to 100+ countries. Sticky B2B niche with strong margins.",
+  prom:{q:"GOOD", c:"var(--sel)", t:"A <b>promoter-family business since 1989</b> with a long operating record and a global B2B customer base — operational credibility is real. The flag is alignment: the IPO was <b>89% offer-for-sale (₹800cr of ₹895cr)</b>, i.e. the promoters/PE were primarily <b>cashing out</b> rather than funding growth — a softer signal on how they view the price."},
+  rows:[
+   [2,"Business quality","Specialty-ingredient niche, global B2B customers, 35-yr track record, sticky."],
+   [1,"Growth","Revenue grew only 8.2% (FY23–25) — modest — though PAT +49% on margin gains."],
+   [2,"Profitability & BS","FY25 PAT ₹139cr on ₹511cr revenue (~27% net margin) — excellent; low debt."],
+   [0,"IPO structure","₹895cr issue: only ₹95cr fresh, ₹800cr OFS — promoters/PE largely cashing out."],
+   [1,"Valuation","Reasonable multiple for the quality; modest topline growth caps the re-rating case."],
+  ],
+  flags:["Heavily OFS-weighted issue (89%) — promoters cashing out.","Top-line growth is slow — the story rests on margins, not volume."],
+  math:"Business 2 + Growth 1 + Profit 2 + Structure 0 + Valuation 1 = 6/10",
+  arg:"A genuinely high-quality, high-margin (27% net) niche exporter — that's the 2+2 on business and profitability. But two things hold it at the SELECTIVE floor: revenue compounds at only ~8% (the re-rating must come from margins, a thinner thread), and the issue was 89% OFS, so the promoters were sellers at this level. Quality without growth and with a cash-out issue = own it small or wait for a faster quarter, not a conviction buy.",
+  take:"A real quality franchise, but slow revenue growth plus a near-all-OFS issue keep it a half-size / prove-it name rather than a conviction buy."},
+
+ {sym:"ADVAIT", name:"Advait Energy Transitions", score:6.0, verdict:"SELECTIVE",
+  sig:{px:2346, date:"2026-06-09", list:"2026-01-20", age:"4.4m"},
+  m:{issue:"—", day1:"₹1,392", now:"₹2,335", frm_list:"+68%", to_liq:"₹21cr"},
+  desc:"Power-transmission solutions + new-energy (BESS, green hydrogen, fuel cells). <b>Note: not a fresh IPO</b> — this is the former Advait Infratech (already listed on BSE) taking an NSE listing in Jan 2026.",
+  prom:{q:"ADEQUATE", c:"var(--sel)", t:"A <b>promoter-driven small-cap</b> (ex-Advait Infratech) that has been public on the BSE for years — so there's a visible track record, but it is not the freshly-vetted, anchor-backed promoter group a true IPO brings. Because this is an NSE cross-listing rather than a book-built IPO, the usual fresh-vs-OFS and anchor-quality checks don't cleanly apply — scored conservatively as a result."},
+  rows:[
+   [1,"Business quality","Energy-transition + T&D tailwind, ₹1,304cr order book — but EPC-style, competitive."],
+   [2,"Growth","FY26 revenue +80% (₹715cr), PAT ₹58cr (+75%). Strong."],
+   [1,"Profitability & BS","EBITDA margin ~13.5% (slightly down YoY) — decent, not exceptional."],
+   [1,"IPO structure","N/A — NSE cross-listing of a seasoned BSE company, not a fresh issue. Scored conservatively."],
+   [1,"Valuation","Up +68% since NSE listing; small-cap energy multiple, fair-to-full."],
+  ],
+  flags:["NOT a fresh IPO — a BSE→NSE cross-listing; the signal's 'young listing' premise is weaker here.","Thin liquidity (₹21cr) and EPC-grade margins."],
+  math:"Business 1 + Growth 2 + Profit 1 + Structure 1 + Valuation 1 = 6/10",
+  arg:"The growth is real (+80% revenue, strong order book on a great theme) — that's the lone 2. Everything else is a 1: EPC-style margins (~13.5%) aren't a moat, liquidity is thin, and the 'IPO structure' lens doesn't really apply because this is a seasoned BSE company cross-listing onto NSE, not a fresh issue. The conservative 1s reflect genuine uncertainty rather than evidence of quality. Net 6 — a track-it name, not a buy, and a reminder to check whether a 'signal' is even a true IPO.",
+  take:"A real growth story on a strong theme, but a seasoned cross-listing rather than a young IPO, with modest margins and thin volume. Worth tracking; size small if at all."},
+
+ {sym:"AYE", name:"Aye Finance", score:5.0, verdict:"BYE-BYE",
+  sig:{px:164, date:"2026-06-02", list:"2026-02-16", age:"3.3m"},
+  m:{issue:"₹129", day1:"₹129", now:"₹157", frm_list:"+22%", to_liq:"₹26cr"},
+  desc:"A technology-driven <b>MSME-lending NBFC</b> (working-capital and business loans to micro-enterprises).",
+  prom:{q:"PE-CONTROLLED", c:"var(--sel)", t:"<b>No classic promoter — it's a VC/PE-built lender</b>, backed by <b>CapitalG (Alphabet), LGT Capital and British International Investment</b>. Marquee names lend credibility, but it also means large institutional blocks will look to exit over time (a structural overhang), and incentives are sponsor-return-driven rather than founder-owner. Management is professional but the cap table is the risk."},
+  rows:[
+   [1,"Business quality","Underserved MSME niche, data underwriting, diversified — but a crowded NBFC field."],
+   [1,"Growth","ROE rose to 15.3% (FY25) but <b>fell to 7.6% in H1FY26</b> — a worrying slowdown."],
+   [1,"Profitability & BS","NPA 0.9% / PCR 72% are good; returns volatile and recently weak."],
+   [1,"IPO structure","Fresh-heavy (₹710cr fresh + ₹300cr OFS) is a plus; large PE stakes will unlock."],
+   [1,"Valuation","High-yield lender at a moderate book multiple — not cheap given the ROE wobble."],
+  ],
+  flags:["IPO subscribed only <b>0.97×</b> — institutional demand was weak.","ROE roughly halved in H1FY26.","PE/VC unlock overhang."],
+  math:"Business 1 + Growth 1 + Profit 1 + Structure 1 + Valuation 1 = 5/10",
+  arg:"A straight line of 1s — nothing is broken, but nothing is good enough to underwrite a multi-year hold. The decisive evidence is external to the lenses: the IPO was <b>undersubscribed (0.97×)</b>, the market's own verdict that the price was full, and ROE <b>halved to 7.6%</b> in the most recent half — exactly the post-listing slowdown the runbook warns is the classic IPO trap. With a PE overhang on top, the signal fires but the fundamentals say wait.",
+  take:"The technical signal fired, but an undersubscribed issue, halving ROE and a PE overhang are exactly the fundamentals that veto an entry. Pass; revisit if a couple of clean quarters land."},
+
+ {sym:"GSPCROP", name:"GSP Crop Science", score:5.0, verdict:"BYE-BYE",
+  sig:{px:457, date:"2026-06-15", list:"2026-03-24", age:"2.5m"},
+  m:{issue:"₹320", day1:"₹356", now:"₹457", frm_list:"+28%", to_liq:"₹10cr"},
+  desc:"A 40-year-old <b>agrochemicals</b> maker (insecticides, herbicides, fungicides, plant-growth regulators) across formulations and technicals.",
+  prom:{q:"ADEQUATE", c:"var(--sel)", t:"A <b>promoter-family agrochem business since 1985</b> — long-standing, but the issue funds <b>debt repayment</b> (₹170cr of fresh proceeds against ~₹479cr borrowings), so the promoters are de-risking the balance sheet rather than financing expansion. Operating record is there; the leverage and the use-of-proceeds temper the read."},
+  rows:[
+   [1,"Business quality","Agrochem is competitive and cyclical; no clear moat, some export presence."],
+   [1,"Growth","PAT +365% over 3 years — but cycle-aided, and no post-listing quarter to confirm yet."],
+   [1,"Profitability & BS","High debt (~₹479cr); ₹170cr of fresh proceeds earmarked to deleverage."],
+   [1,"IPO structure","Fresh-heavy (₹240cr fresh + ₹160cr OFS) for debt repayment — reasonable."],
+   [1,"Valuation","Up +28% since listing; small-cap agrochem multiple, fair."],
+  ],
+  flags:["<b>Lowest liquidity of the eight (₹10cr/day)</b> — hard to build or exit a position.","High pre-IPO debt.","No post-listing quarterly result yet — trajectory unproven."],
+  math:"Business 1 + Growth 1 + Profit 1 + Structure 1 + Valuation 1 = 5/10",
+  arg:"The headline 3-year PAT growth (+365%) looks great but is almost certainly agro-cycle-aided, and there is <b>no post-listing quarter yet</b> to confirm it holds — so growth scores a cautious 1, not a 2 (unknown ≠ good). Add real leverage (~₹479cr) and the <b>thinnest liquidity of the eight (₹10cr/day)</b>, which alone makes building or exiting a position hard. Cyclical business + unproven trajectory + can't-trade-it = pass for now; revisit after a quarter and better volume.",
+  take:"Decent business but the worst liquidity on the board, real leverage, and zero post-listing earnings confirmation. The signal is too early here — wait."},
+
+ {sym:"BHARATCOAL", name:"Bharat Coking Coal (BCCL)", score:4.0, verdict:"BYE-BYE",
+  sig:{px:41, date:"2026-05-29", list:"2026-01-19", age:"4.1m"},
+  m:{issue:"₹23", day1:"₹41", now:"₹38", frm_list:"-7%", to_liq:"₹167cr"},
+  desc:"A <b>Government-of-India PSU</b> (Coal India subsidiary), the largest coking-coal producer in India (58.5% of domestic output) from the Jharia and Raniganj fields.",
+  prom:{q:"GOVT / PSU", c:"var(--sel)", t:"The promoter is the <b>Government of India via Coal India</b>. That means strategic backing and scale, but also <b>state-set economics</b>, social/employment obligations over shareholder returns, and an explicit <b>divestment agenda</b> — the IPO was the government selling, and more state supply is likely. Not a profit-maximising owner in the equity-investor sense."},
+  rows:[
+   [1,"Business quality","Dominant share, but a commodity PSU with govt-set economics and a coal ESG headwind."],
+   [1,"Growth","Coking-coal demand tracks steel; structurally challenged by energy transition."],
+   [1,"Profitability & BS","Coking-coal grades are valuable, but returns are govt-influenced and cyclical."],
+   [0,"IPO structure","Pure OFS — Coal India / govt divestment; no fresh capital, more state supply likely."],
+   [1,"Valuation","Cheap PSU multiple — but cheap for structural reasons."],
+  ],
+  flags:["Pure-OFS govt divestment with likely further state selling.","Energy-transition / ESG structural headwind.","<b>Already trading below its ATH</b> — the breakout signal has faded."],
+  math:"Business 1 + Growth 1 + Profit 1 + Structure 0 + Valuation 1 = 4/10",
+  arg:"A commodity coal PSU is the structural opposite of the young growth compounder this strategy wants. The structure lens is a clean 0 — pure government OFS with more state selling to come — and growth/quality are capped at 1 by a coal-transition headwind and state-set economics. The 'cheap' valuation is cheap for a reason. And critically, the stock is <b>already back below its ATH</b>, so even the technical premise has rolled over. 4/10 — clear pass.",
+  take:"A commodity coal PSU, pure OFS, structural headwinds, and the signal has already faded. Clear pass."},
+
+ {sym:"KWIL", name:"Kwality Wall's (India)", score:1.0, verdict:"BYE-BYE",
+  sig:{px:37, date:"2026-06-12", list:"2026-02-16", age:"3.7m"},
+  m:{issue:"—", day1:"₹29", now:"₹37", frm_list:"+27%", to_liq:"₹79cr"},
+  desc:"The <b>ice-cream / frozen-desserts business demerged from Hindustan Unilever</b> (Kwality Wall's, Cornetto, Magnum), now under Unilever's Magnum Ice Cream Company. <b>A demerger listing, not an IPO.</b>",
+  prom:{q:"MNC PARENT", c:"var(--sel)", t:"Parent is <b>Unilever's Magnum Ice Cream Company</b> (post the 2025 HUL ice-cream demerger) — a credible global owner on paper. But this is a <b>demerger, not an IPO</b>: there was no fresh capital raise, no anchor process, and no promoter putting money in at a vetted price. The owner's quality can't rescue a business currently bleeding cash."},
+  rows:[
+   [1,"Business quality","Strong brands, but a competitive category (Amul, Vadilal, regionals)."],
+   [0,"Growth","Q3FY26 revenue <b>fell 30% YoY</b> — going the wrong way."],
+   [0,"Profitability & BS","<b>Loss-making</b> — ₹109cr loss in Q3FY26."],
+   [0,"IPO structure","Demerger, not an IPO — no fresh capital, no alignment; trades in 'T' group."],
+   [0,"Valuation","₹8,190cr market cap on falling revenue and losses — no earnings to value against."],
+  ],
+  flags:["Loss-making with revenue down 30% YoY.","A demerger listing in the surveillance 'T' group — not a fresh IPO.","The ATH 'breakout' is just post-demerger price discovery noise."],
+  math:"Business 1 + Growth 0 + Profit 0 + Structure 0 + Valuation 0 = 1/10",
+  arg:"Four zeros and a single point for brand equity. The business is <b>loss-making with revenue down 30%</b>, it is a <b>demerger not an IPO</b> (no capital raised, trades in the surveillance 'T' group), and there are no earnings to value the ₹8,190cr market cap against. The ATH 'breakout' is just post-demerger price discovery — pure noise. This is the textbook case for why a technical signal must never be acted on alone. 1/10 — ignore entirely.",
+  take:"The clearest example of why the human filter exists: a textbook technical signal on a loss-making demerger with collapsing revenue. Ignore it."},
+];
+
+const VCLASS = v => v==="BET"?"v-BET":v==="SELECTIVE"?"v-SELECTIVE":"v-BYE";
+const VDOT   = v => v==="BET"?"var(--bet)":v==="SELECTIVE"?"var(--sel)":"var(--bye)";
+const BARCOL = p => p===2?"var(--bet)":p===1?"var(--sel)":"var(--bye)";
+
+const tabs=document.getElementById("tabs"), panes=document.getElementById("panes");
+
+STOCKS.forEach((s,i)=>{
+  const t=document.createElement("div");
+  t.className="tab"+(i===0?" active":"");
+  t.innerHTML=`<span class="dot" style="background:${VDOT(s.verdict)}"></span>${s.sym}
+    <span class="score-pill" style="color:${VDOT(s.verdict)}">${s.score}</span>`;
+  t.onclick=()=>select(i);
+  tabs.appendChild(t);
+
+  const rows=s.rows.map(r=>`
+    <div class="row">
+      <div class="lbl"><span>${r[1]}</span><span class="pts" style="color:${BARCOL(r[0])}">${r[0]}/2</span></div>
+      <div class="bar"><i style="width:${r[0]/2*100}%;background:${BARCOL(r[0])}"></i></div>
+      <div class="desc">${r[2]}</div>
+    </div>`).join("");
+  const flags=`<div class="flags${s.flagsClean?" clean":""}"><b>${s.flagsClean?"Red flags — clean":"Red flags"}</b>${s.flags.map(f=>"• "+f).join("<br>")}</div>`;
+
+  const p=document.createElement("div");
+  p.className="pane"+(i===0?" active":"");
+  p.innerHTML=`
+    <div class="shead">
+      <div>
+        <h2>${s.sym}</h2>
+        <div class="name">${s.name}</div>
+        <div class="sig">Signal: <b>athbreak</b> at ₹${s.sig.px} on <b>${s.sig.date}</b><br>
+          Listed <b>${s.sig.list}</b> · age at signal <b>${s.sig.age}</b></div>
+      </div>
+      <div class="bigscore">
+        <div><span class="num" style="color:${VDOT(s.verdict)}">${s.score}</span><span class="den">/10</span></div>
+        <div class="verdict-badge ${VCLASS(s.verdict)}">${s.verdict}</div>
+      </div>
+    </div>
+    <div class="mstrip">
+      <div class="metric"><div class="k">Issue px</div><div class="v">${s.m.issue}</div></div>
+      <div class="metric"><div class="k">Now</div><div class="v">${s.m.now}</div></div>
+      <div class="metric"><div class="k">From listing</div><div class="v ${s.m.frm_list.startsWith('-')?'neg':'pos'}">${s.m.frm_list}</div></div>
+      <div class="metric"><div class="k">20d turnover</div><div class="v">${s.m.to_liq}</div></div>
+    </div>
+    <div class="card"><h3>What it does</h3><p style="font-size:14px;line-height:1.65;color:#c9d1d9">${s.desc}</p></div>
+    <div class="prom"><h3>Promoters &amp; management <span class="q" style="background:${s.prom.c}22;color:${s.prom.c};border:1px solid ${s.prom.c}55">${s.prom.q}</span></h3><p>${s.prom.t}</p></div>
+    <div class="card"><h3>Scorecard — 5 lenses (RUNBOOK_fundamentals.md)</h3>${rows}</div>
+    ${flags}
+    <div class="arg"><h3>⚖️ Why this score</h3><div class="math">${s.math}</div><p>${s.arg}</p></div>
+    <div class="takeaway"><b>Bottom line.</b> ${s.take}</div>`;
+  panes.appendChild(p);
+});
+
+const vt=document.createElement("div");
+vt.className="tab verdict";vt.innerHTML="🎯 Where to Invest";
+vt.onclick=()=>select(STOCKS.length);
+tabs.appendChild(vt);
+
+const ranked=[...STOCKS].sort((a,b)=>b.score-a.score);
+const trows=ranked.map((s,i)=>`
+  <tr class="${i===0?'rank1':''}">
+    <td>${i+1}</td><td><b>${s.sym}</b></td><td>${s.name}</td>
+    <td class="s" style="color:${VDOT(s.verdict)}">${s.score}</td>
+    <td><span class="verdict-badge ${VCLASS(s.verdict)}">${s.verdict}</span></td>
+  </tr>`).join("");
+
+const vp=document.createElement("div");
+vp.className="pane";
+vp.innerHTML=`
+  <h2 class="section">The ranking — 8 signals, fundamentally sorted</h2>
+  <table>
+    <tr><th>#</th><th>Symbol</th><th>Company</th><th>Score</th><th>Verdict</th></tr>
+    ${trows}
+  </table>
+
+  <h2 class="section">Where to put money — and why</h2>
+
+  <div class="pick top">
+    <h3><span class="dot" style="width:10px;height:10px;border-radius:50%;background:var(--bet)"></span> 1 · ICICIAMC — core conviction buy</h3>
+    <div class="alloc">Suggested: full position · hold for years</div>
+    <p>The only name that clears the BET bar (8/10). India's #2 asset manager is an asset-light, ~83%-ROE, zero-debt compounder with 18-year stable, blue-chip management (Nimesh Shah / S Naren) riding the SIP wave. The single knock — a pure-OFS issue — is irrelevant for a franchise of this quality. This is the kind of IPO the whole strategy exists to catch.</p>
+  </div>
+
+  <div class="pick top">
+    <h3><span class="dot" style="width:10px;height:10px;border-radius:50%;background:var(--sel)"></span> 2 · SEDEMAC — high-growth satellite, buy in tranches</h3>
+    <div class="alloc">Suggested: half position · stagger on pullbacks</div>
+    <p>Elite founder (IIT-B professor) and +120% PAT growth in a real engineering niche. Held to half-size by three things: the issue was 100% OFS, the anchor lock-in is unlocking right now, and the price is already +88% since listing. Accumulate on weakness rather than chasing the breakout.</p>
+  </div>
+
+  <div class="pick">
+    <h3><span class="dot" style="width:10px;height:10px;border-radius:50%;background:var(--sel)"></span> 3 · watchlist — SUDEEPPHRM &amp; ADVAIT (6/10)</h3>
+    <div class="alloc">Suggested: track, don't buy yet</div>
+    <p><b>SUDEEPPHRM</b> — high-margin exporter but ~8% revenue growth and an 89%-OFS (promoter cash-out) issue; wait for a faster quarter. <b>ADVAIT</b> — strong +80% revenue on the energy-transition theme, but it's a BSE→NSE cross-listing (not a true young IPO) with thin liquidity. Both are "prove it" names.</p>
+  </div>
+
+  <div class="pick">
+    <h3><span class="dot" style="width:10px;height:10px;border-radius:50%;background:var(--bye)"></span> Pass — AYE, GSPCROP, BHARATCOAL, KWIL</h3>
+    <div class="alloc">The signal fired; the fundamentals veto</div>
+    <p><b>AYE</b>: undersubscribed IPO (0.97×) + ROE halving. <b>GSPCROP</b>: worst liquidity, levered, no post-listing quarter. <b>BHARATCOAL</b>: commodity coal PSU OFS with ESG headwind, signal already faded. <b>KWIL</b>: loss-making HUL ice-cream demerger with revenue down 30% — not an IPO at all.</p>
+  </div>
+
+  <div class="note">
+    <b>How to read this:</b> the IPO_ATHBREAK signal tells you <i>when</i> a young listing breaks out on conviction volume — it surfaced all 8 of these. This report is the <i>whether</i>, and every score is argued from evidence (business, promoter/management, financials, structure, valuation, news), not asserted. Of 8 technical signals, exactly <b>1 is a clear buy</b> and 1 a measured half-size; the other 6 score ≤6. That is the fundamental filter doing its job — the strategy's own robustness test showed the signal alone barely beats random, so this human gate is where the edge actually lives. Three of the eight (ADVAIT, BHARATCOAL, KWIL) aren't even fresh IPOs — always confirm the listing's nature, not just the chart.
+  </div>`;
+panes.appendChild(vp);
+
+function select(n){
+  document.querySelectorAll(".tab").forEach((t,i)=>t.classList.toggle("active",i===n));
+  document.querySelectorAll(".pane").forEach((p,i)=>p.classList.toggle("active",i===n));
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+</script>
+</body>
+</html>

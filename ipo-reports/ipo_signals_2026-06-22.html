@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IPO Opportunity Review — SEDEMAC · SIKA · DECNGOLD · SEIL · QGLP-A</title>
+<style>
+  :root{
+    --bg:#f6f8fb; --panel:#ffffff; --panel2:#f1f4f8; --line:#e2e8f0;
+    --txt:#1a2230; --mut:#64748b; --acc:#2563eb;
+    --bet:#15803d; --sel:#b45309; --bye:#dc2626;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;padding:0 0 60px}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+  header{background:linear-gradient(135deg,#ffffff,#eef3fb);border-bottom:1px solid var(--line);padding:26px 0 22px;margin-bottom:24px;box-shadow:0 1px 3px rgba(16,24,40,.04)}
+  header h1{font-size:23px;font-weight:700;letter-spacing:-.2px}
+  header .sub{color:var(--mut);margin-top:6px;font-size:13.5px}
+  header .chip{display:inline-block;background:var(--panel2);border:1px solid var(--line);border-radius:20px;padding:3px 11px;font-size:12px;color:var(--mut);margin-right:6px;margin-top:10px}
+  .warn{background:rgba(210,153,34,.1);border:1px solid rgba(210,153,34,.4);border-radius:10px;padding:12px 16px;margin:14px 0 0;font-size:13px;color:#7a4f08;line-height:1.6}
+  .warn b{color:var(--sel)}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:22px}
+  .tab{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 13px;cursor:pointer;font-size:13.5px;font-weight:600;color:var(--mut);display:flex;align-items:center;gap:7px;transition:.12s}
+  .tab:hover{border-color:var(--acc);color:var(--txt)}
+  .tab.active{background:var(--panel2);color:var(--txt);border-color:var(--acc)}
+  .tab .dot{width:8px;height:8px;border-radius:50%}
+  .tab.edu{background:#e8f0fe;border-color:#bcd3fb;color:#1d4ed8}
+  .tab.edu.active{background:#d6e4fd}
+  .tab.verdict{margin-left:auto;background:#e8f0fe;border-color:#bcd3fb;color:#1d4ed8}
+  .tab.verdict.active{background:#d6e4fd}
+  .score-pill{font-size:11px;font-weight:700;padding:1px 7px;border-radius:10px;background:var(--panel2)}
+  .pane{display:none;animation:fade .2s}
+  .pane.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .shead{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  .shead h2{font-size:20px}
+  .shead .name{color:var(--mut);font-size:13.5px;margin-top:3px}
+  .shead .sig{color:var(--mut);font-size:12.5px;margin-top:10px;line-height:1.7}
+  .shead .sig b{color:var(--txt);font-weight:600}
+  .bigscore{text-align:center;flex-shrink:0;min-width:150px}
+  .bigscore .lab{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--mut);margin-bottom:2px}
+  .bigscore .num{font-size:42px;font-weight:800;line-height:1}
+  .bigscore .den{font-size:16px;color:var(--mut);font-weight:600}
+  .verdict-badge{display:inline-block;font-size:11.5px;font-weight:700;padding:4px 12px;border-radius:20px;margin-top:8px;letter-spacing:.3px}
+  .qchip{display:block;margin-top:9px;font-size:11px;color:var(--mut)}
+  .qchip b{font-weight:700}
+  .v-BET{background:rgba(63,185,80,.16);color:var(--bet);border:1px solid rgba(63,185,80,.4)}
+  .v-SELECTIVE{background:rgba(210,153,34,.16);color:var(--sel);border:1px solid rgba(210,153,34,.4)}
+  .v-BYE{background:rgba(248,81,73,.16);color:var(--bye);border:1px solid rgba(248,81,73,.4)}
+  .mstrip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+  .metric{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  .metric .k{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.4px}
+  .metric .v{font-size:18px;font-weight:700;margin-top:3px}
+  .pos{color:var(--bet)} .neg{color:var(--bye)}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 22px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  .card h3{font-size:13px;text-transform:uppercase;letter-spacing:.5px;color:var(--mut);margin-bottom:14px}
+  .card h3 .tagline{text-transform:none;letter-spacing:0;color:var(--acc);font-weight:600;font-size:12px;margin-left:8px}
+  .row{margin-bottom:15px}
+  .row:last-child{margin-bottom:0}
+  .row .lbl{display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:5px}
+  .row .lbl .pts{font-weight:700}
+  .bar{height:7px;background:var(--panel2);border-radius:4px;overflow:hidden}
+  .bar i{display:block;height:100%;border-radius:4px}
+  .row .desc{font-size:12.5px;color:var(--mut);margin-top:6px}
+  .row .why{font-size:12px;color:#1d4ed8;margin-top:5px;background:rgba(37,99,235,.06);border-left:2px solid var(--acc);border-radius:0 6px 6px 0;padding:5px 10px;font-style:italic}
+  .lens-mini{display:flex;flex-wrap:wrap;gap:8px}
+  .lens-mini .lm{flex:1;min-width:120px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+  .lens-mini .lm .t{font-size:11px;color:var(--mut)}
+  .lens-mini .lm .p{font-size:15px;font-weight:700;margin-top:2px}
+  .prom{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  .prom h3{font-size:13px;text-transform:uppercase;letter-spacing:.5px;color:var(--mut);margin-bottom:9px}
+  .prom p{font-size:13.5px;line-height:1.65;color:#3a4453}
+  .prom .q{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px;margin-left:8px;vertical-align:middle}
+  .flags{background:rgba(248,81,73,.07);border:1px solid rgba(248,81,73,.25);border-radius:10px;padding:13px 16px;font-size:13px;margin-bottom:16px}
+  .flags.clean{background:rgba(63,185,80,.07);border-color:rgba(63,185,80,.25)}
+  .flags b{display:block;margin-bottom:5px;font-size:12px;text-transform:uppercase;letter-spacing:.4px;color:var(--mut)}
+  .arg{background:var(--panel2);border-left:3px solid var(--acc);border-radius:0 10px 10px 0;padding:16px 18px;margin-bottom:16px}
+  .arg h3{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--acc);margin-bottom:9px}
+  .arg .math{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--mut);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin-bottom:11px}
+  .arg p{font-size:14px;line-height:1.68}
+  .takeaway{font-size:14px;line-height:1.65;background:var(--panel);border:1px solid var(--line);border-radius:0 8px 8px 0;border-left:3px solid var(--mut);padding:13px 16px;margin-bottom:12px}
+  .teach{font-size:13.5px;line-height:1.6;background:rgba(210,153,34,.08);border:1px solid rgba(210,153,34,.3);border-radius:0 8px 8px 0;border-left:3px solid var(--sel);padding:13px 16px}
+  .teach b{color:var(--sel)}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin:6px 0 22px}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
+  th{font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:var(--mut)}
+  td.s{font-weight:700;text-align:center}
+  tr.rank1 td{background:rgba(210,153,34,.06)}
+  .pick{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-bottom:14px}
+  .pick h3{font-size:17px;display:flex;align-items:center;gap:10px;margin-bottom:4px}
+  .pick .alloc{font-size:12px;color:var(--mut);margin-bottom:10px}
+  .pick p{font-size:13.5px;color:#3a4453;line-height:1.65}
+  .note{font-size:12.5px;color:var(--mut);background:var(--panel);border:1px dashed var(--line);border-radius:10px;padding:14px 16px;margin-top:18px;line-height:1.7}
+  h2.section{font-size:16px;margin:22px 0 12px}
+  .lead{font-size:14px;line-height:1.7;color:#3a4453;margin-bottom:16px}
+  .pillar-def{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin-bottom:11px}
+  .pillar-def h4{font-size:14px;margin-bottom:5px;color:var(--txt)}
+  .pillar-def h4 span{font-size:11px;font-weight:700;color:var(--acc);background:rgba(37,99,235,.09);border:1px solid rgba(37,99,235,.28);border-radius:8px;padding:1px 8px;margin-right:8px}
+  .pillar-def p{font-size:13px;color:var(--mut);line-height:1.6}
+  .book{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+  .book:last-child{border-bottom:0}
+  .book .bk{font-weight:600;color:var(--txt);min-width:230px}
+  .book .bi{color:var(--mut)}
+  .veto{font-size:13px;color:#3a4453;line-height:1.7;background:rgba(248,81,73,.06);border:1px solid rgba(248,81,73,.22);border-radius:10px;padding:13px 16px;margin-top:6px}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1>IPO Opportunity Review — Opportunity-First (QGLP-A)</h1>
+  <div class="sub">Is it a multi-year wealth opportunity — not just a good company? · SEDEMAC · SIKA · DECNGOLD · SEIL · data through 2026-06-22</div>
+  <div>
+    <span class="chip">4 IPO_ATHBREAK signals</span>
+    <span class="chip">headline = opportunity score · quality alongside</span>
+    <span class="chip">profit ≠ opportunity</span>
+  </div>
+  <div class="warn">⚠️ <b>Data caveat — only 1 of these 4 is a real IPO.</b> The screener tagged all four as "IPO_ATHBREAK" because it reads the <i>first candle in the DB</i> as the listing date. SIKA, DECNGOLD and SEIL were part of a <b>91-symbol bulk backfill on 2026-04-20</b>, so the engine wrongly thinks 20-/40-year-old companies are 2-month-old IPOs. Only <b>SEDEMAC</b> (listed 11-Mar-2026) is a genuine recent IPO. The other three are scored here on the QGLP-A "is it a compounder I can still buy?" lens, but the IPO-structure framing does not apply to them — see the "Where to Invest" tab for the fix.</div>
+</div></header>
+
+<div class="wrap">
+  <div class="tabs" id="tabs"></div>
+  <div id="panes"></div>
+</div>
+
+<script>
+const STOCKS = [
+ {sym:"SEDEMAC", name:"Sedemac Mechatronics Ltd · the only genuine IPO",
+  opp:{score:6.0, verdict:"OPPORTUNITY"}, qual:{score:6.0, verdict:"SELECTIVE"},
+  sig:{px:2857.2, date:"2026-06-22", list:"2026-03-11 (REAL listing)", age:"3.2m"},
+  m:{issue:"₹1,451", now:"₹2,857", frm_list:"+97%", to_liq:"₹51cr"},
+  desc:"A Pune-based, <b>IIT-Bombay-spun-out control-electronics company (est. 2007)</b> that designs and builds <b>ECUs / powertrain controllers, motor-control products and integrated starter-generators (ISG)</b> embedded inside millions of two-wheelers, three-wheelers, gensets and power equipment. Patented <b>sensor-less motor-control</b> tech; mobility ≈ 85% of revenue, industrial ≈ 15%.",
+  future:"<b>Why the IPO:</b> issue price ₹1,352 — a <b>100% Offer-For-Sale (₹1,087cr)</b>, <i>no fresh capital into the business</i>; it let early backers (A91, Xponentia, 360 One, HDFC Life, NRJN Trust) and some promoters convert stakes to cash. <b>Customers:</b> marquee — <b>Bajaj Auto, TVS Motor, Tata Motors, Mahindra, Ashok Leyland, Kirloskar, Briggs &amp; Stratton, DEIF</b> — strong design-in relationships but concentration in ICE 2W/3W. <b>Growth + reinvestment:</b> FY26 revenue <b>₹1,058cr, +61% YoY</b>; FY26 volumes 3.9M units (+60%); Q4 PAT ₹32cr (vs ₹8.6cr) on a 21.2% EBITDA margin — an asset-light, cash-generative model that compounds internally even without the IPO cash. <b>Future plans:</b> ISG-ECU launches on mainstream motorcycles → a direct <b>EV/electrification runway</b> as 2W/3W electrify.",
+  street:"<b>Sell-side:</b> thin coverage so far — <b>one tracked analyst, BUY, target ₹3,075 (~14% upside)</b> from ₹2,696. <b>Recent news:</b> strong Q4 (profit, revenue, EBITDA all up sharply) plus new ISG-ECU launch plans drove the stock to a fresh ATH; up <b>~117% from the ₹1,352 issue price in three months.</b> The signal that fired is exactly this volume-backed ATH breakout.",
+  prom:{q:"FOUNDER-LED · PE-EXIT OFS", c:"var(--sel)", t:"Founded by <b>IIT-Bombay professor Shashikanth Suryanarayanan and students Amit Dixit &amp; Manish Sharma</b> — a genuine engineer-founder team that still <b>runs the company and holds ~26.4%</b> (real skin in the game). The blemish is the IPO itself: a <b>100% OFS</b> that funded a PE/early-investor cash-out (A91, Xponentia, 360 One) rather than the business — so alignment is good on the founders but the listing put zero growth capital in and carries an institutional-unlock overhang."},
+  pillars:[
+   {lbl:"Engine · Growth + runway", pts:2, why:"Lynch: the big money is in fast growers with a long runway.",
+    desc:"Revenue +61%, units +60%, ~21% margins — and the <b>electrification of India's 2W/3W parc is a large, under-penetrated TAM</b> its ISG/motor-control tech is built for. A real, fast engine."},
+   {lbl:"Engine · Reinvestment ability", pts:1, why:"Akre's 3rd leg: a high return you can redeploy is what compounds.",
+    desc:"Asset-light electronics with high incremental ROIC and a low growth-stage payout, so it reinvests internally — <b>but the IPO raised no fresh capital</b> and post-listing ROIC disclosure is still thin, so scored conservatively."},
+   {lbl:"Moat &amp; Longevity", pts:1, why:"Dorsey: switching costs are why returns persist.",
+    desc:"Patented sensor-less control + <b>deep OEM design-in</b> (once your ECU is in a platform, you're sticky) — real but contested, as global Tier-1s (Bosch et al.) compete and the ICE base must transition to EV."},
+   {lbl:"Alignment", pts:1, why:"Ritter: in an OFS the seller knows more than you.",
+    desc:"Founders retain ~26.4% and run it (good) <b>but it's a 100% OFS</b> — a PE/early-investor exit with no fresh capital and an unlock overhang. Mixed."},
+   {lbl:"Price &amp; Asymmetry", pts:1, why:"Agrawal: price comes last — but you still have to pay a sane one.",
+    desc:"An ATH breakout is the screener's entry <i>by design</i>, so we don't reflex-penalise the chart — but at <b>~100× earnings, +97% from day-1 and only ~14% to the lone target</b>, most of the re-rating is already banked. Half a point, not two."},
+  ],
+  qrows:[["Business",2],["Growth",2],["Profit & BS",2],["Structure",0],["Valuation",0]],
+  flags:["<b>Pure-OFS veto:</b> 100% OFS, no fresh capital → opportunity capped at 6.","Promoter holding ~26.4% (&lt;40%) + institutional unlock overhang.","Valuation rich: ~100× earnings after a +117%-from-issue run.","Positive: genuine 60%+ growth confirmed in the first post-listing quarters."],
+  math:"Engine A 3 + Moat B 1 + Align C 1 + Price D 1 = 6 raw  →  pure-OFS veto (cap 6, binding)  →  6.0/10",
+  arg:"This is the <b>real opportunity of the four</b> — and the only true IPO. The engine is unambiguous (Pillar A = 3): 61% revenue growth, a long electrification runway, marquee OEM design-ins, and an asset-light model that compounds internally. That clears the gate comfortably. What holds it to a conditional 6.0 rather than a conviction buy are the same two things that recur across IPO winners bought late — a <b>100% OFS</b> (the founders are aligned but the IPO funded a PE exit, so the pure-OFS veto binds at 6) and a <b>full price</b> (~100× earnings, +117% from issue, ~14% to the only target). A wonderful business, but the asymmetry has narrowed. Build on weakness / half-size; don't chase the breakout at 100×.",
+  take:"The genuine compounder of the set — niche control-electronics engine, founder-run, riding 2W/3W electrification. Held to a conditional OPPORTUNITY (not conviction) by a 100% pure-OFS structure and a ~100× valuation after a 2× in three months. Watch for a pullback; size up only on weakness.",
+  teaches:"<b>A great engine bought at 100× is a mediocre trade.</b> The business quality earns the score floor (the engine clears the gate); the price and OFS structure cap the ceiling. Opportunity = engine × alignment × <i>entry price</i> — and the third term is the one a roaring chart tempts you to ignore."},
+
+ {sym:"SIKA", name:"Sika Interplant Systems Ltd · NOT an IPO (listed ~2007)",
+  opp:{score:5.0, verdict:"NOT AN OPPORTUNITY"}, qual:{score:7.0, verdict:"SELECTIVE"},
+  sig:{px:1165.8, date:"2026-06-22", list:"~2007 — NOT an IPO (DB backfilled 2026-04-20)", age:"falsely '2.0m'"},
+  m:{issue:"₹959*", now:"₹1,166", frm_list:"+22%*", to_liq:"₹9cr"},
+  desc:"A long-listed, <b>engineering-driven aerospace, defence &amp; space and automotive</b> products/systems/services company. Niche, high-certification work — components and sub-systems for India's defence and aero programmes. <b>(*The ₹959 'day-1' is just the first backfilled DB candle — this is an established small-cap, not a fresh listing.)</b>",
+  future:"<b>Why it's here:</b> mis-tagged by the screener as an IPO; in reality it has traded for many years. <b>Engine:</b> rides the <b>defence-indigenisation tailwind</b> — FY25 revenue ₹211cr (+37%), PAT ₹36.4cr, a disclosed order book of <b>~₹264cr</b>. But it's a <b>lumpy, order-driven engineering business</b>, and the most recent quarter went the wrong way. <b>Reinvestment:</b> a high <b>24.9% ROE</b>, near debt-free, modest ₹3.5 dividend → reinvests most of its returns, though working-capital-heavy project execution caps how fast it can redeploy.",
+  street:"<b>Recent results (the key tell):</b> <b>Q4 FY26 net profit ₹7.9cr, down ~1% YoY</b>, revenue ₹41.3cr (down from ₹43.9cr) — a flat/soft quarter even as full-year profit rose ~44%. Board proposed a ₹3.5 final dividend. <b>Valuation:</b> trades at <b>P/E ~63×</b> (as of 19-Jun-2026) at an all-time high. No formal institutional target tracked; sentiment 'Hold'.",
+  prom:{q:"FOUNDER / FAMILY-RUN", c:"var(--bet)", t:"<b>Promoter holding ~71.7%</b> — a genuinely owner-run business (Sikka family) with industry pedigree on the board (incl. ex-HAL chairman C&nbsp;G&nbsp;Krishnadas&nbsp;Nair). No OFS cash-out, no PE overhang, high skin in the game. <b>Alignment is the best of the four</b> — this is the opposite of a divestment story."},
+  pillars:[
+   {lbl:"Engine · Growth + runway", pts:1, why:"Lynch: a fast grower in a big market — but watch the latest quarter.",
+    desc:"Defence-indigenisation is a real multi-year runway and FY25 grew 37%, <b>but the order-book base is lumpy and Q4 FY26 went flat/down</b> — growth is real but not yet steady."},
+   {lbl:"Engine · Reinvestment ability", pts:1, why:"Akre: redeploying free cash at a high return is what compounds.",
+    desc:"<b>24.9% ROE, near debt-free, low payout</b> → it does reinvest — but execution is working-capital-intensive, which throttles how much capital it can absorb at that rate."},
+   {lbl:"Moat &amp; Longevity", pts:1, why:"Dorsey: certifications/qualifications are a real barrier.",
+    desc:"Aero/defence qualification cycles are a genuine entry barrier, <b>but it's a small player</b> in an ecosystem of HAL, L&amp;T and the large defence PSUs — durable niche, limited pricing power."},
+   {lbl:"Alignment", pts:2, why:"Founder-owners with 70%+ and no cash-out beat every other structure.",
+    desc:"<b>~71.7% promoter, family-run, no OFS</b> — the compounding, such as it is, accrues to shareholders alongside the owners. Best alignment in this set."},
+   {lbl:"Price &amp; Asymmetry", pts:0, why:"Agrawal: a premium multiple on a lumpy earner leaves no margin of safety.",
+    desc:"<b>P/E ~63× at an all-time high right after a flat quarter.</b> You're paying a growth multiple for a business whose latest quarter didn't grow — the asymmetry is poor."},
+  ],
+  qrows:[["Business",2],["Growth",1],["Profit & BS",2],["Structure",2],["Valuation",0]],
+  flags:["<b>Mis-tagged:</b> not an IPO — established ~2007 listing; the IPO framework's structure lens does not really apply.","Latest quarter (Q4 FY26) flat-to-down — momentum cooling at the ATH.","Valuation ~63× P/E at an all-time high → little margin of safety.","Clean on alignment: ~72% promoter, debt-free, no cash-out."],
+  math:"Engine A 2 + Moat B 1 + Align C 2 + Price D 0 = 5 raw  →  no veto (not an OFS/PSU)  →  5.0/10",
+  arg:"On <b>quality</b> this is the strongest non-SEDEMAC name here — a debt-free, 25%-ROE, founder-owned defence engineer with a real indigenisation tailwind (quality 7.0). But the <b>opportunity</b> lens docks it on the one thing that matters at today's price: <b>asymmetry.</b> You'd be buying a lumpy, order-driven ₹36cr-profit company at <b>~63× at its all-time high, immediately after a flat quarter</b> — a premium multiple with no cushion if the next order slips. The engine is decent but not steady enough (A = 2), and the price has run ahead of it. A fine company to own cheaper; not an opportunity here. <b>And note: this isn't an IPO at all — it belongs in /stock-analyze, not the IPO queue.</b>",
+  take:"A genuinely good, owner-run defence-engineering business — but priced at ~63× at an ATH right after a soft quarter, so the margin of safety is gone. Not an opportunity at this price; revisit on a meaningful pullback. (Also: not an IPO — re-route to a full /stock-analyze.)",
+  teaches:"<b>Good company, wrong price, wrong queue.</b> Two lessons: (1) a premium multiple on a lumpy earner removes the asymmetry even when the business is sound; (2) always verify the listing date — a screener that reads 'first candle in DB' as 'IPO date' will keep dressing up veterans as debutants."},
+
+ {sym:"DECNGOLD", name:"Deccan Gold Mines Ltd · NOT an IPO (listed for decades)",
+  opp:{score:2.0, verdict:"AVOID"}, qual:{score:2.5, verdict:"BYE-BYE"},
+  sig:{px:227.51, date:"2026-06-22", list:"~2003 — NOT an IPO (DB backfilled 2026-04-20)", age:"falsely '2.0m'"},
+  m:{issue:"₹120*", now:"₹228", frm_list:"+89%*", to_liq:"₹73cr"},
+  desc:"<b>India's first and only listed gold-exploration company</b> (incorporated 1984, renamed 2003). It holds stakes in advanced gold projects in India and abroad — chiefly the <b>Jonnagiri project (India's first private gold mine)</b> — plus newer critical-minerals bets. <b>It is effectively pre-revenue:</b> an exploration/optionality vehicle, not an operating business yet.",
+  future:"<b>Engine — the problem:</b> FY-level <b>revenue ~₹14cr and a net loss of ~₹64cr; 3-yr ROE ~ -18%.</b> There is no earnings engine to compound — the entire thesis is <i>future</i> optionality: Jonnagiri ramping to ~1,000 kg/yr of gold over ~15 years, certified resources ~13t (possible up to ~42.5t). <b>Recent catalysts (genuine):</b> a Supreme Court ruling upholding its Ganajur lease, a 51% stake in Spain's Logrosán tungsten project, and a Ni-Cu-PGE find at Bhalukona. All promising — and all still to be proven in cash.",
+  street:"<b>Valuation:</b> market cap <b>~₹4,249cr on ~₹14cr revenue and losses — ~8.6× book</b>, no dividend. The stock is up ~89% in the DB window and ~69% in a year, riding the SC ruling and gold's strength to an ATH. There is no earnings-based valuation to anchor to; it trades on resource optionality and gold sentiment.",
+  prom:{q:"SPECULATIVE / DILUTION RISK", c:"var(--bye)", t:"Long-standing promoters with deep exploration roots — but a pre-revenue explorer is <b>structurally dependent on raising capital</b> (equity dilution / project funding) to build mines. There's no profit accruing to shareholders today; you're underwriting management's ability to convert geology into cash before the share count balloons."},
+  pillars:[
+   {lbl:"Engine · Growth + runway", pts:0, why:"Lynch: you can't compound earnings that don't exist yet.",
+    desc:"<b>No revenue engine</b> — ~₹14cr sales, large losses. The runway is real geology but entirely prospective; QGLP-A scores the engine you <i>have</i>, not the one you hope for."},
+   {lbl:"Engine · Reinvestment ability", pts:0, why:"Akre: there is no free cash to redeploy.",
+    desc:"<b>Negative ROE, cash-burning.</b> It consumes capital to build the mine rather than compounding profits. Reinvestment ability = none today."},
+   {lbl:"Moat &amp; Longevity", pts:1, why:"Dorsey: a scarce asset is a moat — but a commodity price-taker has no pricing power.",
+    desc:"Gold leases / resource rights are genuinely scarce (a real asset), <b>but it's a price-taker</b> with heavy execution, regulatory and ESG risk. Optionality, not a durable franchise."},
+   {lbl:"Alignment", pts:1, why:"Skin-in-the-game is offset by inevitable dilution.",
+    desc:"Committed promoters, but a pre-revenue miner must keep <b>raising capital</b> — minority holders ride dilution risk until the cash flows arrive."},
+   {lbl:"Price &amp; Asymmetry", pts:0, why:"Agrawal: paying ~8.6× book for a loss-maker at an ATH is priced-for-success.",
+    desc:"<b>~₹4,249cr cap on a pre-revenue explorer, ~8.6× book, at an all-time high</b> after +89%. The optionality is largely in the price already."},
+  ],
+  qrows:[["Business",1],["Growth",0],["Profit & BS",0],["Structure",1],["Valuation",0]],
+  flags:["<b>No-engine gate:</b> Pillar A = 0 → opportunity capped at 4 (here the raw is already 2).","Loss-making, negative ROE — fails the runbook profitability lens outright.","~8.6× book, ~₹4,249cr cap with no earnings to support it — priced on hope.","Not an IPO; this is a multi-decade-old exploration vehicle.","Catalysts (SC ruling, Spain tungsten, Bhalukona find) are real but unproven in cash."],
+  math:"Engine A 0 + Moat B 1 + Align C 1 + Price D 0 = 2 raw  →  no-engine gate (A ≤ 1 ⇒ cap 4, not binding)  →  2.0/10",
+  arg:"This is a <b>venture/optionality bet wearing an equity ticker</b>, not a QGLP-A compounder. The framework leads with the engine and there simply isn't one: no revenue to speak of, persistent losses, negative ROE — Pillar A = 0, which gates the score before the (genuinely interesting) gold-resource story can rescue it. Could it be a multi-bagger if Jonnagiri scales and gold stays strong? Possibly — but that's a binary, capital-hungry exploration outcome you'd size like a venture punt, not a wealth compounder. At ~8.6× book and an ATH, much of the dream is already priced. As an <i>opportunity</i> in this framework's sense, it's an AVOID.",
+  take:"A pre-revenue gold explorer with real catalysts but no earnings engine — it fails the QGLP-A gate (A = 0) and trades at ~8.6× book on hope. Treat any position as a small, binary venture punt on Jonnagiri, never as a compounding hold. AVOID as a wealth opportunity.",
+  teaches:"<b>Story optionality is not a compounding engine.</b> Exciting catalysts and a scarce asset can move a price, but QGLP-A scores the cash machine you own today — and 'no revenue, negative ROE, ~8.6× book at an ATH' is the textbook profile to pass on (or to risk only as venture capital)."},
+
+ {sym:"SEIL", name:"Shanti Educational Initiatives Ltd · NOT an IPO (froth valuation)",
+  opp:{score:3.0, verdict:"AVOID"}, qual:{score:3.5, verdict:"BYE-BYE"},
+  sig:{px:218.47, date:"2026-06-22", list:"listed years ago — NOT an IPO (DB backfilled 2026-04-20)", age:"falsely '2.0m'"},
+  m:{issue:"₹178*", now:"₹218", frm_list:"+23%*", to_liq:"₹9cr"},
+  desc:"A <b>K-12 / preschool education operator</b> (Chiripal Group, Ahmedabad): the <b>Shanti Asiatic Schools</b> brand (6+ K-12 schools, ~25,000 students), <b>Hopskotch</b> preschools (180+ centres) and a B-school, plus school-setup advisory. A small, established education business — <b>not a fresh listing.</b>",
+  future:"<b>Engine:</b> education is a long-runway sector, but this is a <b>tiny, lumpy operator</b> — <b>FY26 revenue just ₹63cr and PAT ₹7cr</b>, with a <b>loss in Q3</b> before a small Q4 profit (₹0.98cr). Sales grew ~23% in Q4. <b>Reinvestment:</b> running schools is <b>capital-heavy with low/erratic returns</b> — not the asset-light compounding the valuation implies. <b>The defining fact is the price, below.</b>",
+  street:"<b>Valuation — the headline:</b> market cap <b>~₹3,276cr on ₹63cr revenue and ₹7cr profit ≈ a ~470× P/E (~52× sales).</b> That is froth by any measure for a sub-scale, lumpy education business. The stock sits at an all-time high. No credible institutional coverage justifies the multiple.",
+  prom:{q:"PROMOTER-BACKED · UNVERIFIED", c:"var(--sel)", t:"Backed by the <b>Chiripal Group</b> (Ahmedabad textiles/industrials). Promoter alignment is presumably intact, but for a name trading at ~470× earnings the cap-table specifics matter less than the valuation — at this multiple even a perfectly aligned owner can't make the math work for a new buyer."},
+  pillars:[
+   {lbl:"Engine · Growth + runway", pts:1, why:"Lynch: a long-runway sector still needs the company to actually scale.",
+    desc:"Education TAM is large and Q4 sales rose ~23%, <b>but revenue is only ₹63cr and earnings are lumpy</b> (a Q3 loss). A small grower, not a proven fast grower."},
+   {lbl:"Engine · Reinvestment ability", pts:0, why:"Akre: school capex earns low, erratic returns.",
+    desc:"<b>Asset-heavy schooling with modest, uneven ROE</b> and ₹7cr of profit — it cannot redeploy capital at a high rate. Reinvestment engine is weak."},
+   {lbl:"Moat &amp; Longevity", pts:1, why:"Dorsey: parents rarely switch schools — some switching-cost stickiness.",
+    desc:"An established school brand has real <b>switching-cost stickiness</b> (families stay), but it's regional and sub-scale — a modest moat, not a wide one."},
+   {lbl:"Alignment", pts:1, why:"Promoter-backed, but secondary to the valuation here.",
+    desc:"Chiripal-group backing suggests intact promoter alignment; at ~470× earnings, though, structure is not what's wrong with this one."},
+   {lbl:"Price &amp; Asymmetry", pts:0, why:"Agrawal: price comes last — and here it disqualifies everything.",
+    desc:"<b>~470× earnings / ~52× sales at an all-time high.</b> There is no margin of safety; the downside dwarfs the upside on any normalisation."},
+  ],
+  qrows:[["Business",1],["Growth",1],["Profit & BS",1],["Structure",1],["Valuation",0]],
+  flags:["<b>No-engine gate:</b> Pillar A = 1 → opportunity capped at 4 (raw is 3 anyway).","<b>Valuation veto:</b> ~470× P/E on ₹7cr profit — egregious froth.","Earnings lumpy: a Q3 loss inside FY26; tiny ₹63cr revenue base.","Not an IPO; an established small-cap mis-flagged by the screener.","Thin liquidity (~₹9cr/day turnover) — froth on a small float."],
+  math:"Engine A 1 + Moat B 1 + Align C 1 + Price D 0 = 3 raw  →  no-engine gate (A ≤ 1 ⇒ cap 4) + froth valuation  →  3.0/10",
+  arg:"A real but <b>sub-scale education business at a fantasy price.</b> Two independent reasons to pass stack here: the <b>engine fails the gate</b> (A = 1 — capital-heavy schooling earning ₹7cr with lumpy, sometimes-negative quarters can't compound at a high rate), and even if it could, the <b>~470× P/E</b> removes any conceivable margin of safety. Education's long runway is genuine, but you are paying ~52× sales for a ₹63cr-revenue regional operator at an all-time high. That is the definition of buying a story, not an opportunity.",
+  take:"A tiny, lumpy education operator priced at ~470× earnings / ~52× sales at an ATH. It fails the QGLP-A engine gate and the valuation is indefensible. AVOID — the only thing supporting the price is momentum.",
+  teaches:"<b>Valuation is a veto, not a tie-breaker.</b> When a small, capital-heavy business with ₹7cr of profit carries a ₹3,000cr+ price tag, no amount of sector runway or brand stickiness rescues it. A long-runway industry does not entitle every sub-scale player in it to a 470× multiple."},
+];
+
+const OVDOT = v => v==="CONVICTION"?"var(--bet)":v==="OPPORTUNITY"?"var(--sel)":"var(--bye)";
+const OVCLS = v => v==="CONVICTION"?"v-BET":v==="OPPORTUNITY"?"v-SELECTIVE":"v-BYE";
+const QVCLS = v => v==="BET"?"v-BET":v==="SELECTIVE"?"v-SELECTIVE":"v-BYE";
+const BARCOL = (p,mx)=> p/mx>=1?"var(--bet)":p/mx>=.5?"var(--sel)":"var(--bye)";
+
+const tabs=document.getElementById("tabs"), panes=document.getElementById("panes");
+
+/* ---- Framework / education tab (first) ---- */
+const et=document.createElement("div");
+et.className="tab edu active";et.innerHTML="📘 How to read this";
+et.onclick=()=>select(0);
+tabs.appendChild(et);
+
+const ep=document.createElement("div");
+ep.className="pane active";
+ep.innerHTML=`
+  <p class="lead">A technical signal tells you <b>when</b> a stock breaks out. The runbook tells you <b>whether it's safe</b> (not a fraud or value trap). This report answers the question that actually builds wealth: <b>is it a multi-year compounding <i>opportunity</i>, bought before the crowd?</b> Most IPOs are not — Jay Ritter's research shows IPOs underperform peers ~34% vs 62% over three years. So the bar is high, and we lead with the <b>opportunity score (QGLP-A)</b>, showing the runbook <b>quality score</b> alongside as a safety check.</p>
+
+  <div class="warn" style="margin:0 0 18px">⚠️ <b>Read the data caveat first.</b> Of today's four signals, <b>only SEDEMAC is a genuine IPO</b> (listed 11-Mar-2026). SIKA, DECNGOLD and SEIL are long-established companies that the screener mis-tagged as IPOs because their DB history was backfilled on 2026-04-20 and the engine treats the first candle as the listing date. They are scored on the same "is this a compounder I can still buy?" lens, but their "issue price / from-listing" metrics are backfill artifacts, not real IPO economics. See the "Where to Invest" tab for the root cause and fix.</div>
+
+  <h2 class="section">The 4 pillars — score the opportunity 0–10</h2>
+  <div class="pillar-def"><h4><span>A · ENGINE</span>Does it actually compound? (the gate)</h4><p>Two sub-questions: <b>A1 Growth + runway</b> — is it growing fast with a large, under-penetrated market to keep growing? <b>A2 Reinvestment</b> — can it redeploy profits at a high return (low payout, capital base compounding)? <b>If the Engine ≤ 1, the whole score is capped at 4</b> — a profitable slow-grower or dividend payer is not an opportunity, however high its ROE.</p></div>
+  <div class="pillar-def"><h4><span>B · MOAT</span>Will the high return persist? (longevity)</h4><p>A durable moat — brand, switching costs, network, cost edge — is <i>why</i> returns don't mean-revert. A monopoly in a structurally decaying market has its longevity capped.</p></div>
+  <div class="pillar-def"><h4><span>C · ALIGNMENT</span>Will the compounding accrue to me?</h4><p>Founder-owners with wealth on the line and <b>fresh capital going into the business</b> &gt;&gt; professional managers &gt;&gt; <b>pure-OFS cash-outs (PE or government)</b>. In an OFS, the seller knows more than you.</p></div>
+  <div class="pillar-def"><h4><span>D · PRICE</span>Is the upside still on the table?</h4><p>"Price comes last" — but if the stock has already re-rated to fair value or analyst targets, the asymmetry is gone even if the business is fine. The opportunity lives at the <i>entry price</i>.</p></div>
+
+  <div class="veto"><b>Structural vetoes (cap the score, never add):</b> &nbsp; Government/PSU control → cap 5 &nbsp;·&nbsp; Pure-OFS (no fresh capital) → cap 6 &nbsp;·&nbsp; Hot-market froth / egregious valuation → cap 6 &nbsp;·&nbsp; No engine (A ≤ 1) → cap 4.</div>
+
+  <h2 class="section">Verdict bands</h2>
+  <table>
+    <tr><th>Band</th><th>Score</th><th>Meaning</th></tr>
+    <tr><td><span class="verdict-badge v-BET">CONVICTION</span></td><td class="s">8–10</td><td>A genuine compounder, aligned, upside left. Size up.</td></tr>
+    <tr><td><span class="verdict-badge v-SELECTIVE">OPPORTUNITY</span></td><td class="s">6–7.5</td><td>Real engine, one leg weak (price / alignment / proof). Half-size or wait.</td></tr>
+    <tr><td><span class="verdict-badge v-BYE">NOT AN OPPORTUNITY</span></td><td class="s">4–5.5</td><td>May be a fine company, but won't compound for you — or you've missed the entry. Pass.</td></tr>
+    <tr><td><span class="verdict-badge v-BYE">AVOID</span></td><td class="s">&lt;4</td><td>Steer clear.</td></tr>
+  </table>
+
+  <h2 class="section">Where this comes from — the reading list</h2>
+  <div class="card" style="padding:8px 22px">
+    <div class="book"><div class="bk">Christopher Mayer — <i>100 Baggers</i></div><div class="bi">"Twin engines": sustained EPS growth × a long reinvestment runway, run by owner-operators. You don't get 100× from a dividend payer.</div></div>
+    <div class="book"><div class="bk">Chuck Akre — three-legged stool</div><div class="bi">Compounding at a high rate × honest owner-managers × a runway to reinvest free cash. Leg 3 is the one everyone forgets.</div></div>
+    <div class="book"><div class="bk">Raamdeo Agrawal — QGLP</div><div class="bi">Quality × Growth × Longevity × Price. "Price comes last" — longevity turns growth into wealth.</div></div>
+    <div class="book"><div class="bk">Peter Lynch — <i>One Up on Wall Street</i></div><div class="bi">Categorise first; the money is in fast growers with a runway, not "slow growers" wearing a quality mask.</div></div>
+    <div class="book"><div class="bk">Saurabh Mukherjea — <i>Coffee Can Investing</i></div><div class="bi">Avoid PSUs; cheapness doesn't compensate for a missing value-creation engine. Compounders held for years make multibaggers.</div></div>
+    <div class="book"><div class="bk">Jay Ritter — IPO long-run studies</div><div class="bi">IPOs underperform peers over 3 years; worst in hot "windows of opportunity." The seller knows more than you.</div></div>
+  </div>
+  <div class="note">Read the four tabs as a spectrum: <b>SEDEMAC</b> = a real engine (the only true IPO), capped by OFS + price; <b>SIKA</b> = quality &amp; alignment, but priced too richly; <b>DECNGOLD</b> = no engine (pre-revenue optionality); <b>SEIL</b> = no engine + froth valuation. The engine gate and the price test do most of the sorting.</div>`;
+panes.appendChild(ep);
+
+/* ---- per-stock tabs ---- */
+STOCKS.forEach((s,i)=>{
+  const idx=i+1;
+  const t=document.createElement("div");
+  t.className="tab";
+  t.innerHTML=`<span class="dot" style="background:${OVDOT(s.opp.verdict)}"></span>${s.sym}
+    <span class="score-pill" style="color:${OVDOT(s.opp.verdict)}">${s.opp.score}</span>`;
+  t.onclick=()=>select(idx);
+  tabs.appendChild(t);
+
+  const pillars=s.pillars.map(r=>`
+    <div class="row">
+      <div class="lbl"><span>${r.lbl}</span><span class="pts" style="color:${BARCOL(r.pts,2)}">${r.pts}/2</span></div>
+      <div class="bar"><i style="width:${r.pts/2*100}%;background:${BARCOL(r.pts,2)}"></i></div>
+      <div class="desc">${r.desc}</div>
+      <div class="why">Why it matters — ${r.why}</div>
+    </div>`).join("");
+  const qmini=s.qrows.map(q=>`<div class="lm"><div class="t">${q[0]}</div><div class="p" style="color:${BARCOL(q[1],2)}">${q[1]}/2</div></div>`).join("");
+  const flags=`<div class="flags${s.flagsClean?" clean":""}"><b>${s.flagsClean?"Caps / flags — clean":"Caps &amp; red flags"}</b>${s.flags.map(f=>"• "+f).join("<br>")}</div>`;
+
+  const p=document.createElement("div");
+  p.className="pane";
+  p.innerHTML=`
+    <div class="shead">
+      <div>
+        <h2>${s.sym}</h2>
+        <div class="name">${s.name}</div>
+        <div class="sig">Signal: <b>IPO_ATHBREAK</b> at ₹${s.sig.px} on <b>${s.sig.date}</b><br>
+          Listing: <b>${s.sig.list}</b> · screener age ${s.sig.age}</div>
+      </div>
+      <div class="bigscore">
+        <div class="lab">Opportunity score</div>
+        <div><span class="num" style="color:${OVDOT(s.opp.verdict)}">${s.opp.score}</span><span class="den">/10</span></div>
+        <div class="verdict-badge ${OVCLS(s.opp.verdict)}">${s.opp.verdict}</div>
+        <div class="qchip">Quality screen: <b>${s.qual.score}/10</b> · <span class="${QVCLS(s.qual.verdict)}" style="padding:1px 7px;border-radius:8px">${s.qual.verdict}</span></div>
+      </div>
+    </div>
+    <div class="mstrip">
+      <div class="metric"><div class="k">Day-1 close</div><div class="v">${s.m.issue}</div></div>
+      <div class="metric"><div class="k">Now</div><div class="v">${s.m.now}</div></div>
+      <div class="metric"><div class="k">From day-1</div><div class="v ${s.m.frm_list.startsWith('-')?'neg':'pos'}">${s.m.frm_list}</div></div>
+      <div class="metric"><div class="k">20d turnover</div><div class="v">${s.m.to_liq}</div></div>
+    </div>
+    <div class="card"><h3>What it does</h3><p style="font-size:14px;line-height:1.65;color:#3a4453">${s.desc}</p></div>
+    <div class="card"><h3>Future prospects · why it's here · customers</h3><p style="font-size:13.5px;line-height:1.7;color:#3a4453">${s.future}</p></div>
+    <div class="card"><h3>Street view &amp; recent news</h3><p style="font-size:13.5px;line-height:1.7;color:#3a4453">${s.street}</p></div>
+    <div class="prom"><h3>Promoters &amp; management <span class="q" style="background:${s.prom.c}22;color:${s.prom.c};border:1px solid ${s.prom.c}55">${s.prom.q}</span></h3><p>${s.prom.t}</p></div>
+    <div class="card"><h3>Opportunity scorecard — QGLP-A <span class="tagline">the 4 pillars · each with why it matters</span></h3>${pillars}</div>
+    <div class="card"><h3>Quality screen (runbook 5-lens) <span class="tagline">the safety check — is it a landmine?</span></h3><div class="lens-mini">${qmini}</div></div>
+    ${flags}
+    <div class="arg"><h3>⚖️ Why this score</h3><div class="math">${s.math}</div><p>${s.arg}</p></div>
+    <div class="takeaway"><b>Bottom line.</b> ${s.take}</div>
+    <div class="teach"><b>📚 What this teaches you.</b> ${s.teaches}</div>`;
+  panes.appendChild(p);
+});
+
+/* ---- Where to invest tab ---- */
+const vt=document.createElement("div");
+vt.className="tab verdict";vt.innerHTML="🎯 Where to Invest";
+vt.onclick=()=>select(STOCKS.length+1);
+tabs.appendChild(vt);
+
+const ranked=[...STOCKS].sort((a,b)=>b.opp.score-a.opp.score);
+const trows=ranked.map((s,i)=>`
+  <tr class="${i===0?'rank1':''}">
+    <td>${i+1}</td><td><b>${s.sym}</b></td>
+    <td class="s" style="color:${OVDOT(s.opp.verdict)}">${s.opp.score}</td>
+    <td><span class="verdict-badge ${OVCLS(s.opp.verdict)}">${s.opp.verdict}</span></td>
+    <td class="s" style="color:var(--mut)">${s.qual.score}</td>
+  </tr>`).join("");
+
+const vp=document.createElement("div");
+vp.className="pane";
+vp.innerHTML=`
+  <h2 class="section">The ranking — by opportunity, not by quality</h2>
+  <table>
+    <tr><th>#</th><th>Symbol</th><th>Opp score</th><th>Verdict</th><th>Quality</th></tr>
+    ${trows}
+  </table>
+
+  <div class="pick">
+    <h3><span class="dot" style="width:10px;height:10px;border-radius:50%;background:var(--sel)"></span> SEDEMAC is the only one worth tracking — and only on weakness</h3>
+    <div class="alloc">No capital deployed today · SEDEMAC → watchlist (buy a pullback, half-size); the rest → pass</div>
+    <p><b>SEDEMAC (6.0)</b> is the lone genuine IPO and the lone genuine engine: 61% growth, founder-run, riding 2W/3W electrification — held to a <i>conditional</i> opportunity only by its 100% OFS structure and a ~100× valuation after a 2×. Wait for a pullback. <b>SIKA (5.0)</b> is a high-quality, owner-run defence engineer (best alignment here) but priced at ~63× at an ATH right after a flat quarter — a good company at a bad price, and not an IPO. <b>SEIL (3.0)</b> and <b>DECNGOLD (2.0)</b> both fail the engine gate — SEIL on a ~470× froth valuation over a tiny lumpy school business, DECNGOLD as a pre-revenue gold-exploration optionality bet you'd only ever size like venture capital.</p>
+  </div>
+
+  <div class="pick">
+    <h3><span class="dot" style="width:10px;height:10px;border-radius:50%;background:var(--bye)"></span> Root cause: the screener is mis-tagging veterans as IPOs</h3>
+    <div class="alloc">Affects 3 of today's 4 signals · a data-coverage bug, not a market call</div>
+    <p>The IPO_ATHBREAK screener derives "listing date = first candle in the DB" (<code>bar = cumcount()</code> over the fetched window in <b>core/data.py</b>, surfaced as <code>listing_date</code> in <b>screeners/ipo_athbreak.py</b>). That heuristic is only valid if every symbol has full history. But <b>91 EQ symbols were bulk-backfilled with first candle = 2026-04-20</b> (SIKA, SEIL, DECNGOLD among them), so the engine sees ~43 bars and concludes "2-month-old IPO." Any of those 91 that prints an ATH on volume will keep spamming the NEEDS_REVIEW queue as a false IPO. <b>Fix options:</b> (1) backfill full history for the 91 symbols in <code>historical_day_candles</code>; (2) add a guard that rejects any symbol whose first candle equals a known bulk-backfill date (2026-04-20 / 2016-06-13 / 2006-06-06) or sits at the data-coverage floor; or (3) maintain an authoritative listing-date reference and validate <code>age</code> against it rather than against candle coverage.</p>
+  </div>
+
+  <div class="note">
+    <b>The point of this report:</b> the engine gate and the price test sorted four very different animals fast — one real, mispriced IPO (SEDEMAC), one good-but-expensive veteran (SIKA), and two non-compounders (DECNGOLD's missing engine, SEIL's froth). <b>Lead with the engine, demand alignment, insist on asymmetry at the entry price — and verify the listing date before you ever call something an IPO.</b> Today the most common correct answer is "pass."
+  </div>`;
+panes.appendChild(vp);
+
+function select(n){
+  document.querySelectorAll(".tab").forEach((t,i)=>t.classList.toggle("active",i===n));
+  document.querySelectorAll(".pane").forEach((p,i)=>p.classList.toggle("active",i===n));
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+</script>
+</body>
+</html>
