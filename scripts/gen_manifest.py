@@ -77,7 +77,11 @@ def doc_meta(path: Path, section: str) -> dict:
 
 
 sections = []
-for folder in sorted(p for p in ROOT.iterdir() if p.is_dir() and p.name not in SKIP):
+for folder in sorted(
+    p
+    for p in ROOT.iterdir()
+    if p.is_dir() and p.name not in SKIP and not p.name.startswith(".")
+):
     docs = sorted(
         (doc_meta(f, folder.name) for f in sorted(folder.glob("*.html"))),
         key=lambda x: x["date"],

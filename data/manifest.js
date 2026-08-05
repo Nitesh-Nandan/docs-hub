@@ -217,13 +217,5 @@ window.MANIFEST = [
   "desc": "Interview preparation notes, guides and practice material.",
   "order": 5,
   "docs": []
- },
- {
-  "id": ".claude",
-  "title": ".Claude",
-  "icon": "\ud83d\udcc4",
-  "desc": "",
-  "order": 99,
-  "docs": []
  }
 ];
