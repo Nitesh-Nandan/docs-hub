@@ -23,7 +23,7 @@ if [[ ! -f "$src" ]]; then
 fi
 
 cp "$src" index.html
-git add index.html
+git add index.html "$src"
 if git diff --cached --quiet; then
   echo "$1 is already active"
   exit 0
