@@ -192,7 +192,13 @@ window.MANIFEST = [
   "icon": "\ud83d\uddd3",
   "desc": "SIP & lump-sum allocation decisions \u2014 where the next rupee goes.",
   "order": 2,
-  "docs": []
+  "docs": [
+   {
+    "file": "sip-plans/sip_portfolio_plan_2026-06-30.html",
+    "title": "V2 SIP Portfolio \u2014 Investment Report",
+    "date": "2026-06-30"
+   }
+  ]
  },
  {
   "id": "calculators",
