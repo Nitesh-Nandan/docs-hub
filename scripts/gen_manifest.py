@@ -52,6 +52,18 @@ SECTIONS = {
         "desc": "Market and equity research reports — sector views and stock deep-dives.",
         "order": 6,
     },
+    "books": {
+        "title": "Books",
+        "icon": "\U0001F4DA",
+        "desc": "Book summaries built as mentoring documents — the author's lens, not just their bullet points.",
+        "order": 7,
+    },
+    "prompts": {
+        "title": "Prompts",
+        "icon": "\U0001F9ED",
+        "desc": "Reusable prompt specs — the instructions that produce the documents in this hub.",
+        "order": 8,
+    },
 }
 
 

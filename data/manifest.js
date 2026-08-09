@@ -269,5 +269,33 @@ window.MANIFEST = [
     "date": "2026-08-06"
    }
   ]
+ },
+ {
+  "id": "books",
+  "title": "Books",
+  "icon": "\ud83d\udcda",
+  "desc": "Book summaries built as mentoring documents \u2014 the author's lens, not just their bullet points.",
+  "order": 7,
+  "docs": [
+   {
+    "file": "books/psychology-of-money_2026-08-09.html",
+    "title": "The Psychology of Money \u2014 Morgan Housel (Book Summary)",
+    "date": "2026-08-09"
+   }
+  ]
+ },
+ {
+  "id": "prompts",
+  "title": "Prompts",
+  "icon": "\ud83e\udded",
+  "desc": "Reusable prompt specs \u2014 the instructions that produce the documents in this hub.",
+  "order": 8,
+  "docs": [
+   {
+    "file": "prompts/book-summary-prompt_2026-08-09.html",
+    "title": "Book Summary Generator \u2014 Prompt Spec",
+    "date": "2026-08-09"
+   }
+  ]
  }
 ];

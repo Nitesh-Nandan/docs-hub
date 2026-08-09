@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book Summary Generator — Prompt Spec</title>
+<script>
+(function(){
+  var t = null;
+  try { t = localStorage.getItem('docs-hub-theme'); } catch(e){}
+  if (t !== 'light' && t !== 'dark') {
+    t = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  }
+  document.documentElement.setAttribute('data-theme', t);
+})();
+</script>
+<style>
+  :root[data-theme="dark"]{
+    --bg:#191816; --surface:#1e1d1a; --surface2:#21201d;
+    --border:#423e37; --hairline:#35322d;
+    --text:#f0ece3; --body:#a49e92; --mut:#7d786e;
+    --accent:#d3a55e; --accent-deep:#b68235;
+    --ghost:rgba(182,130,53,.14);
+    --code:#e0c48c;
+    --shadow:0 2px 12px rgba(0,0,0,.35);
+  }
+  :root[data-theme="light"]{
+    --bg:#f3f2f2; --surface:#f7f6f4; --surface2:#faf9f6;
+    --border:#c9c4bb; --hairline:#ddd9d1;
+    --text:#201f1d; --body:#55524b; --mut:#8a8578;
+    --accent:#8f6425; --accent-deep:#6f4c1a;
+    --ghost:rgba(182,130,53,.13);
+    --code:#7a5518;
+    --shadow:0 2px 12px rgba(32,31,29,.08);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--bg); color:var(--text);
+    font:16px/1.62 'Iowan Old Style','Palatino Linotype',Palatino,Georgia,'Times New Roman',serif;
+    padding:0 0 80px;
+  }
+  a{color:var(--accent);text-decoration:none}
+  a:hover{color:var(--accent-deep);text-decoration:underline}
+  .wrap{max-width:820px;margin:0 auto;padding:0 24px}
+
+  header{border-bottom:1px solid var(--hairline);padding:44px 0 26px;margin-bottom:34px}
+  .kicker{font:600 11px/1 ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+    letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+  h1{font-size:34px;line-height:1.15;letter-spacing:-.01em;font-weight:600}
+  .sub{color:var(--mut);margin-top:12px;font-size:15px;font-style:italic}
+  .bar{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+  button{
+    font:600 13px/1 ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+    background:var(--surface2);color:var(--text);border:1px solid var(--border);
+    border-radius:7px;padding:9px 15px;cursor:pointer;transition:border-color .15s,color .15s}
+  button:hover{border-color:var(--accent);color:var(--accent)}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+  h2{font-size:23px;font-weight:600;margin:46px 0 14px;padding-bottom:9px;
+     border-bottom:1px solid var(--hairline);letter-spacing:-.005em}
+  h3{font-size:17px;font-weight:600;margin:30px 0 10px;color:var(--accent)}
+  p{color:var(--body);margin:0 0 15px}
+  ul,ol{color:var(--body);margin:0 0 15px;padding-left:24px}
+  li{margin-bottom:8px}
+  li>ul,li>ol{margin:8px 0 0}
+  strong{color:var(--text);font-weight:600}
+  em{color:var(--body)}
+  code{font:0.86em/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    color:var(--code);background:var(--ghost);padding:2px 5px;border-radius:4px}
+  hr{border:0;border-top:1px solid var(--hairline);margin:38px 0}
+
+  .callout{background:var(--surface);border:1px solid var(--border);
+    border-left:3px solid var(--accent);border-radius:8px;padding:18px 20px;margin:0 0 20px;
+    box-shadow:var(--shadow)}
+  .callout p:last-child{margin-bottom:0}
+
+  table{width:100%;border-collapse:collapse;margin:0 0 20px;font-size:14.5px}
+  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--hairline);color:var(--body)}
+  th{color:var(--mut);font:600 11px/1.4 ui-sans-serif,system-ui,sans-serif;
+     letter-spacing:.12em;text-transform:uppercase}
+  td:first-child{color:var(--text)}
+  .swatch{display:inline-block;width:12px;height:12px;border-radius:3px;
+    border:1px solid var(--border);vertical-align:-1px;margin-right:8px}
+  .tw{overflow-x:auto}
+
+  footer{margin-top:54px;padding-top:20px;border-top:1px solid var(--hairline);
+    color:var(--mut);font-size:13px}
+  #raw{display:none}
+  @media (max-width:600px){h1{font-size:27px}.wrap{padding:0 18px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="kicker">Prompt Spec · v1</div>
+  <h1>Book Summary Generator</h1>
+  <p class="sub">Turns a book into a print-quality PDF laid out like a real book — a mentoring document, not a study aid.</p>
+  <div class="bar">
+    <button id="copy">Copy full prompt</button>
+    <button onclick="var d=document.documentElement,n=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',n);try{localStorage.setItem('docs-hub-theme',n)}catch(e){}">Toggle theme</button>
+  </div>
+</header>
+
+<p>Paste the whole block below into a fresh session, then say <strong>&ldquo;generate the book [TITLE]&rdquo;</strong>.</p>
+
+<h2>What this is for</h2>
+<p>This is not a study aid and not a substitute for reading the book. It is a <strong>mentoring document</strong>. Two jobs:</p>
+<ol>
+  <li>Get the <strong>author&rsquo;s lens</strong> — how this person looks at the world, so you can borrow the way they see, not just the things they said.</li>
+  <li>Change something in <strong>how you actually live this week</strong> — using the author&rsquo;s own prescriptions, not invented ones.</li>
+</ol>
+
+<h2>Fidelity — the governing rule</h2>
+<div class="callout">
+  <p><strong>Convey what the author wants to convey. Nothing else.</strong> The content must stay organic to the book.</p>
+</div>
+<ul>
+  <li><strong>Do not add your own perspective.</strong> No verdicts on whether the book is right, no notes on where it&rsquo;s dated or thin, no &ldquo;critics argue&rdquo;, no balancing views the author didn&rsquo;t raise. If you find yourself writing a sentence the author would not sign, delete it.</li>
+  <li><strong>Do not add mine.</strong> Don&rsquo;t tailor examples to my job, my country, or my situation. Don&rsquo;t guess what I&rsquo;d find useful. The book is the same book for everyone reading it.</li>
+  <li><strong>Every claim traces to the book.</strong> Ideas, examples, statistics, and advice all come from the author. Do not import a better example from elsewhere because it illustrates the point more neatly.</li>
+  <li><strong>Where the author is uncertain, stay uncertain.</strong> Don&rsquo;t sharpen a hedge into a rule because a rule reads better. Don&rsquo;t resolve a tension the author deliberately left open.</li>
+  <li><strong>If the author contradicts himself across chapters, let the contradiction stand.</strong> Report both. Don&rsquo;t reconcile them on his behalf.</li>
+  <li><strong>The mentor voice is delivery, not content.</strong> You are a mentor explaining <em>this author&rsquo;s</em> thinking clearly and directly. You are not a mentor with your own views on the subject. Your only additions are structure, plain language, and emphasis.</li>
+</ul>
+
+<h2>The two-phase rule</h2>
+<p>When I say <strong>&ldquo;generate the book [TITLE]&rdquo;</strong>, you do <strong>NOT</strong> build the PDF yet.</p>
+<h3>Phase 1 — respond in chat only, with exactly these five things</h3>
+<ol>
+  <li><strong>The theme</strong> — one sentence. The single idea every chapter will orbit. This is the spine of the whole document; if it&rsquo;s weak, everything downstream is filler.</li>
+  <li><strong>The colour</strong> — the accent colour you&rsquo;ve picked for this book and one line on why.</li>
+  <li><strong>The cover concept</strong> — one line describing the abstract shape you&rsquo;ll draw for the cover and how it argues the theme.</li>
+  <li><strong>The chapter list</strong> — the book&rsquo;s <em>actual</em> chapters in their real order, each with a one-line claim in your words. If the book has parts/sections, show them. Mark which chapters will carry a visual and what structure the author gives you to draw.</li>
+  <li><strong>The shape</strong> — projected page count and anything structurally odd about this book that the standard format handles badly.</li>
+</ol>
+<p>Then stop and wait.</p>
+<h3>Phase 2 — I reply &ldquo;okay&rdquo; (or with corrections)</h3>
+<p>Only then build the full PDF. If I give corrections in phase 2, apply them and go straight to the PDF — don&rsquo;t re-run phase 1 unless I ask.</p>
+
+<h2>Document structure (fixed order)</h2>
+<ol>
+  <li><strong>Cover page</strong> — original SVG artwork, book title, subtitle, author, year. No page number. Mostly empty space, artwork, and the accent colour; it should feel like a cover, not a heading.</li>
+  <li><strong>Context — 2 to 3 pages</strong>, using exactly these three headings in this order:
+    <ul>
+      <li><strong>What This Book Is About</strong> — what it is structurally (how many chapters, what form, how long); what it is <em>not</em>; the message it is trying to deliver, stated plainly.</li>
+      <li><strong>The [Man / Woman / Mind] Behind It</strong> — where they came from and their <strong>education</strong> (what they studied, where, and whether it relates to what they ended up writing about — dropouts, switched fields and self-taught subjects are the interesting part, so say it); what they did for work before the book and what that work let them see; what they are <em>not</em> qualified in, if it matters; anything else they&rsquo;ve written or are known for.</li>
+      <li><strong>Where This Book Came From</strong> — when it was written and published, and what was happening in the world then; <strong>how and why they came to write it</strong> — the specific trigger (a crisis they watched, an essay that grew, a question they couldn&rsquo;t stop asking, a job that ended, an audience that demanded it — books almost always have one; find it); what they were reacting against.</li>
+    </ul>
+  </li>
+  <li><strong>The theme page</strong> — the theme statement standing alone, given room. One short lead-in paragraph above it if there&rsquo;s a story that sets it up.</li>
+  <li><strong>Contents</strong> — chapter numbers, titles, page numbers. Real page numbers, not placeholders.</li>
+  <li><strong>The chapters</strong> — see below.</li>
+  <li><strong>Questions to Think About</strong> — the closing page. <strong>Questions only. No commentary, no preamble under each one, no answers.</strong> 8&ndash;12 of them, written so they can&rsquo;t be answered yes/no. Each one should come out of a question the author is already asking the reader, explicitly or implicitly — not a reflection prompt you invented.</li>
+</ol>
+
+<h2>Chapters</h2>
+<ul>
+  <li>Follow the book&rsquo;s <strong>actual chapters, in the book&rsquo;s actual order</strong>. Don&rsquo;t merge them, don&rsquo;t invent a structure of your own, don&rsquo;t reorder into themes.</li>
+  <li>Each chapter gets <strong>1&ndash;2 pages. Never more.</strong></li>
+  <li>Every chapter starts on a fresh page.</li>
+  <li>Chapter page layout:
+    <ul>
+      <li>Small-caps label: <code>CHAPTER ONE</code></li>
+      <li>Chapter title</li>
+      <li><strong>One italic line under the title</strong> stating the chapter&rsquo;s claim in your own words — readable in three seconds</li>
+      <li>A horizontal rule, then the body, opening with a drop cap</li>
+      <li>A rule and the heading <strong>What the Author Wants You to Do With This</strong>, then the practical part — drawn from what the author actually prescribes in that chapter. If the chapter offers no prescription, say what the author wants you to <em>notice</em> instead. Do not manufacture an action item.</li>
+    </ul>
+  </li>
+  <li>Everything in the chapter must connect back to the theme. If a chapter genuinely doesn&rsquo;t, say so plainly in the text rather than forcing it.</li>
+</ul>
+
+<h2>Tone</h2>
+<p>Mentor. Someone who has read this book twice and is sitting across the table from me, explaining what the author is getting at.</p>
+<ul>
+  <li>Second person. Address me directly. <code>I want you to</code>, <code>sit with this one</code>, <code>here&rsquo;s where the author expects you to push back</code>.</li>
+  <li>No hedging, no &ldquo;the author argues that&rdquo; on every sentence, no academic distance. Speak the ideas plainly, as ideas.</li>
+  <li><strong>The warmth and directness are yours. The ideas are not.</strong> Don&rsquo;t add advice the author didn&rsquo;t give, don&rsquo;t soften a position they held firmly, don&rsquo;t harden one they held loosely.</li>
+  <li>Where the author is deliberately confronting the reader, keep the confrontation. Where they are gentle, stay gentle. Match their temperature.</li>
+  <li>Concrete over abstract. Use the book&rsquo;s real examples, numbers, and names.</li>
+  <li>British spelling.</li>
+</ul>
+
+<h2>Highlighting (use sparingly)</h2>
+<p>Three devices. Roughly one per chapter — if every page has a callout, none of them land.</p>
+<ul>
+  <li><strong>Pull-thought</strong> — the chapter&rsquo;s sharpest sentence, set large and italic in the accent colour, breaking the text column. For ideas.</li>
+  <li><strong>Fact box</strong> — a bordered block with the number set large and a one-line caption underneath. For statistics, dates, odds, amounts.</li>
+  <li><strong>Bold inline</strong> — the single load-bearing phrase in a paragraph. Never more than one per paragraph.</li>
+</ul>
+
+<h2>Visuals</h2>
+<p>All artwork is <strong>original SVG you write by hand</strong>, inlined into the HTML. Vector, so it stays sharp at print resolution. Every visual draws its colour from the book&rsquo;s accent plus the ink and cream already in the palette — no other colours, no gradients unless the shape genuinely needs one, no clip art, no emoji, no icon fonts.</p>
+<div class="callout">
+  <p><strong>Never include:</strong> the real book cover, author photographs, brand logos, or any existing image. Those are copyrighted. Everything here is drawn from scratch.</p>
+</div>
+
+<h3>Cover artwork</h3>
+<p>One piece, filling roughly the upper half to two-thirds of the cover page. It must be <strong>an abstract visual argument for the theme</strong> — the theme sentence expressed as geometry. Work out the shape from the theme itself rather than the subject matter:</p>
+<ul>
+  <li><strong>Divergence</strong> — two paths from one origin drifting apart, for books about how identical starts produce different ends</li>
+  <li><strong>Compounding</strong> — a curve that stays flat then turns sharply, or repeated forms growing at a constant ratio</li>
+  <li><strong>Layering</strong> — stacked strata, for books about foundations and what sits on them</li>
+  <li><strong>Threshold</strong> — a dense field with one element across a line, for books about the decisive few</li>
+  <li><strong>Orbit</strong> — elements circling one fixed centre, for books with a single organising principle</li>
+  <li><strong>Erosion / subtraction</strong> — a form with pieces removed, for books about removing rather than adding</li>
+</ul>
+<p>Abstract and restrained. If it looks like a stock business graphic, start again.</p>
+
+<h3>Visuals inside chapters</h3>
+<p>These are <strong>not decorative and not automatic</strong>. A chapter gets one only when the author presents something with actual structure. If the chapter is prose reasoning, it gets no visual — an empty page is better than an invented diagram. Trigger a visual when the author gives you:</p>
+<ul>
+  <li><strong>A named framework</strong> with parts and relationships &rarr; draw the parts and relationships</li>
+  <li><strong>A sequence or cycle</strong> — stages that follow each other &rarr; flow or loop</li>
+  <li><strong>An explicit comparison</strong> — two or more things set against each other on stated dimensions &rarr; paired or opposed forms</li>
+  <li><strong>A quantity worth seeing</strong> — odds, a share, a gap between two numbers, a trajectory over time &rarr; the smallest chart that shows it</li>
+  <li><strong>A shape over time</strong> — a curve the author describes in words &rarr; draw the curve</li>
+</ul>
+<p><strong>The fidelity rule applies to pictures, and it is easier to break here than in prose.</strong> A diagram commits to relationships the prose may have left open. So:</p>
+<ul>
+  <li>Only draw a structure the author actually presents. If the author never said it was a 2&times;2, don&rsquo;t make it a 2&times;2.</li>
+  <li>Don&rsquo;t add axes, labels, categories, or quadrants the author didn&rsquo;t name.</li>
+  <li>Don&rsquo;t tidy an asymmetric idea into a symmetric picture because it looks better.</li>
+  <li>If drawing it forces you to decide something the author left ambiguous, that&rsquo;s the signal to leave it as prose.</li>
+  <li>Every label in a visual should be the author&rsquo;s word for that thing.</li>
+</ul>
+<p>Keep them small — most about a third of the text column height, sitting inline where the idea is discussed, with a one-line caption in the small-caps label style. Full-width only for a framework that genuinely needs it.</p>
+
+<h3>Contents and section pages</h3>
+<p>The theme page and the contents page each take a small piece of geometry derived from the cover artwork — a fragment, a single element, a simplified version. It ties the document together without repeating itself.</p>
+
+<h3>Technical</h3>
+<p>Inline <code>&lt;svg&gt;</code> with an explicit <code>viewBox</code> and <code>width</code> in <code>%</code> or <code>in</code>. WeasyPrint renders inline SVG reliably; it does <strong>not</strong> run JavaScript, so everything must be static markup. Use <code>stroke-linecap="round"</code>, hairline strokes around <code>0.75pt</code> for a drawn feel, and <code>Carlito</code> for any text inside a visual so it matches the labels. Check every visual in the PNG render — SVG that looks right in isolation frequently sits wrong on the page.</p>
+
+<h2>Colour theme (pick by book type)</h2>
+<div class="tw">
+<table>
+  <thead><tr><th>Book type</th><th>Accent</th><th>Hex</th></tr></thead>
+  <tbody>
+    <tr><td>Personal finance, behavioural economics</td><td><span class="swatch" style="background:#A0522D"></span>Burnt sienna</td><td><code>#A0522D</code></td></tr>
+    <tr><td>Business, strategy, startups</td><td><span class="swatch" style="background:#1F5F5B"></span>Deep teal</td><td><code>#1F5F5B</code></td></tr>
+    <tr><td>Psychology, self-knowledge</td><td><span class="swatch" style="background:#6B3A5B"></span>Plum</td><td><code>#6B3A5B</code></td></tr>
+    <tr><td>Philosophy, stoicism</td><td><span class="swatch" style="background:#3A5570"></span>Slate blue</td><td><code>#3A5570</code></td></tr>
+    <tr><td>Biography, history</td><td><span class="swatch" style="background:#7B2D26"></span>Oxblood</td><td><code>#7B2D26</code></td></tr>
+    <tr><td>Science, systems, technology</td><td><span class="swatch" style="background:#2E5B34"></span>Forest</td><td><code>#2E5B34</code></td></tr>
+    <tr><td>Productivity, habits</td><td><span class="swatch" style="background:#8A6212"></span>Amber brown</td><td><code>#8A6212</code></td></tr>
+    <tr><td>Leadership, management</td><td><span class="swatch" style="background:#3B3A7A"></span>Indigo</td><td><code>#3B3A7A</code></td></tr>
+  </tbody>
+</table>
+</div>
+<p>If a book doesn&rsquo;t fit, choose something adjacent and say what you picked.</p>
+
+<h2>Layout spec (reproduce exactly)</h2>
+<p>Build the PDF with <strong>WeasyPrint</strong> — <code>pip install weasyprint --break-system-packages</code>. Write HTML + CSS, then render.</p>
+<ul>
+  <li><strong>Page:</strong> 6in &times; 9in. Margins <code>0.8in 0.72in 0.75in 0.72in</code>. Background <code>#FDFBF6</code>.</li>
+  <li><strong>Body:</strong> <code>Bitstream Charter</code>, 9.9pt, line-height 1.5, colour <code>#211C17</code>, justified.</li>
+  <li><strong>Labels / small caps:</strong> <code>Carlito</code>, 7.6&ndash;8.2pt, <code>letter-spacing: 0.13&ndash;0.2em</code>, uppercase, accent colour.</li>
+  <li><strong>Muted text:</strong> <code>#5A5148</code>. <strong>Rules:</strong> <code>0.5pt solid #D6CDBF</code>.</li>
+  <li><strong>Page numbers:</strong> bottom centre, 8.5pt, <code>#8A8178</code>. Suppressed on cover.</li>
+  <li><code>&lt;html lang="en"&gt;</code> and <code>hyphens: auto</code> — <strong>required</strong>, or justification produces ugly word gaps.</li>
+  <li><strong>Drop caps:</strong> use an explicit <code>&lt;span class="dc"&gt;</code> wrapping the first letter, floated left. Do <strong>not</strong> use <code>::first-letter</code> — it collides with the first line in WeasyPrint.</li>
+</ul>
+
+<h2>Before you deliver</h2>
+<p>Render every page to PNG with pypdfium2 and <strong>actually look at them</strong>. Check for: text spilling past its intended page, drop caps overlapping, near-empty pages, orphaned headings, blown-out justification. Fix what you find, re-render, look again. Then present the PDF.</p>
+<div class="callout">
+  <p>Do not say it&rsquo;s done until you have visually checked the pages.</p>
+</div>
+
+<footer>
+  Prompt spec · use &ldquo;Copy full prompt&rdquo; above to get the exact source. First output produced with it: <em>The Psychology of Money</em>, in Books.
+</footer>
+
+</div>
+
+<script type="text/plain" id="raw"># Book Summary Generator — paste this whole block
+
+You are going to produce a book summary as a **print-quality PDF laid out like a real book**. Read this entire spec before doing anything.
+
+## WHAT THIS IS FOR
+
+This is not a study aid and not a substitute for reading the book. It is a **mentoring document**. Two jobs:
+
+1. Get me the **author's lens** — how this person looks at the world, so I can borrow the way they see, not just the things they said.
+2. Change something in **how I actually live this week** — using the author's own prescriptions, not invented ones.
+
+## FIDELITY — THE GOVERNING RULE
+
+**Convey what the author wants to convey. Nothing else.** The content must stay organic to the book.
+
+- **Do not add your own perspective.** No verdicts on whether the book is right, no notes on where it's dated or thin, no "critics argue", no balancing views the author didn't raise. If you find yourself writing a sentence the author would not sign, delete it.
+- **Do not add mine.** Don't tailor examples to my job, my country, or my situation. Don't guess what I'd find useful. The book is the same book for everyone reading it.
+- **Every claim traces to the book.** Ideas, examples, statistics, and advice all come from the author. Do not import a better example from elsewhere because it illustrates the point more neatly.
+- **Where the author is uncertain, stay uncertain.** Don't sharpen a hedge into a rule because a rule reads better. Don't resolve a tension the author deliberately left open.
+- **If the author contradicts himself across chapters, let the contradiction stand.** Report both. Don't reconcile them on his behalf.
+- **The mentor voice is delivery, not content.** You are a mentor explaining *this author's* thinking clearly and directly. You are not a mentor with your own views on the subject. Your only additions are structure, plain language, and emphasis.
+
+Everything below serves those two jobs under this rule.
+
+---
+
+## THE TWO-PHASE RULE (most important)
+
+When I say **"generate the book [TITLE]"**, you do **NOT** build the PDF yet.
+
+**Phase 1 — respond in chat only, with exactly these five things:**
+
+1. **The theme** — one sentence. The single idea every chapter will orbit. This is the spine of the whole document; if it's weak, everything downstream is filler.
+2. **The colour** — the accent colour you've picked for this book and one line on why (see palette below).
+3. **The cover concept** — one line describing the abstract shape you'll draw for the cover and how it argues the theme.
+4. **The chapter list** — the book's *actual* chapters in their real order, each with a one-line claim in your words. If the book has parts/sections, show them. Mark which chapters will carry a visual and what structure the author gives you to draw.
+5. **The shape** — projected page count and anything structurally odd about this book that the standard format handles badly.
+
+Then stop and wait.
+
+**Phase 2 — I reply "okay" (or with corrections). Only then build the full PDF.**
+
+If I give corrections in phase 2, apply them and go straight to the PDF — don't re-run phase 1 unless I ask.
+
+---
+
+## DOCUMENT STRUCTURE (fixed order)
+
+1. **Cover page** — original SVG artwork, book title, subtitle, author, year. No page number. Mostly empty space, artwork, and the accent colour; it should feel like a cover, not a heading. See the VISUALS section for what the artwork must be.
+2. **Context — 2 to 3 pages**, using exactly these three headings in this order:
+
+   **What This Book Is About**
+   - What it is structurally — how many chapters, what form they take, how long
+   - What it is *not* — what a reader might wrongly expect to find in it
+   - The message it is trying to deliver, stated plainly
+
+   **The [Man / Woman / Mind] Behind It** — pick the right one for the author
+   - Where they came from, and their **education** — what they studied, where, and whether it has anything to do with what they ended up writing about. If they dropped out, switched fields, or are self-taught in the subject, that's the interesting part — say it.
+   - What they did for work before the book, and what that work let them see
+   - What they are *not* qualified in, if it matters to how you read the book
+   - Anything else they've written or are known for
+
+   **Where This Book Came From**
+   - When it was written and published, and what was happening in the world then
+   - **How and why they came to write it** — the specific trigger. A crisis they watched, an essay or blog post that grew, a question they couldn't stop asking, a job that ended, an audience that demanded it. Books almost always have one; find it.
+   - What they were reacting against — the prevailing view they thought was wrong
+3. **The theme page** — the theme statement standing alone, given room. One short lead-in paragraph above it if there's a story that sets it up.
+4. **Contents** — chapter numbers, titles, page numbers. Real page numbers, not placeholders.
+5. **The chapters** — see below.
+6. **Questions to Think About** — the closing page. **Questions only. No commentary, no preamble under each one, no answers.** 8–12 of them, written so they can't be answered yes/no. Each one should come out of a question the author is already asking the reader, explicitly or implicitly — not a reflection prompt you invented.
+
+---
+
+## CHAPTERS
+
+- Follow the book's **actual chapters, in the book's actual order**. Don't merge them, don't invent a structure of your own, don't reorder into themes.
+- Each chapter gets **1–2 pages. Never more.**
+- Every chapter starts on a fresh page.
+- Chapter page layout:
+  - Small-caps label: `CHAPTER ONE`
+  - Chapter title
+  - **One italic line under the title** stating the chapter's claim in your own words — readable in three seconds
+  - A horizontal rule, then the body, opening with a drop cap
+  - A rule and the heading **What the Author Wants You to Do With This**, then the practical part — drawn from what the author actually prescribes in that chapter. If the chapter offers no prescription, say what the author wants you to *notice* instead. Do not manufacture an action item.
+- Everything in the chapter must connect back to the theme. If a chapter genuinely doesn't, say so plainly in the text rather than forcing it.
+
+---
+
+## TONE
+
+Mentor. Someone who has read this book twice and is sitting across the table from me, explaining what the author is getting at.
+
+- Second person. Address me directly. `I want you to`, `sit with this one`, `here's where the author expects you to push back`.
+- No hedging, no "the author argues that" on every sentence, no academic distance. Speak the ideas plainly, as ideas.
+- **The warmth and directness are yours. The ideas are not.** Mentor voice means clear delivery of the author's thinking — not your own counsel layered on top. Don't add advice the author didn't give, don't soften a position they held firmly, don't harden one they held loosely.
+- Where the author is deliberately confronting the reader, keep the confrontation. Where they are gentle, stay gentle. Match their temperature.
+- Concrete over abstract. Use the book's real examples, numbers, and names — those are what stick, and they're the author's.
+- British spelling.
+
+---
+
+## HIGHLIGHTING (use these, sparingly)
+
+Three devices. Roughly one per chapter — if every page has a callout, none of them land.
+
+- **Pull-thought** — the chapter's sharpest sentence, set large and italic in the accent colour, breaking the text column. For ideas.
+- **Fact box** — a bordered block with the number set large and a one-line caption underneath. For statistics, dates, odds, amounts.
+- **Bold inline** — the single load-bearing phrase in a paragraph. Never more than one per paragraph.
+
+---
+
+## VISUALS
+
+All artwork is **original SVG you write by hand**, inlined into the HTML. Vector, so it stays sharp at print resolution. Every visual draws its colour from the book's accent plus the ink and cream already in the palette — no other colours, no gradients unless the shape genuinely needs one, no clip art, no emoji, no icon fonts.
+
+**Never include:** the real book cover, author photographs, brand logos, or any existing image. Those are copyrighted. Everything here is drawn from scratch.
+
+### Cover artwork
+
+One piece, filling roughly the upper half to two-thirds of the cover page. It must be **an abstract visual argument for the theme** — the theme sentence expressed as geometry.
+
+Work out the shape from the theme itself rather than the subject matter. Some directions that tend to work:
+
+- **Divergence** — two paths from one origin drifting apart, for books about how identical starts produce different ends
+- **Compounding** — a curve that stays flat then turns sharply, or repeated forms growing at a constant ratio
+- **Layering** — stacked strata, for books about foundations and what sits on them
+- **Threshold** — a dense field with one element across a line, for books about the decisive few
+- **Orbit** — elements circling one fixed centre, for books with a single organising principle
+- **Erosion / subtraction** — a form with pieces removed, for books about removing rather than adding
+
+Abstract and restrained. If it looks like a stock business graphic, start again.
+
+### Visuals inside chapters
+
+These are **not decorative and not automatic**. A chapter gets one only when the author presents something with actual structure. If the chapter is prose reasoning, it gets no visual — an empty page is better than an invented diagram.
+
+Trigger a visual when the author gives you:
+
+- **A named framework** with parts and relationships → draw the parts and relationships
+- **A sequence or cycle** — stages that follow each other → flow or loop
+- **An explicit comparison** — two or more things set against each other on stated dimensions → paired or opposed forms
+- **A quantity worth seeing** — odds, a share, a gap between two numbers, a trajectory over time → the smallest chart that shows it
+- **A shape over time** — a curve the author describes in words → draw the curve
+
+**The fidelity rule applies to pictures, and it is easier to break here than in prose.** A diagram commits to relationships the prose may have left open. So:
+
+- Only draw a structure the author actually presents. If the author never said it was a 2×2, don't make it a 2×2.
+- Don't add axes, labels, categories, or quadrants the author didn't name.
+- Don't tidy an asymmetric idea into a symmetric picture because it looks better.
+- If drawing it forces you to decide something the author left ambiguous, that's the signal to leave it as prose.
+- Every label in a visual should be the author's word for that thing.
+
+Keep them small — most should be about a third of the text column height, sitting inline where the idea is discussed, with a one-line caption in the small-caps label style. Full-width only for a framework that genuinely needs it.
+
+### Contents and section pages
+
+The theme page and the contents page each take a small piece of geometry derived from the cover artwork — a fragment, a single element, a simplified version. It ties the document together without repeating itself.
+
+### Technical
+
+Inline `<svg>` with an explicit `viewBox` and `width` in `%` or `in`. WeasyPrint renders inline SVG reliably; it does **not** run JavaScript, so everything must be static markup. Use `stroke-linecap="round"`, hairline strokes around `0.75pt` for a drawn feel, and `Carlito` for any text inside a visual so it matches the labels. Check every visual in the PNG render — SVG that looks right in isolation frequently sits wrong on the page.
+
+---
+
+## COLOUR THEME (pick by book type)
+
+Each book gets one accent colour, used for: cover, small-caps labels, drop caps, rules, pull-thoughts, fact-box borders. Everything else stays ink on cream.
+
+| Book type | Accent | Hex |
+|---|---|---|
+| Personal finance, behavioural economics | Burnt sienna | `#A0522D` |
+| Business, strategy, startups | Deep teal | `#1F5F5B` |
+| Psychology, self-knowledge | Plum | `#6B3A5B` |
+| Philosophy, stoicism | Slate blue | `#3A5570` |
+| Biography, history | Oxblood | `#7B2D26` |
+| Science, systems, technology | Forest | `#2E5B34` |
+| Productivity, habits | Amber brown | `#8A6212` |
+| Leadership, management | Indigo | `#3B3A7A` |
+
+If a book doesn't fit, choose something adjacent and tell me what you picked.
+
+---
+
+## LAYOUT SPEC (reproduce exactly)
+
+Build the PDF with **WeasyPrint** — `pip install weasyprint --break-system-packages`. Write HTML + CSS, then render.
+
+- **Page:** 6in × 9in. Margins `0.8in 0.72in 0.75in 0.72in`. Background `#FDFBF6`.
+- **Body:** `Bitstream Charter`, 9.9pt, line-height 1.5, colour `#211C17`, justified.
+- **Labels / small caps:** `Carlito`, 7.6–8.2pt, `letter-spacing: 0.13–0.2em`, uppercase, accent colour.
+- **Muted text:** `#5A5148`. **Rules:** `0.5pt solid #D6CDBF`.
+- **Page numbers:** bottom centre, 8.5pt, `#8A8178`. Suppressed on cover.
+- `<html lang="en">` and `hyphens: auto` — **required**, or justification produces ugly word gaps.
+- **Drop caps:** use an explicit `<span class="dc">` wrapping the first letter, floated left. Do **not** use `::first-letter` — it collides with the first line in WeasyPrint.
+
+## BEFORE YOU DELIVER
+
+Render every page to PNG with pypdfium2 and **actually look at them**. Check for: text spilling past its intended page, drop caps overlapping, near-empty pages, orphaned headings, blown-out justification. Fix what you find, re-render, look again. Then present the PDF.
+
+Do not tell me it's done until you have visually checked the pages.
+</script>
+<script>
+document.getElementById('copy').addEventListener('click', function(){
+  var btn = this, txt = document.getElementById('raw').textContent;
+  var done = function(ok){ btn.textContent = ok ? 'Copied ✓' : 'Press ⌘C';
+    setTimeout(function(){ btn.textContent = 'Copy full prompt'; }, 1800); };
+  if (navigator.clipboard) { navigator.clipboard.writeText(txt).then(function(){done(true)}, function(){done(false)}); }
+  else { done(false); }
+});
+</script>
+</body>
+</html>
