@@ -32,6 +32,12 @@ docs-hub/
 - **Every top-level folder is a section** (except `data/`, `scripts/`,
   `assets/`, dotfolders). The hub home page shows one card per folder;
   clicking it lists that folder's docs; each doc opens in a new tab.
+- **Three file types are indexed**, and none of them are ever rewritten:
+  `.html` (opens directly), `.pdf` (opens in the browser's PDF viewer), and
+  `.md` (opens through `viewer.html?f=<path>`, which prints the file verbatim
+  in a `<pre>` with a copy button — otherwise browsers just download it).
+  Card title comes from `<title>` for HTML, the first `# heading` for
+  Markdown, and the filename for PDFs.
 - `gen_manifest.py` extracts per-doc metadata: `<title>`, date
   (`YYYY-MM-DD` in the filename, else file mtime), and — if the HTML embeds
   QGLP-A data (`sym:"X"` + `opp:{score:N, verdict:"…"}` patterns) — stock
@@ -59,8 +65,10 @@ That's it. Never edit `data/manifest.js` manually.
 
 ## Conventions & rules
 
-- **Documents must be fully self-contained HTML** — inline CSS/JS, no CDN
+- **HTML documents must be fully self-contained** — inline CSS/JS, no CDN
   links, no external images. They are opened directly as static files.
+  `.md` and `.pdf` files are published **as-is** — don't convert them to HTML
+  and don't reformat their contents; the raw text is the point.
 - **Filenames**: include the date as `YYYY-MM-DD` (e.g.
   `ipo_RSL_2026-08-05.html`) — the manifest and sorting rely on it. Give
   every doc a meaningful `<title>` tag; that's what the card shows.

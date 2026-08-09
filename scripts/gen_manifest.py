@@ -68,16 +68,32 @@ SECTIONS = {
 
 
 def doc_meta(path: Path, section: str) -> dict:
-    html = path.read_text(encoding="utf-8", errors="ignore")
-    m = re.search(r"<title>(.*?)</title>", html, re.S)
-    title = (
-        re.sub(r"\s+", " ", m.group(1)).replace("&amp;", "&").strip()
-        if m
-        else path.stem
-    )
+    rel = f"{section}/{path.name}"
+    suffix = path.suffix.lower()
+
+    # PDFs are served as-is (the browser renders them). Markdown is served
+    # through viewer.html, which prints the file verbatim instead of
+    # downloading it. Neither file is ever rewritten.
+    if suffix == ".pdf":
+        html, title, link = "", path.stem.replace("-", " ").replace("_", " "), rel
+    elif suffix == ".md":
+        html = path.read_text(encoding="utf-8", errors="ignore")
+        hm = re.search(r"^#\s+(.+)$", html, re.M)
+        title = hm.group(1).strip() if hm else path.stem
+        link = f"viewer.html?f={rel}"
+    else:
+        html = path.read_text(encoding="utf-8", errors="ignore")
+        m = re.search(r"<title>(.*?)</title>", html, re.S)
+        title = (
+            re.sub(r"\s+", " ", m.group(1)).replace("&amp;", "&").strip()
+            if m
+            else path.stem
+        )
+        link = rel
+
     dm = re.search(r"(\d{4}-\d{2}-\d{2})", path.name)
     d = dm.group(1) if dm else date.fromtimestamp(path.stat().st_mtime).isoformat()
-    doc = {"file": f"{section}/{path.name}", "title": title, "date": d}
+    doc = {"file": link, "title": title, "date": d}
 
     # Enrichment: score chips for docs that embed QGLP-A stock data.
     syms = list(dict.fromkeys(re.findall(r'sym:"([A-Z0-9_]+)"', html)))
@@ -100,8 +116,13 @@ for folder in sorted(
     for p in ROOT.iterdir()
     if p.is_dir() and p.name not in SKIP and not p.name.startswith(".")
 ):
+    files = sorted(
+        f
+        for ext in ("*.html", "*.md", "*.pdf")
+        for f in folder.glob(ext)
+    )
     docs = sorted(
-        (doc_meta(f, folder.name) for f in sorted(folder.glob("*.html"))),
+        (doc_meta(f, folder.name) for f in files),
         key=lambda x: x["date"],
         reverse=True,
     )

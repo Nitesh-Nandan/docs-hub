@@ -278,8 +278,8 @@ window.MANIFEST = [
   "order": 7,
   "docs": [
    {
-    "file": "books/psychology-of-money_2026-08-09.html",
-    "title": "The Psychology of Money \u2014 Morgan Housel (Book Summary)",
+    "file": "books/The-Psychology-of-Money_2020.pdf",
+    "title": "The Psychology of Money 2020",
     "date": "2026-08-09"
    }
   ]
@@ -292,8 +292,8 @@ window.MANIFEST = [
   "order": 8,
   "docs": [
    {
-    "file": "prompts/book-summary-prompt_2026-08-09.html",
-    "title": "Book Summary Generator \u2014 Prompt Spec",
+    "file": "viewer.html?f=prompts/BookSummaryPrompt.md",
+    "title": "Book Summary Generator \u2014 paste this whole block",
     "date": "2026-08-09"
    }
   ]
