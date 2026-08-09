@@ -296,6 +296,18 @@ window.MANIFEST = [
   "order": 7,
   "docs": [
    {
+    "file": "viewer.html?f=books/multipliers.pdf",
+    "title": "multipliers",
+    "date": "2026-08-10",
+    "kind": "pdf"
+   },
+   {
+    "file": "viewer.html?f=books/start_with_why.pdf",
+    "title": "start with why",
+    "date": "2026-08-10",
+    "kind": "pdf"
+   },
+   {
     "file": "viewer.html?f=books/The-Psychology-of-Money_2020.pdf",
     "title": "The Psychology of Money 2020",
     "date": "2026-08-09",
