@@ -96,6 +96,7 @@ To add a new look, drop `assets/ui/<name>.html` (self-contained, renders
 | Publish everything new | `./sync.sh` |
 | Add one file | `cp <file> <section>/ && ./sync.sh` |
 | Regenerate manifest only | `python3 scripts/gen_manifest.py` |
+| Redraw the favicon | `python3 scripts/gen_favicon.py` |
 | List / swap the hub UI | `./switch-ui.sh` · `./switch-ui.sh <variant>` |
 | Preview locally | `open index.html` |
 | Check Pages deploy status | `gh api repos/Nitesh-Nandan/docs-hub/pages --jq .status` |
