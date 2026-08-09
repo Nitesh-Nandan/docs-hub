@@ -13,6 +13,18 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 SKIP = {"data", "scripts", "assets", ".git", ".github", "node_modules"}
 
+# Self-contained HTML docs open full-window on their own.
+DIRECT_EXT = {".html", ".htm"}
+# Everything else opens through viewer.html, which displays the file as-is and
+# adds Copy / Raw / Download. Text lands in a <pre> verbatim (CSV and TSV also
+# get a table view), PDFs in an embedded reader, images inline.
+TEXT_EXT = {
+    ".md", ".txt", ".csv", ".tsv", ".json", ".yaml", ".yml", ".toml", ".ini",
+    ".sql", ".py", ".js", ".ts", ".sh", ".css", ".xml", ".log",
+}
+BINARY_EXT = {".pdf", ".png", ".jpg", ".jpeg", ".gif", ".svg", ".webp"}
+INDEX_EXT = DIRECT_EXT | TEXT_EXT | BINARY_EXT
+
 # Optional presentation metadata per section. Folders not listed here still
 # work — title is derived from the folder name and order defaults to last.
 SECTIONS = {
@@ -70,18 +82,14 @@ SECTIONS = {
 def doc_meta(path: Path, section: str) -> dict:
     rel = f"{section}/{path.name}"
     suffix = path.suffix.lower()
+    html = ""
 
-    # PDFs are served as-is (the browser renders them). Markdown is served
-    # through viewer.html, which prints the file verbatim instead of
-    # downloading it. Neither file is ever rewritten.
-    if suffix == ".pdf":
-        html, title, link = "", path.stem.replace("-", " ").replace("_", " "), rel
-    elif suffix == ".md":
-        html = path.read_text(encoding="utf-8", errors="ignore")
-        hm = re.search(r"^#\s+(.+)$", html, re.M)
-        title = hm.group(1).strip() if hm else path.stem
-        link = f"viewer.html?f={rel}"
-    else:
+    # Nothing here is ever rewritten. Standalone HTML docs are linked straight
+    # at; everything else goes through viewer.html so it displays in place
+    # (instead of downloading) and gets Copy / Raw / Download.
+    link = rel if suffix in DIRECT_EXT else f"viewer.html?f={rel}"
+
+    if suffix in (".html", ".htm"):
         html = path.read_text(encoding="utf-8", errors="ignore")
         m = re.search(r"<title>(.*?)</title>", html, re.S)
         title = (
@@ -89,11 +97,16 @@ def doc_meta(path: Path, section: str) -> dict:
             if m
             else path.stem
         )
-        link = rel
+    elif suffix == ".md":
+        text = path.read_text(encoding="utf-8", errors="ignore")
+        hm = re.search(r"^#\s+(.+)$", text, re.M)
+        title = hm.group(1).strip() if hm else path.stem
+    else:
+        title = path.stem.replace("-", " ").replace("_", " ")
 
     dm = re.search(r"(\d{4}-\d{2}-\d{2})", path.name)
     d = dm.group(1) if dm else date.fromtimestamp(path.stat().st_mtime).isoformat()
-    doc = {"file": link, "title": title, "date": d}
+    doc = {"file": link, "title": title, "date": d, "kind": suffix.lstrip(".")}
 
     # Enrichment: score chips for docs that embed QGLP-A stock data.
     syms = list(dict.fromkeys(re.findall(r'sym:"([A-Z0-9_]+)"', html)))
@@ -118,8 +131,8 @@ for folder in sorted(
 ):
     files = sorted(
         f
-        for ext in ("*.html", "*.md", "*.pdf")
-        for f in folder.glob(ext)
+        for f in folder.iterdir()
+        if f.is_file() and f.suffix.lower() in INDEX_EXT
     )
     docs = sorted(
         (doc_meta(f, folder.name) for f in files),

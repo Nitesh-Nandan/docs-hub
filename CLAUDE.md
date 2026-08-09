@@ -32,12 +32,18 @@ docs-hub/
 - **Every top-level folder is a section** (except `data/`, `scripts/`,
   `assets/`, dotfolders). The hub home page shows one card per folder;
   clicking it lists that folder's docs; each doc opens in a new tab.
-- **Three file types are indexed**, and none of them are ever rewritten:
-  `.html` (opens directly), `.pdf` (opens in the browser's PDF viewer), and
-  `.md` (opens through `viewer.html?f=<path>`, which prints the file verbatim
-  in a `<pre>` with a copy button — otherwise browsers just download it).
-  Card title comes from `<title>` for HTML, the first `# heading` for
-  Markdown, and the filename for PDFs.
+- **Many file types are indexed and none of them are ever rewritten.**
+  Self-contained `.html` docs open directly, full-window. Everything else
+  (`.md .txt .csv .tsv .json .yaml .sql .py .sh .log …`, plus `.pdf` and
+  images) opens through **`viewer.html?f=<path>`**, which displays the file
+  as-is and adds **Copy all / Raw file / Download**:
+  - text → verbatim in a `<pre>`, nothing parsed or reformatted
+  - `.csv` / `.tsv` → table view by default, one click back to raw text
+  - `.pdf` → embedded reader · images → inline
+  To publish a new type, add its extension to `TEXT_EXT` in
+  `scripts/gen_manifest.py`. Nothing else needs changing.
+- Card title comes from `<title>` (HTML), the first `# heading` (Markdown),
+  or the filename (everything else) — so **name files readably**.
 - `gen_manifest.py` extracts per-doc metadata: `<title>`, date
   (`YYYY-MM-DD` in the filename, else file mtime), and — if the HTML embeds
   QGLP-A data (`sym:"X"` + `opp:{score:N, verdict:"…"}` patterns) — stock

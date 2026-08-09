@@ -48,6 +48,17 @@
     padding:22px 24px;overflow-x:auto;white-space:pre;tab-size:2;
     font:13px/1.65 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--text)}
   .msg{color:var(--mut);padding:30px 0;font-size:14.5px;line-height:1.7}
+
+  .tw{overflow-x:auto;border:1px solid var(--border);border-radius:9px;background:var(--surface2)}
+  table{border-collapse:collapse;width:100%;
+    font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  th,td{text-align:left;padding:8px 13px;border-bottom:1px solid var(--hairline);
+    white-space:nowrap;color:var(--text)}
+  th{position:sticky;top:0;background:var(--surface2);color:var(--mut);
+    font-weight:600;border-bottom:1px solid var(--border)}
+  tbody tr:last-child td{border-bottom:0}
+  td.num{text-align:right;font-variant-numeric:tabular-nums}
+  .hidden{display:none}
   @media (max-width:600px){.wrap{padding:0 16px}pre{padding:16px;font-size:12px}}
 </style>
 </head>
@@ -56,8 +67,9 @@
   <header>
     <nav class="crumb"><a href="./">← Docs Hub</a></nav>
     <div class="bar">
-      <button class="btn" id="copy">Copy all</button>
-      <a class="btn" id="raw" href="#">Raw file</a>
+      <button class="btn hidden" id="table">Table view</button>
+      <button class="btn hidden" id="copy">Copy all</button>
+      <a class="btn" id="raw" href="#" target="_blank" rel="noopener">Raw file</a>
       <a class="btn" id="dl" href="#" download>Download</a>
       <button class="btn" onclick="var d=document.documentElement,n=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',n);try{localStorage.setItem('docs-hub-theme',n)}catch(e){}">Theme</button>
     </div>
@@ -69,6 +81,8 @@
 <script>
 (function(){
   var out = document.getElementById('out');
+  var copyBtn = document.getElementById('copy');
+  var tableBtn = document.getElementById('table');
   var f = new URLSearchParams(location.search).get('f') || '';
 
   // Only allow relative paths inside this site — no protocols, no parent escapes.
@@ -80,28 +94,104 @@
   document.getElementById('path').textContent = f;
   document.title = f.split('/').pop() + ' — Docs Hub';
   document.getElementById('raw').href = f;
-  document.getElementById('dl').href = f;
+  document.getElementById('dl').href = f;   // download works for every type
+
+  var ext = (f.split('.').pop() || '').toLowerCase();
+  var IMG = ['png','jpg','jpeg','gif','svg','webp'];
+
+  // ---- non-text: show it, don't try to read it as text --------------------
+  if (ext === 'pdf') {
+    out.className = '';
+    out.innerHTML = '<div class="tw"><iframe src="' + encodeURI(f) +
+      '" style="display:block;width:100%;height:84vh;min-height:520px;border:0;background:#FDFBF6"></iframe></div>';
+    return;
+  }
+  if (IMG.indexOf(ext) > -1) {
+    out.className = '';
+    out.innerHTML = '<div class="tw" style="padding:20px;text-align:center">' +
+      '<img src="' + encodeURI(f) + '" alt="" style="max-width:100%;height:auto">' +
+      '</div>';
+    return;
+  }
+
+  // ---- text: verbatim, plus copy ------------------------------------------
+  var raw = '';
+
+  function showRaw(){
+    out.className = '';
+    var pre = document.createElement('pre');
+    pre.textContent = raw;        // verbatim: nothing parsed, nothing rewritten
+    out.innerHTML = '';
+    out.appendChild(pre);
+    tableBtn.textContent = 'Table view';
+  }
+
+  // Minimal RFC4180-ish split: handles quoted fields containing the delimiter.
+  function splitRow(line, delim){
+    var cells = [], cur = '', q = false;
+    for (var i = 0; i < line.length; i++){
+      var c = line[i];
+      if (q) {
+        if (c === '"' && line[i+1] === '"') { cur += '"'; i++; }
+        else if (c === '"') q = false;
+        else cur += c;
+      } else if (c === '"') q = true;
+      else if (c === delim) { cells.push(cur); cur = ''; }
+      else cur += c;
+    }
+    cells.push(cur);
+    return cells;
+  }
+
+  function showTable(){
+    var delim = ext === 'tsv' ? '\t' : ',';
+    var rows = raw.replace(/\r\n/g, '\n').split('\n')
+                  .filter(function(l){ return l.length; })
+                  .map(function(l){ return splitRow(l, delim); });
+    if (!rows.length) return showRaw();
+    var esc = function(s){ return String(s).replace(/[&<>]/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]; }); };
+    var isNum = function(s){ return s !== '' && !isNaN(Number(s.replace(/,/g,''))); };
+    var html = '<div class="tw"><table><thead><tr>' +
+      rows[0].map(function(h){ return '<th>' + esc(h) + '</th>'; }).join('') +
+      '</tr></thead><tbody>' +
+      rows.slice(1).map(function(r){
+        return '<tr>' + r.map(function(c){
+          return '<td' + (isNum(c) ? ' class="num"' : '') + '>' + esc(c) + '</td>';
+        }).join('') + '</tr>';
+      }).join('') + '</tbody></table></div>';
+    out.className = '';
+    out.innerHTML = html;
+    tableBtn.textContent = 'Raw text';
+  }
 
   fetch(f).then(function(r){
     if (!r.ok) throw new Error(r.status + ' ' + r.statusText);
     return r.text();
   }).then(function(txt){
-    out.className = '';
-    var pre = document.createElement('pre');
-    pre.textContent = txt;          // verbatim: no markdown rendering, no rewriting
-    out.innerHTML = '';
-    out.appendChild(pre);
+    raw = txt;
+    copyBtn.classList.remove('hidden');
+    if (ext === 'csv' || ext === 'tsv') {
+      tableBtn.classList.remove('hidden');
+      showTable();                // tables are how you actually read a CSV
+    } else {
+      showRaw();
+    }
   }).catch(function(e){
     out.textContent = 'Could not load ' + f + ' (' + e.message + '). ' +
-      'Open the raw file instead. (Local file:// previews block this — use the published site.)';
+      'Use “Raw file” or “Download” instead. ' +
+      '(Local file:// previews block this — it works on the published site.)';
   });
 
-  document.getElementById('copy').addEventListener('click', function(){
-    var btn = this, pre = out.querySelector('pre');
-    if (!pre) return;
+  tableBtn.addEventListener('click', function(){
+    if (this.textContent === 'Table view') showTable(); else showRaw();
+  });
+
+  copyBtn.addEventListener('click', function(){
+    var btn = this;
     var done = function(ok){ btn.textContent = ok ? 'Copied ✓' : 'Press ⌘C';
       setTimeout(function(){ btn.textContent = 'Copy all'; }, 1700); };
-    if (navigator.clipboard) navigator.clipboard.writeText(pre.textContent).then(function(){done(true)}, function(){done(false)});
+    if (navigator.clipboard) navigator.clipboard.writeText(raw).then(function(){done(true)}, function(){done(false)});
     else done(false);
   });
 })();

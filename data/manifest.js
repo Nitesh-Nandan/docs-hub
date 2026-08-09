@@ -10,6 +10,7 @@ window.MANIFEST = [
     "file": "ipo-reports/ipo_RSL_2026-08-05.html",
     "title": "IPO Opportunity Review \u2014 RSL \u00b7 QGLP-A",
     "date": "2026-08-05",
+    "kind": "html",
     "stocks": [
      {
       "sym": "RSL",
@@ -22,6 +23,7 @@ window.MANIFEST = [
     "file": "ipo-reports/ipo_FERMENTA_2026-07-06.html",
     "title": "IPO Opportunity Review \u2014 FERMENTA \u00b7 QGLP-A",
     "date": "2026-07-06",
+    "kind": "html",
     "stocks": [
      {
       "sym": "FERMENTA",
@@ -33,12 +35,14 @@ window.MANIFEST = [
    {
     "file": "ipo-reports/ipo_signals_2026-07-04.html",
     "title": "IPO Opportunity Review \u2014 4 Jul 2026 \u00b7 QGLP-A",
-    "date": "2026-07-04"
+    "date": "2026-07-04",
+    "kind": "html"
    },
    {
     "file": "ipo-reports/ipo_signals_2026-06-22.html",
     "title": "IPO Opportunity Review \u2014 SEDEMAC \u00b7 SIKA \u00b7 DECNGOLD \u00b7 SEIL \u00b7 QGLP-A",
     "date": "2026-06-22",
+    "kind": "html",
     "stocks": [
      {
       "sym": "SEDEMAC",
@@ -66,6 +70,7 @@ window.MANIFEST = [
     "file": "ipo-reports/ipo_signals_2026-06-19.html",
     "title": "IPO Opportunity Review \u2014 TIMEX & POWERICA \u00b7 QGLP-A",
     "date": "2026-06-19",
+    "kind": "html",
     "stocks": [
      {
       "sym": "TIMEX",
@@ -83,6 +88,7 @@ window.MANIFEST = [
     "file": "ipo-reports/ipo_signals_2026-06-18.html",
     "title": "IPO Opportunity Review \u2014 BHARATCOAL & CORONA \u00b7 QGLP-A",
     "date": "2026-06-18",
+    "kind": "html",
     "stocks": [
      {
       "sym": "BHARATCOAL",
@@ -100,6 +106,7 @@ window.MANIFEST = [
     "file": "ipo-reports/ipo_AMAGI_2026-06-17.html",
     "title": "IPO Opportunity Review \u2014 AMAGI \u00b7 QGLP-A",
     "date": "2026-06-17",
+    "kind": "html",
     "stocks": [
      {
       "sym": "AMAGI",
@@ -112,6 +119,7 @@ window.MANIFEST = [
     "file": "ipo-reports/ipo_MEESHO_2026-06-17.html",
     "title": "IPO Opportunity Review \u2014 MEESHO \u00b7 QGLP-A",
     "date": "2026-06-17",
+    "kind": "html",
     "stocks": [
      {
       "sym": "MEESHO",
@@ -124,6 +132,7 @@ window.MANIFEST = [
     "file": "ipo-reports/ipo_signals_2026-06-16.html",
     "title": "IPO_ATHBREAK \u2014 Signal Review \u00b7 2026-06-16",
     "date": "2026-06-16",
+    "kind": "html",
     "stocks": [
      {
       "sym": "ICICIAMC",
@@ -171,6 +180,7 @@ window.MANIFEST = [
     "file": "ipo-reports/ipo_signals_2026-06-16_CMPDI_AYE.html",
     "title": "IPO Opportunity Review \u2014 CMPDI & AYE \u00b7 QGLP-A",
     "date": "2026-06-16",
+    "kind": "html",
     "stocks": [
      {
       "sym": "CMPDI",
@@ -196,7 +206,8 @@ window.MANIFEST = [
    {
     "file": "sip-plans/sip_portfolio_plan_2026-06-30.html",
     "title": "V2 SIP Portfolio \u2014 Investment Report",
-    "date": "2026-06-30"
+    "date": "2026-06-30",
+    "kind": "html"
    }
   ]
  },
@@ -210,17 +221,20 @@ window.MANIFEST = [
    {
     "file": "calculators/loan-investment_2026-08-06.html",
     "title": "Portfolio Simulator",
-    "date": "2026-08-06"
+    "date": "2026-08-06",
+    "kind": "html"
    },
    {
     "file": "calculators/retirement-calculator_2026-08-06.html",
     "title": "RetireFlow",
-    "date": "2026-08-06"
+    "date": "2026-08-06",
+    "kind": "html"
    },
    {
     "file": "calculators/sip-calculator_2026-08-06.html",
     "title": "SIP / SWP / STP Calculator",
-    "date": "2026-08-06"
+    "date": "2026-08-06",
+    "kind": "html"
    }
   ]
  },
@@ -234,17 +248,20 @@ window.MANIFEST = [
    {
     "file": "roadmaps/algo-trading-roadmap_2026-08-06.html",
     "title": "Algo Trading Mastery \u2014 Nitesh's Complete Guide",
-    "date": "2026-08-06"
+    "date": "2026-08-06",
+    "kind": "html"
    },
    {
     "file": "roadmaps/indicators_2026-08-06.html",
     "title": "Stock Indicator Reference",
-    "date": "2026-08-06"
+    "date": "2026-08-06",
+    "kind": "html"
    },
    {
     "file": "roadmaps/langgraph-light_2026-08-06.html",
     "title": "LangGraph Mastery \u2014 Nitesh's Complete Guide",
-    "date": "2026-08-06"
+    "date": "2026-08-06",
+    "kind": "html"
    }
   ]
  },
@@ -266,7 +283,8 @@ window.MANIFEST = [
    {
     "file": "market-research/India_Equity_Report_v2_2026-08-06.html",
     "title": "India Equity Research \u2014 April 2026",
-    "date": "2026-08-06"
+    "date": "2026-08-06",
+    "kind": "html"
    }
   ]
  },
@@ -278,9 +296,10 @@ window.MANIFEST = [
   "order": 7,
   "docs": [
    {
-    "file": "books/The-Psychology-of-Money_2020.pdf",
+    "file": "viewer.html?f=books/The-Psychology-of-Money_2020.pdf",
     "title": "The Psychology of Money 2020",
-    "date": "2026-08-09"
+    "date": "2026-08-09",
+    "kind": "pdf"
    }
   ]
  },
@@ -294,7 +313,8 @@ window.MANIFEST = [
    {
     "file": "viewer.html?f=prompts/BookSummaryPrompt.md",
     "title": "Book Summary Generator \u2014 paste this whole block",
-    "date": "2026-08-09"
+    "date": "2026-08-09",
+    "kind": "md"
    }
   ]
  }
