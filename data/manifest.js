@@ -323,6 +323,12 @@ window.MANIFEST = [
   "order": 8,
   "docs": [
    {
+    "file": "viewer.html?f=prompts/equity-deep-dive-prompt.md",
+    "title": "Equity Deep-Dive Prompt (document-driven)",
+    "date": "2026-08-11",
+    "kind": "md"
+   },
+   {
     "file": "viewer.html?f=prompts/BookSummaryPrompt.md",
     "title": "Book Summary Generator \u2014 paste this whole block",
     "date": "2026-08-09",

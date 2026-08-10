@@ -5,8 +5,12 @@ set -euo pipefail
 cd "$(dirname "$0")"
 
 # --- sources ---------------------------------------------------------------
-rsync -a --include='*.html' --exclude='*' \
-  "$HOME/workspace/2026/100cr/backtest-strategy/strategy_ipo_recross/reports/" ipo-reports/
+sync_from() {  # sync_from <source dir> <section>; skips silently if source is gone
+  [ -d "$1" ] || { echo "skip: $1 (not found)"; return 0; }
+  rsync -a --include='*.html' --exclude='*' "$1/" "$2/"
+}
+
+sync_from "$HOME/workspace/2026/100cr/backtest-strategy/strategy_ipo_recross/reports" ipo-reports
 # rsync -a --include='*.html' --exclude='*'  <sip-plans source dir>/  sip-plans/
 # ---------------------------------------------------------------------------
 
